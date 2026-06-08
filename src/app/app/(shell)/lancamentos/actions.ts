@@ -17,6 +17,8 @@ export async function createTransaction(input: {
   descricao: string;
   categoria: string;
   occurred_at: string;
+  payment_method: string;
+  card_id: string | null;
 }): Promise<Transaction> {
   const { supabase, uid } = await requireUid();
   const { data, error } = await supabase
@@ -27,8 +29,10 @@ export async function createTransaction(input: {
       descricao: input.descricao.trim() || null,
       categoria: input.categoria,
       occurred_at: input.occurred_at,
+      payment_method: input.payment_method,
+      card_id: input.card_id,
     })
-    .select("id,valor,descricao,categoria,occurred_at")
+    .select("id,valor,descricao,categoria,occurred_at,payment_method,card_id")
     .single();
   if (error) throw new Error(error.message);
   return data as unknown as Transaction;

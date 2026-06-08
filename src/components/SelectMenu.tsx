@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+export type SelectOption = { value: string; label: string };
+
 // Select com a mesma aparência do dropdown do TypeCombobox (lista escura,
 // posicionada em fixed pra escapar de overflow), mas só seleciona — sem criar.
 export function SelectMenu({
@@ -9,11 +11,14 @@ export function SelectMenu({
   options,
   onChange,
   placeholder = "—",
+  allowEmpty = true,
 }: {
   value: string;
-  options: string[];
+  options: SelectOption[];
   onChange: (v: string) => void;
   placeholder?: string;
+  /** mostra a opção vazia (placeholder) no topo */
+  allowEmpty?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [rect, setRect] = useState<{
@@ -53,6 +58,8 @@ export function SelectMenu({
     setOpen(false);
   }
 
+  const current = options.find((o) => o.value === value);
+
   return (
     <div ref={ref} className="relative">
       <button
@@ -60,10 +67,10 @@ export function SelectMenu({
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={`w-full flex items-center justify-between gap-2 px-3 py-3 text-left outline-none hover:bg-solar/5 transition-colors ${
-          value ? "text-fg" : "text-subtle"
+          current ? "text-fg" : "text-subtle"
         }`}
       >
-        <span className="truncate">{value || placeholder}</span>
+        <span className="truncate">{current?.label ?? placeholder}</span>
         <span className="text-subtle text-xs shrink-0">▾</span>
       </button>
 
@@ -77,29 +84,31 @@ export function SelectMenu({
           }}
           className="z-50 max-h-56 overflow-auto bg-concreto border border-line shadow-xl"
         >
-          <li>
-            <button
-              type="button"
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={() => pick("")}
-              className={`w-full text-left px-3 py-2 text-sm hover:bg-solar/10 transition-colors ${
-                value === "" ? "text-solar" : "text-subtle"
-              }`}
-            >
-              {placeholder}
-            </button>
-          </li>
-          {options.map((opt) => (
-            <li key={opt}>
+          {allowEmpty && (
+            <li>
               <button
                 type="button"
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => pick(opt)}
+                onClick={() => pick("")}
                 className={`w-full text-left px-3 py-2 text-sm hover:bg-solar/10 transition-colors ${
-                  opt === value ? "text-solar" : "text-fg"
+                  value === "" ? "text-solar" : "text-subtle"
                 }`}
               >
-                {opt}
+                {placeholder}
+              </button>
+            </li>
+          )}
+          {options.map((opt) => (
+            <li key={opt.value}>
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => pick(opt.value)}
+                className={`w-full text-left px-3 py-2 text-sm hover:bg-solar/10 transition-colors ${
+                  opt.value === value ? "text-solar" : "text-fg"
+                }`}
+              >
+                {opt.label}
               </button>
             </li>
           ))}

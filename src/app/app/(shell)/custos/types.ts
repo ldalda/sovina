@@ -3,14 +3,11 @@
 
 export type CellValue = string | number | null;
 
-// Classificação do custo (coluna fixa "Tipo").
-export type CostNature = "" | "Fixo" | "Variável" | "Cartão de Crédito";
+// Classificação do custo (coluna fixa "Tipo"). Cartão de Crédito saiu daqui —
+// virou forma de pagamento (ver lib/finance/payment).
+export type CostNature = "" | "Fixo" | "Variável";
 
-export const COST_NATURES: Exclude<CostNature, "">[] = [
-  "Fixo",
-  "Variável",
-  "Cartão de Crédito",
-];
+export const COST_NATURES: Exclude<CostNature, "">[] = ["Fixo", "Variável"];
 
 export interface FixedCostRow {
   id: string;
@@ -19,6 +16,8 @@ export interface FixedCostRow {
   tipo: CostNature;
   valor: number;
   due_date: string | null;
+  payment_method: string;
+  card_id: string | null;
   custom: Record<string, CellValue>;
   position: number;
 }

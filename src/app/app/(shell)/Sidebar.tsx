@@ -12,6 +12,7 @@ const NAV = [
   { href: "/app/renda", label: "Fontes de Renda" },
   { href: "/app/investimentos", label: "Investimentos" },
   { href: "/app/custos", label: "Custos Fixos" },
+  { href: "/app/cartoes", label: "Cartões" },
 ];
 
 export function Sidebar() {

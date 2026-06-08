@@ -36,7 +36,9 @@ export async function createCost(): Promise<FixedCostRow> {
   const { data, error } = await supabase
     .from("fixed_costs")
     .insert({ user_id: uid, categoria: "", tipo: "", valor: 0, position })
-    .select("id,label,categoria,tipo,valor,due_date,custom,position")
+    .select(
+      "id,label,categoria,tipo,valor,due_date,payment_method,card_id,custom,position",
+    )
     .single();
   if (error) throw new Error(error.message);
   return data as unknown as FixedCostRow;
@@ -50,6 +52,8 @@ export async function updateCost(
     tipo: string;
     valor: number;
     due_date: string | null;
+    payment_method: string;
+    card_id: string | null;
     custom: Record<string, CellValue>;
   }>,
 ) {

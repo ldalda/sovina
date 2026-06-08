@@ -4,6 +4,12 @@ import { useEffect, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
 import { SelectMenu } from "@/components/SelectMenu";
 import { DateField } from "@/components/DateField";
+import {
+  decodePayment,
+  encodePayment,
+  paymentOptions,
+  type PaymentCard,
+} from "@/lib/finance/payment";
 import { formatBRL } from "@/lib/format";
 import {
   addColumn,
@@ -28,6 +34,7 @@ const FIXED_COLS: { key: string; label: string; w: number; align: string }[] = [
   { key: "categoria", label: "Categoria", w: 190, align: "" },
   { key: "tipo", label: "Tipo", w: 170, align: "" },
   { key: "valor", label: "Valor", w: 140, align: "text-right" },
+  { key: "pagamento", label: "Pagamento", w: 160, align: "" },
   { key: "venc", label: "Venc.", w: 150, align: "" },
 ];
 const ACTIONS_W = 44;
@@ -37,10 +44,12 @@ export function CustosTable({
   initialRows,
   initialColumns,
   initialCategories,
+  cards,
 }: {
   initialRows: FixedCostRow[];
   initialColumns: CustomColumn[];
   initialCategories: string[];
+  cards: PaymentCard[];
 }) {
   const [rows, setRows] = useState<FixedCostRow[]>(initialRows);
   const [columns, setColumns] = useState<CustomColumn[]>(initialColumns);
@@ -253,11 +262,11 @@ export function CustosTable({
                   />
                 </Td>
 
-                {/* Tipo (Fixo / Variável / Cartão de Crédito) */}
+                {/* Tipo (Fixo / Variável) */}
                 <Td className="border-l border-line">
                   <SelectMenu
                     value={r.tipo}
-                    options={COST_NATURES}
+                    options={COST_NATURES.map((n) => ({ value: n, label: n }))}
                     placeholder="—"
                     onChange={(v) => {
                       patchLocal(r.id, { tipo: v as CostNature });
@@ -279,6 +288,26 @@ export function CustosTable({
                     }
                     onBlur={() => save(r.id, { valor: r.valor })}
                     className={`${cellCls} text-right ${spin}`}
+                  />
+                </Td>
+
+                {/* Pagamento */}
+                <Td className="border-l border-line">
+                  <SelectMenu
+                    value={encodePayment(r.payment_method, r.card_id)}
+                    options={paymentOptions(cards)}
+                    allowEmpty={false}
+                    onChange={(v) => {
+                      const pay = decodePayment(v);
+                      patchLocal(r.id, {
+                        payment_method: pay.payment_method,
+                        card_id: pay.card_id,
+                      });
+                      save(r.id, {
+                        payment_method: pay.payment_method,
+                        card_id: pay.card_id,
+                      });
+                    }}
                   />
                 </Td>
 
@@ -333,7 +362,7 @@ export function CustosTable({
             {rows.length === 0 && (
               <tr className="border-t border-line">
                 <td
-                  colSpan={6 + columns.length}
+                  colSpan={7 + columns.length}
                   className="px-3 py-8 text-center text-subtle text-sm"
                 >
                   Nenhum custo ainda. O Sovina espera.
@@ -352,6 +381,7 @@ export function CustosTable({
               <td className="px-3 py-3 text-right font-display text-xl text-solar tracking-tight border-l border-line">
                 {formatBRL(total)}
               </td>
+              <td className="border-l border-line" />
               <td className="border-l border-line" />
               {columns.map((c) => (
                 <td key={c.id} className="border-l border-line" />

@@ -2,8 +2,15 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
+import { SelectMenu } from "@/components/SelectMenu";
 import { DateField } from "@/components/DateField";
 import { computeQuota, type QuotaResult, type SavingsMode } from "@/lib/finance/quota";
+import {
+  decodePayment,
+  paymentLabel,
+  paymentOptions,
+  type PaymentCard,
+} from "@/lib/finance/payment";
 import { formatBRL } from "@/lib/format";
 import { createTransaction, deleteTransaction } from "./actions";
 import type { Transaction } from "./types";
@@ -22,6 +29,7 @@ export function Lancamentos({
   todayISO,
   initialTransactions,
   categories: initialCategories,
+  cards,
 }: {
   income: number;
   fixedCosts: number;
@@ -31,12 +39,14 @@ export function Lancamentos({
   todayISO: string;
   initialTransactions: Transaction[];
   categories: string[];
+  cards: PaymentCard[];
 }) {
   const [txs, setTxs] = useState<Transaction[]>(initialTransactions);
   const [categories, setCategories] = useState<string[]>(initialCategories);
   const [valor, setValor] = useState(0);
   const [descricao, setDescricao] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [pagamento, setPagamento] = useState("cash");
   const [data, setData] = useState(todayISO);
   const [verdict, setVerdict] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -68,11 +78,14 @@ export function Lancamentos({
     if (valor <= 0) return;
     startTransition(async () => {
       try {
+        const pay = decodePayment(pagamento);
         const row = await createTransaction({
           valor,
           descricao,
           categoria,
           occurred_at: data,
+          payment_method: pay.payment_method,
+          card_id: pay.card_id,
         });
         const next = [row, ...txs];
         setTxs(next);
@@ -178,7 +191,7 @@ export function Lancamentos({
               className="w-full bg-abismo border border-line focus:border-solar outline-none px-3 py-2 text-fg placeholder:text-subtle mb-3"
             />
 
-            <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="mb-3">
               <TypeCombobox
                 value={categoria}
                 options={categories}
@@ -192,10 +205,23 @@ export function Lancamentos({
                   )
                 }
               />
-              <DateField
-                value={data}
-                onChange={(iso) => setData(iso ?? todayISO)}
-              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="border border-line bg-abismo">
+                <SelectMenu
+                  value={pagamento}
+                  options={paymentOptions(cards)}
+                  allowEmpty={false}
+                  onChange={setPagamento}
+                />
+              </div>
+              <div className="border border-line bg-abismo">
+                <DateField
+                  value={data}
+                  onChange={(iso) => setData(iso ?? todayISO)}
+                />
+              </div>
             </div>
 
             <button
@@ -259,6 +285,10 @@ export function Lancamentos({
                           {t.categoria && (
                             <span className="text-subtle"> · {t.categoria}</span>
                           )}
+                          <span className="text-subtle">
+                            {" "}
+                            · {paymentLabel(t.payment_method, t.card_id, cards)}
+                          </span>
                         </span>
                         <span className="text-fg text-sm tabular-nums">
                           {formatBRL(Number(t.valor))}

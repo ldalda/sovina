@@ -12,10 +12,12 @@ export default async function CustosPage() {
   if (!user) redirect("/login");
   const uid = user.id;
 
-  const [rowsRes, colsRes, catsRes] = await Promise.all([
+  const [rowsRes, colsRes, catsRes, cardsRes] = await Promise.all([
     supabase
       .from("fixed_costs")
-      .select("id,label,categoria,tipo,valor,due_date,custom,position")
+      .select(
+        "id,label,categoria,tipo,valor,due_date,payment_method,card_id,custom,position",
+      )
       .eq("user_id", uid)
       .order("position"),
     supabase
@@ -30,6 +32,11 @@ export default async function CustosPage() {
       .eq("user_id", uid)
       .eq("scope", "fixed_cost")
       .order("name"),
+    supabase
+      .from("cards")
+      .select("id,nome")
+      .eq("user_id", uid)
+      .order("position"),
   ]);
 
   const categories = Array.from(
@@ -44,6 +51,7 @@ export default async function CustosPage() {
       initialRows={(rowsRes.data ?? []) as unknown as FixedCostRow[]}
       initialColumns={(colsRes.data ?? []) as unknown as CustomColumn[]}
       initialCategories={categories}
+      cards={cardsRes.data ?? []}
     />
   );
 }

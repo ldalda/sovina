@@ -20,7 +20,7 @@ export default async function LancamentosPage() {
   const monthStart = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-01`;
   const todayISO = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
-  const [incomeRes, costsRes, profileRes, txRes] = await Promise.all([
+  const [incomeRes, costsRes, profileRes, txRes, cardsRes] = await Promise.all([
     supabase
       .from("income_sources")
       .select("valor")
@@ -34,11 +34,16 @@ export default async function LancamentosPage() {
       .single(),
     supabase
       .from("transactions")
-      .select("id,valor,descricao,categoria,occurred_at")
+      .select("id,valor,descricao,categoria,occurred_at,payment_method,card_id")
       .eq("user_id", uid)
       .gte("occurred_at", monthStart)
       .order("occurred_at", { ascending: false })
       .order("created_at", { ascending: false }),
+    supabase
+      .from("cards")
+      .select("id,nome")
+      .eq("user_id", uid)
+      .order("position"),
   ]);
 
   const profile = profileRes.data;
@@ -53,6 +58,7 @@ export default async function LancamentosPage() {
       todayISO={todayISO}
       initialTransactions={(txRes.data ?? []) as unknown as Transaction[]}
       categories={[...EXPENSE_CATEGORIES]}
+      cards={cardsRes.data ?? []}
     />
   );
 }

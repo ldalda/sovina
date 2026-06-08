@@ -82,6 +82,8 @@ export type Database = {
           tipo: string;
           valor: number;
           due_date: string | null;
+          payment_method: string;
+          card_id: string | null;
           custom: Json;
           position: number;
           created_at: string;
@@ -95,6 +97,8 @@ export type Database = {
           tipo?: string;
           valor?: number;
           due_date?: string | null;
+          payment_method?: string;
+          card_id?: string | null;
           custom?: Json;
           position?: number;
           created_at?: string;
@@ -108,6 +112,8 @@ export type Database = {
           tipo?: string;
           valor?: number;
           due_date?: string | null;
+          payment_method?: string;
+          card_id?: string | null;
           custom?: Json;
           position?: number;
           created_at?: string;
@@ -154,6 +160,42 @@ export type Database = {
         };
         Relationships: [];
       };
+      cards: {
+        Row: {
+          id: string;
+          user_id: string;
+          nome: string;
+          closing_day: number | null;
+          due_day: number | null;
+          limit_amount: number | null;
+          position: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          nome: string;
+          closing_day?: number | null;
+          due_day?: number | null;
+          limit_amount?: number | null;
+          position?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          nome?: string;
+          closing_day?: number | null;
+          due_day?: number | null;
+          limit_amount?: number | null;
+          position?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       transactions: {
         Row: {
           id: string;
@@ -163,6 +205,8 @@ export type Database = {
           categoria: string;
           occurred_at: string;
           source: string;
+          payment_method: string;
+          card_id: string | null;
           created_at: string;
         };
         Insert: {
@@ -173,6 +217,8 @@ export type Database = {
           categoria?: string;
           occurred_at?: string;
           source?: string;
+          payment_method?: string;
+          card_id?: string | null;
           created_at?: string;
         };
         Update: {
@@ -183,6 +229,8 @@ export type Database = {
           categoria?: string;
           occurred_at?: string;
           source?: string;
+          payment_method?: string;
+          card_id?: string | null;
           created_at?: string;
         };
         Relationships: [];
