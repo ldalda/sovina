@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
+import { SaveIndicator, useSaveStatus } from "@/components/SaveStatus";
 import { formatBRL } from "@/lib/format";
 import {
   addColumn,
@@ -63,6 +64,7 @@ export function IncomeTable({
   const [categories, setCategories] = useState<string[]>(tipoOptions);
   const [, startTransition] = useTransition();
   const [adding, setAdding] = useState(false);
+  const { status, track } = useSaveStatus();
 
   const [widths, setWidths] = useState<Record<string, number>>(() => {
     const w: Record<string, number> = { actions: ACTIONS_W };
@@ -117,12 +119,8 @@ export function IncomeTable({
     setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   }
   function save(id: string, patch: Parameters<typeof updateIncome>[1]) {
-    startTransition(async () => {
-      try {
-        await updateIncome(id, patch);
-      } catch {
-        /* autosave silencioso */
-      }
+    startTransition(() => {
+      void track(() => updateIncome(id, patch));
     });
   }
 
@@ -155,7 +153,10 @@ export function IncomeTable({
       <h2 className="font-display text-2xl uppercase tracking-tight mb-1">
         {title}
       </h2>
-      <p className="text-dim text-sm mb-4">{hint}</p>
+      <div className="flex justify-between items-end mb-2">
+        <p className="text-dim text-sm">{hint}</p>
+        <SaveIndicator status={status} />
+      </div>
 
       <div className="border border-line overflow-x-auto">
         <table

@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
 import { SelectMenu } from "@/components/SelectMenu";
 import { DateField } from "@/components/DateField";
+import { SaveIndicator, useSaveStatus } from "@/components/SaveStatus";
 import {
   decodePayment,
   encodePayment,
@@ -56,6 +57,7 @@ export function CustosTable({
   const [categories, setCategories] = useState<string[]>(initialCategories);
   const [, startTransition] = useTransition();
   const [adding, setAdding] = useState(false);
+  const { status, track } = useSaveStatus();
 
   // larguras das colunas (px) — redimensionáveis e persistidas no navegador
   const [widths, setWidths] = useState<Record<string, number>>(() => {
@@ -110,12 +112,8 @@ export function CustosTable({
     setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   }
   function save(id: string, patch: Parameters<typeof updateCost>[1]) {
-    startTransition(async () => {
-      try {
-        await updateCost(id, patch);
-      } catch {
-        /* autosave silencioso; o usuário reedita se falhar */
-      }
+    startTransition(() => {
+      void track(() => updateCost(id, patch));
     });
   }
 
@@ -162,6 +160,10 @@ export function CustosTable({
         <span className="text-subtle">Categoria</span> e{" "}
         <span className="text-subtle">Valor</span> alimentam a sua cota.
       </p>
+
+      <div className="flex justify-end mb-2">
+        <SaveIndicator status={status} />
+      </div>
 
       <div className="border border-line overflow-x-auto">
         <table
