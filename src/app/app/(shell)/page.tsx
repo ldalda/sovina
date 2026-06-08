@@ -18,6 +18,8 @@ export default async function Painel() {
 
   const now = new Date();
   const monthStart = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-01`;
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const monthEnd = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(lastDay)}`;
   const todayISO = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
   const [incomesRes, costsRes, profileRes, txRes] = await Promise.all([
@@ -34,20 +36,25 @@ export default async function Painel() {
       .single(),
     supabase
       .from("transactions")
-      .select("valor,occurred_at")
+      .select("valor,occurred_at,installments_total")
       .eq("user_id", uid)
-      .gte("occurred_at", monthStart),
+      .gte("occurred_at", monthStart)
+      .lte("occurred_at", monthEnd),
   ]);
 
   const income = sumValor(incomesRes.data);
   const fixedCosts = sumValor(costsRes.data);
   const profile = profileRes.data;
   const txs = txRes.data ?? [];
-  const spentToday = txs
+  const cash = txs.filter((t) => t.installments_total === 1);
+  const spentToday = cash
     .filter((t) => t.occurred_at === todayISO)
     .reduce((s, t) => s + Number(t.valor), 0);
-  const spentBeforeToday = txs
+  const spentBeforeToday = cash
     .filter((t) => t.occurred_at < todayISO)
+    .reduce((s, t) => s + Number(t.valor), 0);
+  const monthlyCommitments = txs
+    .filter((t) => t.installments_total > 1)
     .reduce((s, t) => s + Number(t.valor), 0);
 
   const q = computeQuota({
@@ -58,6 +65,7 @@ export default async function Painel() {
     savingsPercent: Number(profile?.savings_percent ?? 0),
     spentBeforeToday,
     spentToday,
+    monthlyCommitments,
     today: now,
   });
 
@@ -133,6 +141,12 @@ export default async function Painel() {
             accent={!q.feasible ? "furia" : undefined}
           />
           <Stat label="Gasto no mês" value={formatBRL(q.monthSpent)} />
+          {q.monthlyCommitments > 0 && (
+            <Stat
+              label="Parcelas do mês"
+              value={formatBRL(q.monthlyCommitments)}
+            />
+          )}
         </aside>
       </div>
     </main>

@@ -24,10 +24,12 @@ export interface QuotaInput {
   savingsPercent?: number;
   /** data de referência; default = agora */
   today?: Date;
-  /** gasto do mês ANTES de hoje (R$) — default 0 */
+  /** gasto à vista do mês ANTES de hoje (R$) — default 0 */
   spentBeforeToday?: number;
-  /** gasto de hoje (R$) — default 0 */
+  /** gasto à vista de hoje (R$) — default 0 */
   spentToday?: number;
+  /** parcelas comprometidas no mês corrente (R$) — reduzem o disponível, como custos fixos */
+  monthlyCommitments?: number;
 }
 
 export interface QuotaResult {
@@ -48,8 +50,10 @@ export interface QuotaResult {
   leftTodayMax: number;
   /** quanto ainda cabe hoje na cota ideal (idealDaily − spentToday) */
   leftTodayIdeal: number;
-  /** gasto acumulado no mês (antes de hoje + hoje) */
+  /** gasto à vista acumulado no mês (antes de hoje + hoje) */
   monthSpent: number;
+  /** parcelas comprometidas no mês corrente */
+  monthlyCommitments: number;
   /** saldo da sobrevivência ainda não gasto no mês */
   monthBalance: number;
   /** false quando a meta não cabe mais no disponível */
@@ -80,7 +84,9 @@ export function resolveSavingsTarget(input: QuotaInput): number {
 
 export function computeQuota(input: QuotaInput): QuotaResult {
   const today = input.today ?? new Date();
-  const survival = round2(input.income - input.fixedCosts);
+  const commitments = input.monthlyCommitments ?? 0;
+  // sobrevivência = renda − custos fixos − parcelas comprometidas do mês
+  const survival = round2(input.income - input.fixedCosts - commitments);
   const savingsTarget = resolveSavingsTarget(input);
   const remaining = daysRemainingInMonth(today);
   const spentBeforeToday = input.spentBeforeToday ?? 0;
@@ -103,6 +109,7 @@ export function computeQuota(input: QuotaInput): QuotaResult {
     leftTodayMax: round2(maxDaily - spentToday),
     leftTodayIdeal: round2(idealDaily - spentToday),
     monthSpent,
+    monthlyCommitments: round2(commitments),
     monthBalance: round2(survival - monthSpent),
     feasible: savingsTarget <= available,
   };

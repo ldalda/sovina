@@ -207,6 +207,9 @@ export type Database = {
           source: string;
           payment_method: string;
           card_id: string | null;
+          purchase_id: string | null;
+          installment_no: number;
+          installments_total: number;
           created_at: string;
         };
         Insert: {
@@ -219,6 +222,9 @@ export type Database = {
           source?: string;
           payment_method?: string;
           card_id?: string | null;
+          purchase_id?: string | null;
+          installment_no?: number;
+          installments_total?: number;
           created_at?: string;
         };
         Update: {
@@ -231,6 +237,9 @@ export type Database = {
           source?: string;
           payment_method?: string;
           card_id?: string | null;
+          purchase_id?: string | null;
+          installment_no?: number;
+          installments_total?: number;
           created_at?: string;
         };
         Relationships: [];

@@ -12,13 +12,19 @@ import {
   type PaymentCard,
 } from "@/lib/finance/payment";
 import { formatBRL } from "@/lib/format";
-import { createTransaction, deleteTransaction } from "./actions";
+import {
+  createTransaction,
+  deletePurchase,
+  deleteTransaction,
+} from "./actions";
 import type { Transaction } from "./types";
 
 function isoToBR(iso: string): string {
   const [y, m, d] = iso.split("-");
   return `${d}/${m}/${y}`;
 }
+
+const round2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 
 export function Lancamentos({
   income,
@@ -48,18 +54,25 @@ export function Lancamentos({
   const [categoria, setCategoria] = useState("");
   const [pagamento, setPagamento] = useState("cash");
   const [data, setData] = useState(todayISO);
+  const [installments, setInstallments] = useState(1);
   const [verdict, setVerdict] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   const today = useMemo(() => new Date(todayISO + "T00:00:00"), [todayISO]);
+  const currentMonth = todayISO.slice(0, 7);
+  const isCard = pagamento.startsWith("card:");
 
   function quotaFrom(list: Transaction[]): QuotaResult {
-    const spentToday = list
+    // gastos à vista consomem a cota do dia; parcelas são compromisso do mês
+    const cash = list.filter((t) => t.installments_total === 1);
+    const inst = list.filter((t) => t.installments_total > 1);
+    const spentToday = cash
       .filter((t) => t.occurred_at === todayISO)
       .reduce((s, t) => s + Number(t.valor), 0);
-    const spentBeforeToday = list
+    const spentBeforeToday = cash
       .filter((t) => t.occurred_at < todayISO)
       .reduce((s, t) => s + Number(t.valor), 0);
+    const monthlyCommitments = inst.reduce((s, t) => s + Number(t.valor), 0);
     return computeQuota({
       income,
       fixedCosts,
@@ -68,6 +81,7 @@ export function Lancamentos({
       savingsPercent,
       spentBeforeToday,
       spentToday,
+      monthlyCommitments,
       today,
     });
   }
@@ -76,31 +90,46 @@ export function Lancamentos({
 
   function register() {
     if (valor <= 0) return;
+    const n = isCard ? Math.max(1, installments) : 1;
     startTransition(async () => {
       try {
         const pay = decodePayment(pagamento);
-        const row = await createTransaction({
+        const created = await createTransaction({
           valor,
           descricao,
           categoria,
           occurred_at: data,
           payment_method: pay.payment_method,
           card_id: pay.card_id,
+          installments: n,
         });
-        const next = [row, ...txs];
+        // só as parcelas/lançamentos que caem no mês exibido entram na lista
+        const thisMonth = created.filter(
+          (t) => t.occurred_at.slice(0, 7) === currentMonth,
+        );
+        const next = [...thisMonth, ...txs];
         setTxs(next);
-        setVerdict(sovinaVerdict(quotaFrom(next)));
+        setVerdict(
+          n > 1 ? installmentVerdict(n, round2(valor / n)) : sovinaVerdict(quotaFrom(next)),
+        );
         setValor(0);
         setDescricao("");
+        setInstallments(1);
       } catch {
         setVerdict("Não consegui registrar. Tente de novo.");
       }
     });
   }
 
-  function remove(id: string) {
-    setTxs((ts) => ts.filter((t) => t.id !== id));
-    startTransition(() => void deleteTransaction(id));
+  function remove(t: Transaction) {
+    if (t.purchase_id) {
+      // remove a compra parcelada inteira
+      setTxs((ts) => ts.filter((x) => x.purchase_id !== t.purchase_id));
+      startTransition(() => void deletePurchase(t.purchase_id!));
+    } else {
+      setTxs((ts) => ts.filter((x) => x.id !== t.id));
+      startTransition(() => void deleteTransaction(t.id));
+    }
   }
 
   const groups = useMemo(() => {
@@ -148,6 +177,14 @@ export function Lancamentos({
             <p className="text-dim text-sm">
               Gasto hoje: <span className="text-fg">{formatBRL(quota.spentToday)}</span>
             </p>
+            {quota.monthlyCommitments > 0 && (
+              <p className="text-dim text-sm">
+                Parcelas do mês:{" "}
+                <span className="text-fg">
+                  {formatBRL(quota.monthlyCommitments)}
+                </span>
+              </p>
+            )}
 
             <div className="mt-5">
               <div className="flex justify-between text-xs text-subtle uppercase tracking-[0.2em] mb-2">
@@ -224,6 +261,30 @@ export function Lancamentos({
               </div>
             </div>
 
+            {isCard && (
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-subtle text-xs uppercase tracking-[0.15em]">
+                  Parcelas
+                </span>
+                <input
+                  type="number"
+                  min={1}
+                  max={48}
+                  value={installments}
+                  onChange={(e) =>
+                    setInstallments(Math.max(1, Number(e.target.value) || 1))
+                  }
+                  className="w-16 bg-abismo border border-line focus:border-solar outline-none px-2 py-1.5 text-fg text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+                <span className="text-dim text-sm">
+                  x
+                  {installments > 1 && valor > 0 && (
+                    <> de {formatBRL(round2(valor / installments))}</>
+                  )}
+                </span>
+              </div>
+            )}
+
             <button
               type="button"
               onClick={register}
@@ -289,13 +350,19 @@ export function Lancamentos({
                             {" "}
                             · {paymentLabel(t.payment_method, t.card_id, cards)}
                           </span>
+                          {t.installments_total > 1 && (
+                            <span className="text-solar">
+                              {" "}
+                              · {t.installment_no}/{t.installments_total}
+                            </span>
+                          )}
                         </span>
                         <span className="text-fg text-sm tabular-nums">
                           {formatBRL(Number(t.valor))}
                         </span>
                         <button
                           type="button"
-                          onClick={() => remove(t.id)}
+                          onClick={() => remove(t)}
                           aria-label="Remover lançamento"
                           className="text-subtle opacity-0 group-hover:opacity-100 hover:text-furia transition-all"
                         >
@@ -324,4 +391,10 @@ function sovinaVerdict(q: QuotaResult): string {
     )} até o teto — e isso é dívida com o seu futuro.`;
   }
   return `Registrado. Sobram ${formatBRL(q.leftTodayIdeal)} da sua cota hoje.`;
+}
+
+function installmentVerdict(n: number, per: number): string {
+  return `Parcelado em ${n}x de ${formatBRL(
+    per,
+  )}. Eu não esqueço — cada mês vai cobrar a sua parte. A do mês já saiu da sua cota.`;
 }

@@ -18,6 +18,8 @@ export default async function LancamentosPage() {
 
   const now = new Date();
   const monthStart = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-01`;
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const monthEnd = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(lastDay)}`;
   const todayISO = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
   const [incomeRes, costsRes, profileRes, txRes, cardsRes] = await Promise.all([
@@ -34,9 +36,12 @@ export default async function LancamentosPage() {
       .single(),
     supabase
       .from("transactions")
-      .select("id,valor,descricao,categoria,occurred_at,payment_method,card_id")
+      .select(
+        "id,valor,descricao,categoria,occurred_at,payment_method,card_id,purchase_id,installment_no,installments_total",
+      )
       .eq("user_id", uid)
       .gte("occurred_at", monthStart)
+      .lte("occurred_at", monthEnd)
       .order("occurred_at", { ascending: false })
       .order("created_at", { ascending: false }),
     supabase
