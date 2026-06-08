@@ -2,34 +2,24 @@
 
 /* SOVINA — Brutalismo Solar.
    Amarelo como feixe de luz cortante em ambiente sombrio. Vermelho só pra
-   alarme. Cinza concreto pra superfícies. Sem gradientes, sem cinzas suaves. */
+   alarme. Cinza concreto pra superfícies. Sem gradientes, sem cinzas suaves.
 
-:root {
-  --color-abismo:    #0D0D0D;  /* fundo principal */
-  --color-concreto:  #2A2A2A;  /* cards, modais, separação */
-  --color-solar:     #FFB300;  /* CTA, HP, saldo diário */
-  --color-furia:     #E53935;  /* Roast, orçamento estourado */
-  --color-fg:        #F5F5F5;  /* texto principal */
-  --color-dim:       #8C8C8C;  /* texto secundário */
-  --color-subtle:    #565656;  /* texto auxiliar / placeholders */
-  --color-line:      #1F1F1F;  /* borda fina */
-}
+   Padrão Tailwind 4: tokens vivem em @theme, NÃO em :root. O Tailwind expõe
+   eles como CSS vars automaticamente e gera as utilities (text-solar,
+   bg-abismo, etc) a partir desse mapa. */
 
-@theme inline {
-  --color-background: var(--color-abismo);
-  --color-foreground: var(--color-fg);
-  --color-abismo:     var(--color-abismo);
-  --color-concreto:   var(--color-concreto);
-  --color-solar:      var(--color-solar);
-  --color-furia:      var(--color-furia);
-  --color-fg:         var(--color-fg);
-  --color-dim:        var(--color-dim);
-  --color-subtle:     var(--color-subtle);
-  --color-line:       var(--color-line);
+@theme {
+  --color-abismo:    #0D0D0D;
+  --color-concreto:  #2A2A2A;
+  --color-solar:     #FFB300;
+  --color-furia:     #E53935;
+  --color-fg:        #F5F5F5;
+  --color-dim:       #8C8C8C;
+  --color-subtle:    #565656;
+  --color-line:      #1F1F1F;
 
-  /* Tipografia:
-     - --font-display: Anton (títulos pesados + números gigantes)
-     - --font-sans:    Inter  (corpo de texto, UI geral) */
+  /* Display = Anton (números gigantes, títulos pesados).
+     Sans  = Inter (corpo de texto, UI). */
   --font-display: var(--font-anton);
   --font-sans:    var(--font-inter);
 }
@@ -39,10 +29,4 @@ body {
   color: var(--color-fg);
   font-family: var(--font-sans);
   font-feature-settings: "ss01", "ss02", "tnum";
-}
-
-/* Util para números gigantes (cota diária, saldo, etc) */
-.font-display {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
 }

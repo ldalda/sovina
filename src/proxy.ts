@@ -4,7 +4,7 @@ import { createServerClient } from "@supabase/ssr";
 // Refresh do token da sessão a cada navegação. Sem isto, Server Components
 // veem sessão expirada e fazem auth.getUser() retornar null mesmo com o
 // cookie ainda válido no client.
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
