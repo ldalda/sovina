@@ -150,7 +150,7 @@ export function CustosTable({
       </h1>
       <p className="text-dim text-sm mb-8">
         Edite direto na célula — eu salvo sozinho.{" "}
-        <span className="text-subtle">Tipo</span> e{" "}
+        <span className="text-subtle">Categoria</span> e{" "}
         <span className="text-subtle">Valor</span> alimentam a sua cota.
       </p>
 
