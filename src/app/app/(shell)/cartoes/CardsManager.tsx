@@ -1,22 +1,34 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { createCard, deleteCard, updateCard } from "./actions";
 import type { Card } from "./types";
 
+type SaveStatus = "idle" | "saving" | "saved";
+
 export function CardsManager({ initialCards }: { initialCards: Card[] }) {
   const [cards, setCards] = useState<Card[]>(initialCards);
+  const [status, setStatus] = useState<SaveStatus>("idle");
   const [, startTransition] = useTransition();
+
+  // "Salvo ✓" some sozinho depois de um tempo
+  useEffect(() => {
+    if (status !== "saved") return;
+    const t = setTimeout(() => setStatus("idle"), 1800);
+    return () => clearTimeout(t);
+  }, [status]);
 
   function patchLocal(id: string, patch: Partial<Card>) {
     setCards((cs) => cs.map((c) => (c.id === id ? { ...c, ...patch } : c)));
   }
   function save(id: string, patch: Parameters<typeof updateCard>[1]) {
+    setStatus("saving");
     startTransition(async () => {
       try {
         await updateCard(id, patch);
+        setStatus("saved");
       } catch {
-        /* autosave silencioso */
+        setStatus("idle");
       }
     });
   }
@@ -33,6 +45,13 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
 
   return (
     <div className="max-w-2xl">
+      <div className="flex justify-end items-center h-5 mb-2 text-xs">
+        {status === "saving" && (
+          <span className="text-subtle">Salvando…</span>
+        )}
+        {status === "saved" && <span className="text-solar">Salvo ✓</span>}
+      </div>
+
       <div className="flex flex-col gap-3">
         {cards.map((c) => (
           <div
