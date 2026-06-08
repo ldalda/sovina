@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
+/* Sovina — estética brutalista. Preto pesado, amarelo como sinal, vermelho
+   como alarme. Sem cinzas suaves. Sem gradientes. Tipografia mono pra dar
+   peso de planilha. */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg:       #0a0a0a;
+  --color-fg:       #ededed;
+  --color-dim:      #8c8c8c;
+  --color-subtle:   #565656;
+  --color-line:     #1f1f1f;
+  --color-warning:  #f5b300;
+  --color-danger:   #ef3b2c;
+  --color-success:  #5ac26b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-fg);
+  --color-dim:        var(--color-dim);
+  --color-subtle:     var(--color-subtle);
+  --color-line:       var(--color-line);
+  --color-warning:    var(--color-warning);
+  --color-danger:     var(--color-danger);
+  --color-success:    var(--color-success);
+  --font-mono:        ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-sans:        var(--font-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-mono);
+  font-feature-settings: "ss01", "ss02", "tnum";
 }
