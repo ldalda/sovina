@@ -8,6 +8,7 @@ import { signOut } from "@/app/app/actions";
 
 const NAV = [
   { href: "/app", label: "Painel" },
+  { href: "/app/lancamentos", label: "Lançamentos" },
   { href: "/app/renda", label: "Fontes de Renda" },
   { href: "/app/investimentos", label: "Investimentos" },
   { href: "/app/custos", label: "Custos Fixos" },

@@ -17,6 +17,19 @@ export const FIXED_COST_TYPES = [
   "Outros",
 ] as const;
 
+export const EXPENSE_CATEGORIES = [
+  "Alimentação",
+  "Transporte",
+  "Lazer",
+  "Mercado",
+  "Saúde",
+  "Casa",
+  "Educação",
+  "Vestuário",
+  "Assinaturas",
+  "Outros",
+] as const;
+
 export const INVESTMENT_TYPES = [
   "Ações",
   "FIIs",

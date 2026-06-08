@@ -24,11 +24,10 @@ export interface QuotaInput {
   savingsPercent?: number;
   /** data de referência; default = agora */
   today?: Date;
-  /**
-   * saldo ainda disponível para gastar no mês (R$).
-   * default = sobrevivência (no onboarding ainda não há gastos registrados).
-   */
-  spendableRemaining?: number;
+  /** gasto do mês ANTES de hoje (R$) — default 0 */
+  spentBeforeToday?: number;
+  /** gasto de hoje (R$) — default 0 */
+  spentToday?: number;
 }
 
 export interface QuotaResult {
@@ -43,7 +42,17 @@ export interface QuotaResult {
   maxDaily: number;
   /** diária que ainda assim guarda a meta de poupança */
   idealDaily: number;
-  /** false quando a meta não cabe na sobrevivência (idealDaily ficaria negativo) */
+  /** gasto registrado hoje */
+  spentToday: number;
+  /** quanto ainda cabe hoje no teto (maxDaily − spentToday) */
+  leftTodayMax: number;
+  /** quanto ainda cabe hoje na cota ideal (idealDaily − spentToday) */
+  leftTodayIdeal: number;
+  /** gasto acumulado no mês (antes de hoje + hoje) */
+  monthSpent: number;
+  /** saldo da sobrevivência ainda não gasto no mês */
+  monthBalance: number;
+  /** false quando a meta não cabe mais no disponível */
   feasible: boolean;
 }
 
@@ -74,10 +83,14 @@ export function computeQuota(input: QuotaInput): QuotaResult {
   const survival = round2(input.income - input.fixedCosts);
   const savingsTarget = resolveSavingsTarget(input);
   const remaining = daysRemainingInMonth(today);
-  const spendable = input.spendableRemaining ?? survival;
+  const spentBeforeToday = input.spentBeforeToday ?? 0;
+  const spentToday = input.spentToday ?? 0;
 
-  const maxDaily = round2(spendable / remaining);
-  const idealDaily = round2((spendable - savingsTarget) / remaining);
+  // disponível para hoje + resto do mês (já desconta o que foi gasto antes)
+  const available = survival - spentBeforeToday;
+  const maxDaily = round2(available / remaining);
+  const idealDaily = round2((available - savingsTarget) / remaining);
+  const monthSpent = round2(spentBeforeToday + spentToday);
 
   return {
     survival,
@@ -86,6 +99,11 @@ export function computeQuota(input: QuotaInput): QuotaResult {
     daysRemaining: remaining,
     maxDaily,
     idealDaily,
-    feasible: savingsTarget <= survival,
+    spentToday: round2(spentToday),
+    leftTodayMax: round2(maxDaily - spentToday),
+    leftTodayIdeal: round2(idealDaily - spentToday),
+    monthSpent,
+    monthBalance: round2(survival - monthSpent),
+    feasible: savingsTarget <= available,
   };
 }

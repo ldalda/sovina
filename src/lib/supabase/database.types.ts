@@ -154,6 +154,39 @@ export type Database = {
         };
         Relationships: [];
       };
+      transactions: {
+        Row: {
+          id: string;
+          user_id: string;
+          valor: number;
+          descricao: string | null;
+          categoria: string;
+          occurred_at: string;
+          source: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          valor: number;
+          descricao?: string | null;
+          categoria?: string;
+          occurred_at?: string;
+          source?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          valor?: number;
+          descricao?: string | null;
+          categoria?: string;
+          occurred_at?: string;
+          source?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       custom_columns: {
         Row: {
           id: string;
