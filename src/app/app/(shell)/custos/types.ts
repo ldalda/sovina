@@ -3,8 +3,14 @@
 
 export type CellValue = string | number | null;
 
-// Classificação do custo (coluna fixa "Tipo"): vazio, Fixo ou Variável.
-export type CostNature = "" | "Fixo" | "Variável";
+// Classificação do custo (coluna fixa "Tipo").
+export type CostNature = "" | "Fixo" | "Variável" | "Cartão de Crédito";
+
+export const COST_NATURES: Exclude<CostNature, "">[] = [
+  "Fixo",
+  "Variável",
+  "Cartão de Crédito",
+];
 
 export interface FixedCostRow {
   id: string;
@@ -12,7 +18,7 @@ export interface FixedCostRow {
   categoria: string;
   tipo: CostNature;
   valor: number;
-  due_day: number | null;
+  due_date: string | null;
   custom: Record<string, CellValue>;
   position: number;
 }

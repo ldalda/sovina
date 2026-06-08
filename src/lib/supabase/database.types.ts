@@ -81,7 +81,7 @@ export type Database = {
           categoria: string;
           tipo: string;
           valor: number;
-          due_day: number | null;
+          due_date: string | null;
           custom: Json;
           position: number;
           created_at: string;
@@ -94,7 +94,7 @@ export type Database = {
           categoria?: string;
           tipo?: string;
           valor?: number;
-          due_day?: number | null;
+          due_date?: string | null;
           custom?: Json;
           position?: number;
           created_at?: string;
@@ -107,7 +107,7 @@ export type Database = {
           categoria?: string;
           tipo?: string;
           valor?: number;
-          due_day?: number | null;
+          due_date?: string | null;
           custom?: Json;
           position?: number;
           created_at?: string;

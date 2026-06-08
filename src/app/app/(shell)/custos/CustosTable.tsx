@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
+import { SelectMenu } from "@/components/SelectMenu";
+import { DateField } from "@/components/DateField";
 import { formatBRL } from "@/lib/format";
 import {
   addColumn,
@@ -11,13 +13,25 @@ import {
   deleteCost,
   updateCost,
 } from "./actions";
-import type {
-  CellValue,
-  CostNature,
-  CustomColumn,
-  CustomColumnType,
-  FixedCostRow,
+import {
+  COST_NATURES,
+  type CellValue,
+  type CostNature,
+  type CustomColumn,
+  type CustomColumnType,
+  type FixedCostRow,
 } from "./types";
+
+// Colunas fixas (alimentam os cálculos) e suas larguras padrão (px).
+const FIXED_COLS: { key: string; label: string; w: number; align: string }[] = [
+  { key: "despesa", label: "Despesa", w: 240, align: "" },
+  { key: "categoria", label: "Categoria", w: 190, align: "" },
+  { key: "tipo", label: "Tipo", w: 170, align: "" },
+  { key: "valor", label: "Valor", w: 140, align: "text-right" },
+  { key: "venc", label: "Venc.", w: 150, align: "" },
+];
+const ACTIONS_W = 44;
+const WIDTHS_KEY = "sovina:custos:widths";
 
 export function CustosTable({
   initialRows,
@@ -34,7 +48,54 @@ export function CustosTable({
   const [, startTransition] = useTransition();
   const [adding, setAdding] = useState(false);
 
+  // larguras das colunas (px) — redimensionáveis e persistidas no navegador
+  const [widths, setWidths] = useState<Record<string, number>>(() => {
+    const w: Record<string, number> = { actions: ACTIONS_W };
+    FIXED_COLS.forEach((c) => (w[c.key] = c.w));
+    initialColumns.forEach((c) => (w[c.key] = 160));
+    return w;
+  });
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(WIDTHS_KEY);
+      if (raw) setWidths((prev) => ({ ...prev, ...JSON.parse(raw) }));
+    } catch {
+      /* sem persistência se localStorage indisponível */
+    }
+  }, []);
+
+  function startResize(key: string, e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    const startX = e.clientX;
+    const startW = widths[key] ?? 150;
+    const onMove = (ev: MouseEvent) =>
+      setWidths((prev) => ({
+        ...prev,
+        [key]: Math.max(60, startW + (ev.clientX - startX)),
+      }));
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      setWidths((prev) => {
+        try {
+          localStorage.setItem(WIDTHS_KEY, JSON.stringify(prev));
+        } catch {
+          /* ignora */
+        }
+        return prev;
+      });
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }
+
   const total = rows.reduce((s, r) => s + (r.valor || 0), 0);
+  const tableWidth =
+    FIXED_COLS.reduce((s, c) => s + (widths[c.key] ?? c.w), 0) +
+    columns.reduce((s, c) => s + (widths[c.key] ?? 160), 0) +
+    (widths.actions ?? ACTIONS_W);
 
   function patchLocal(id: string, patch: Partial<FixedCostRow>) {
     setRows((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -64,6 +125,7 @@ export function CustosTable({
     startTransition(async () => {
       const col = await addColumn({ label, type });
       setColumns((cs) => [...cs, col]);
+      setWidths((w) => ({ ...w, [col.key]: 160 }));
     });
     setAdding(false);
   }
@@ -93,33 +155,50 @@ export function CustosTable({
       </p>
 
       <div className="border border-line overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
+        <table
+          style={{ width: tableWidth }}
+          className="table-fixed border-collapse text-sm"
+        >
+          <colgroup>
+            {FIXED_COLS.map((c) => (
+              <col key={c.key} style={{ width: widths[c.key] ?? c.w }} />
+            ))}
+            {columns.map((col) => (
+              <col key={col.id} style={{ width: widths[col.key] ?? 160 }} />
+            ))}
+            <col style={{ width: widths.actions ?? ACTIONS_W }} />
+          </colgroup>
           <thead>
             <tr className="bg-concreto/30 text-subtle text-xs uppercase tracking-[0.15em]">
-              <Th>Despesa</Th>
-              <Th>Categoria</Th>
-              <Th>Tipo</Th>
-              <Th className="text-right">Valor</Th>
-              <Th>Venc.</Th>
+              {FIXED_COLS.map((c, i) => (
+                <Th
+                  key={c.key}
+                  className={`${c.align} ${i > 0 ? "border-l border-line" : ""}`}
+                  onResizeStart={(e) => startResize(c.key, e)}
+                >
+                  {c.label}
+                </Th>
+              ))}
               {columns.map((col) => (
                 <th
                   key={col.id}
-                  className="text-left font-normal px-3 py-3 border-l border-line whitespace-nowrap"
+                  className="relative text-left font-normal px-3 py-3 border-l border-line whitespace-nowrap overflow-hidden"
                 >
-                  <span className="inline-flex items-center gap-2">
-                    {col.label}
+                  <span className="inline-flex items-center gap-2 pr-2 max-w-full">
+                    <span className="truncate">{col.label}</span>
                     <button
                       type="button"
                       onClick={() => removeColumn(col.id)}
                       aria-label={`Remover coluna ${col.label}`}
-                      className="text-subtle hover:text-furia transition-colors"
+                      className="text-subtle hover:text-furia transition-colors shrink-0"
                     >
                       ×
                     </button>
                   </span>
+                  <ResizeHandle onMouseDown={(e) => startResize(col.key, e)} />
                 </th>
               ))}
-              <th className="relative px-2 py-3 border-l border-line w-10">
+              <th className="relative px-2 py-3 border-l border-line">
                 {adding ? (
                   <AddColumnForm
                     onConfirm={addCustomColumn}
@@ -174,21 +253,17 @@ export function CustosTable({
                   />
                 </Td>
 
-                {/* Tipo (Fixo / Variável) */}
+                {/* Tipo (Fixo / Variável / Cartão de Crédito) */}
                 <Td className="border-l border-line">
-                  <select
+                  <SelectMenu
                     value={r.tipo}
-                    onChange={(e) => {
-                      const v = e.target.value as CostNature;
-                      patchLocal(r.id, { tipo: v });
+                    options={COST_NATURES}
+                    placeholder="—"
+                    onChange={(v) => {
+                      patchLocal(r.id, { tipo: v as CostNature });
                       save(r.id, { tipo: v });
                     }}
-                    className={`${cellCls} cursor-pointer ${r.tipo ? "" : "text-subtle"}`}
-                  >
-                    <option value="">—</option>
-                    <option value="Fixo">Fixo</option>
-                    <option value="Variável">Variável</option>
-                  </select>
+                  />
                 </Td>
 
                 {/* Valor */}
@@ -209,19 +284,12 @@ export function CustosTable({
 
                 {/* Vencimento */}
                 <Td className="border-l border-line">
-                  <input
-                    type="number"
-                    min={1}
-                    max={31}
-                    value={r.due_day ?? ""}
-                    placeholder="dia"
-                    onChange={(e) =>
-                      patchLocal(r.id, {
-                        due_day: e.target.value ? Number(e.target.value) : null,
-                      })
-                    }
-                    onBlur={() => save(r.id, { due_day: r.due_day })}
-                    className={`${cellCls} w-16 ${spin}`}
+                  <DateField
+                    value={r.due_date}
+                    onChange={(iso) => {
+                      patchLocal(r.id, { due_date: iso });
+                      save(r.id, { due_date: iso });
+                    }}
                   />
                 </Td>
 
@@ -313,14 +381,32 @@ const spin =
 function Th({
   children,
   className = "",
+  onResizeStart,
 }: {
   children: React.ReactNode;
   className?: string;
+  onResizeStart?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <th className={`font-normal px-3 py-3 text-left whitespace-nowrap ${className}`}>
+    <th
+      className={`relative font-normal px-3 py-3 text-left whitespace-nowrap overflow-hidden ${className}`}
+    >
       {children}
+      {onResizeStart && <ResizeHandle onMouseDown={onResizeStart} />}
     </th>
+  );
+}
+
+function ResizeHandle({
+  onMouseDown,
+}: {
+  onMouseDown: (e: React.MouseEvent) => void;
+}) {
+  return (
+    <span
+      onMouseDown={onMouseDown}
+      className="absolute top-0 right-0 h-full w-1.5 cursor-col-resize hover:bg-solar/40 active:bg-solar z-10"
+    />
   );
 }
 

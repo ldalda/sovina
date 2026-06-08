@@ -15,7 +15,7 @@ export default async function CustosPage() {
   const [rowsRes, colsRes, catsRes] = await Promise.all([
     supabase
       .from("fixed_costs")
-      .select("id,label,categoria,tipo,valor,due_day,custom,position")
+      .select("id,label,categoria,tipo,valor,due_date,custom,position")
       .eq("user_id", uid)
       .order("position"),
     supabase
