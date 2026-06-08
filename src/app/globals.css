@@ -1,36 +1,48 @@
 @import "tailwindcss";
 
-/* Sovina — estética brutalista. Preto pesado, amarelo como sinal, vermelho
-   como alarme. Sem cinzas suaves. Sem gradientes. Tipografia mono pra dar
-   peso de planilha. */
+/* SOVINA — Brutalismo Solar.
+   Amarelo como feixe de luz cortante em ambiente sombrio. Vermelho só pra
+   alarme. Cinza concreto pra superfícies. Sem gradientes, sem cinzas suaves. */
 
 :root {
-  --color-bg:       #0a0a0a;
-  --color-fg:       #ededed;
-  --color-dim:      #8c8c8c;
-  --color-subtle:   #565656;
-  --color-line:     #1f1f1f;
-  --color-warning:  #f5b300;
-  --color-danger:   #ef3b2c;
-  --color-success:  #5ac26b;
+  --color-abismo:    #0D0D0D;  /* fundo principal */
+  --color-concreto:  #2A2A2A;  /* cards, modais, separação */
+  --color-solar:     #FFB300;  /* CTA, HP, saldo diário */
+  --color-furia:     #E53935;  /* Roast, orçamento estourado */
+  --color-fg:        #F5F5F5;  /* texto principal */
+  --color-dim:       #8C8C8C;  /* texto secundário */
+  --color-subtle:    #565656;  /* texto auxiliar / placeholders */
+  --color-line:      #1F1F1F;  /* borda fina */
 }
 
 @theme inline {
-  --color-background: var(--color-bg);
+  --color-background: var(--color-abismo);
   --color-foreground: var(--color-fg);
+  --color-abismo:     var(--color-abismo);
+  --color-concreto:   var(--color-concreto);
+  --color-solar:      var(--color-solar);
+  --color-furia:      var(--color-furia);
+  --color-fg:         var(--color-fg);
   --color-dim:        var(--color-dim);
   --color-subtle:     var(--color-subtle);
   --color-line:       var(--color-line);
-  --color-warning:    var(--color-warning);
-  --color-danger:     var(--color-danger);
-  --color-success:    var(--color-success);
-  --font-mono:        ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --font-sans:        var(--font-mono);
+
+  /* Tipografia:
+     - --font-display: Anton (títulos pesados + números gigantes)
+     - --font-sans:    Inter  (corpo de texto, UI geral) */
+  --font-display: var(--font-anton);
+  --font-sans:    var(--font-inter);
 }
 
 body {
-  background: var(--color-bg);
+  background: var(--color-abismo);
   color: var(--color-fg);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-feature-settings: "ss01", "ss02", "tnum";
+}
+
+/* Util para números gigantes (cota diária, saldo, etc) */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }

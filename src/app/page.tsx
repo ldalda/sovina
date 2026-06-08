@@ -4,10 +4,10 @@ export default function LandingPage() {
   return (
     <main className="flex-1 flex flex-col">
       <header className="border-b border-line px-6 py-4 flex items-center justify-between">
-        <span className="text-xl font-black tracking-tighter">SOVINA</span>
+        <span className="font-display text-2xl tracking-tight">SOVINA</span>
         <Link
           href="/login"
-          className="text-sm border border-line px-3 py-1.5 hover:border-warning hover:text-warning transition-colors"
+          className="text-sm border border-line px-3 py-1.5 hover:border-solar hover:text-solar transition-colors"
         >
           Entrar
         </Link>
@@ -15,13 +15,13 @@ export default function LandingPage() {
 
       <section className="flex-1 flex items-center px-6 py-20">
         <div className="max-w-3xl">
-          <p className="text-warning text-xs uppercase tracking-[0.3em] mb-6">
+          <p className="text-solar text-xs uppercase tracking-[0.3em] mb-6">
             Gestor financeiro autoritário
           </p>
-          <h1 className="text-5xl sm:text-7xl font-black tracking-tight leading-[0.95] mb-8">
-            Você não gere seu dinheiro.
+          <h1 className="font-display text-6xl sm:text-8xl leading-[0.9] mb-8 uppercase">
+            Você não gere<br />seu dinheiro.
             <br />
-            <span className="text-warning">Você presta contas a ele.</span>
+            <span className="text-solar">Você presta contas a ele.</span>
           </h1>
           <p className="text-dim text-lg leading-relaxed mb-10 max-w-2xl">
             O Sovina é a inteligência que decide o que você pode gastar — e o
@@ -32,13 +32,13 @@ export default function LandingPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/login"
-              className="bg-warning text-black px-6 py-3 font-bold tracking-tight hover:bg-warning/90 transition-colors"
+              className="bg-solar text-abismo px-6 py-3 font-bold tracking-tight hover:bg-solar/90 transition-colors"
             >
               Submeter-se ao julgamento →
             </Link>
             <a
               href="#como-funciona"
-              className="border border-line px-6 py-3 font-bold tracking-tight hover:border-warning hover:text-warning transition-colors"
+              className="border border-line px-6 py-3 font-bold tracking-tight hover:border-solar hover:text-solar transition-colors"
             >
               Ver como funciona
             </a>
