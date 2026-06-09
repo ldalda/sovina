@@ -2,8 +2,15 @@
 
 import { useState, useTransition } from "react";
 import { SaveIndicator, useSaveStatus } from "@/components/SaveStatus";
+import { Card as UICard, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { createCard, deleteCard, updateCard } from "./actions";
 import type { Card } from "./types";
+
+// esconde os spinners nativos dos inputs numéricos
+const numCls =
+  "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
 
 export function CardsManager({ initialCards }: { initialCards: Card[] }) {
   const [cards, setCards] = useState<Card[]>(initialCards);
@@ -37,10 +44,8 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
 
       <div className="flex flex-col gap-3">
         {cards.map((c) => (
-          <div
-            key={c.id}
-            className="group border border-line bg-concreto/20 p-5 relative"
-          >
+          <UICard key={c.id} className="group relative p-0">
+            <CardContent className="p-5">
             <button
               type="button"
               onClick={() => remove(c.id)}
@@ -74,7 +79,7 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
                 />
               </Field>
               <Field label="Limite (R$)">
-                <input
+                <Input
                   type="number"
                   min={0}
                   step="0.01"
@@ -88,11 +93,12 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
                     })
                   }
                   onBlur={() => save(c.id, { limit_amount: c.limit_amount })}
-                  className={inputCls}
+                  className={numCls}
                 />
               </Field>
             </div>
-          </div>
+            </CardContent>
+          </UICard>
         ))}
       </div>
 
@@ -102,19 +108,17 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
         </p>
       )}
 
-      <button
+      <Button
         type="button"
+        variant="link"
         onClick={add}
-        className="mt-4 text-sm text-solar hover:text-solar/80 transition-colors"
+        className="mt-4 h-auto p-0 text-solar hover:text-solar/80"
       >
         + Adicionar cartão
-      </button>
+      </Button>
     </div>
   );
 }
-
-const inputCls =
-  "w-full bg-abismo border border-line focus:border-solar outline-none px-3 py-2 text-fg placeholder:text-subtle [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none";
 
 function Field({
   label,
@@ -143,7 +147,7 @@ function DayInput({
   onCommit: () => void;
 }) {
   return (
-    <input
+    <Input
       type="number"
       min={1}
       max={31}
@@ -151,7 +155,7 @@ function DayInput({
       placeholder="—"
       onChange={(e) => onChange(e.target.value ? Number(e.target.value) : null)}
       onBlur={onCommit}
-      className={inputCls}
+      className={numCls}
     />
   );
 }

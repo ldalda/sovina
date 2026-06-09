@@ -4,6 +4,15 @@ import { useState, useTransition } from "react";
 import { formatBRL } from "@/lib/format";
 import type { PaymentCard } from "@/lib/finance/payment";
 import type { StatementLine } from "@/lib/ai/statement-parser";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   confirmImport,
   processStatement,
@@ -57,7 +66,8 @@ export function ImportFatura({ cards }: { cards: PaymentCard[] }) {
   }
 
   return (
-    <div className="border border-line bg-concreto/20 p-6 max-w-2xl">
+    <Card className="max-w-2xl">
+      <CardContent className="p-6">
       <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-1">
         Importar fatura (PDF)
       </p>
@@ -74,18 +84,19 @@ export function ImportFatura({ cards }: { cards: PaymentCard[] }) {
           }}
           className="flex flex-col gap-3"
         >
-          <select
-            name="cardId"
-            value={cardId}
-            onChange={(e) => setCardId(e.target.value)}
-            className="bg-abismo border border-line focus:border-solar outline-none px-3 py-2 text-fg text-sm"
-          >
-            {cards.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.nome || "Sem nome"}
-              </option>
-            ))}
-          </select>
+          <input type="hidden" name="cardId" value={cardId} />
+          <Select value={cardId} onValueChange={setCardId}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Escolha o cartão" />
+            </SelectTrigger>
+            <SelectContent>
+              {cards.map((c) => (
+                <SelectItem key={c.id} value={c.id}>
+                  {c.nome || "Sem nome"}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <input
             type="file"
             name="file"
@@ -93,13 +104,13 @@ export function ImportFatura({ cards }: { cards: PaymentCard[] }) {
             required
             className="text-sm text-dim file:mr-3 file:border file:border-line file:bg-abismo file:text-fg file:px-3 file:py-1.5 file:text-sm hover:file:border-solar"
           />
-          <button
+          <Button
             type="submit"
             disabled={pending}
-            className="bg-solar text-abismo py-2.5 font-bold tracking-tight hover:bg-solar/90 transition-colors disabled:opacity-50"
+            className="font-bold tracking-tight"
           >
             {pending ? "Lendo a fatura…" : "Analisar fatura"}
-          </button>
+          </Button>
         </form>
       )}
 
@@ -168,24 +179,26 @@ export function ImportFatura({ cards }: { cards: PaymentCard[] }) {
           )}
 
           <div className="flex gap-3">
-            <button
+            <Button
               type="button"
               onClick={confirmar}
               disabled={pending || checked.size === 0}
-              className="bg-solar text-abismo px-5 py-2 text-sm font-bold tracking-tight hover:bg-solar/90 transition-colors disabled:opacity-40"
+              className="font-bold tracking-tight"
             >
               {pending ? "Importando…" : `Importar ${checked.size} selecionado(s)`}
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
+              variant="ghost"
               onClick={() => setProposal(null)}
-              className="px-4 py-2 text-sm text-dim hover:text-fg transition-colors"
+              className="text-dim hover:text-fg"
             >
               Cancelar
-            </button>
+            </Button>
           </div>
         </div>
       )}
-    </div>
+      </CardContent>
+    </Card>
   );
 }
