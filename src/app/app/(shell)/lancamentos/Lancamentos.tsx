@@ -4,6 +4,9 @@ import { useMemo, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
 import { SelectMenu } from "@/components/SelectMenu";
 import { DateField } from "@/components/DateField";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { computeQuota, type QuotaResult, type SavingsMode } from "@/lib/finance/quota";
 import {
   decodePayment,
@@ -159,7 +162,8 @@ export function Lancamentos({
         {/* Coluna esquerda: resumo + registro */}
         <div>
           {/* Resumo do dia */}
-          <div className="border border-line bg-concreto/20 p-6 mb-6">
+          <Card className="mb-6">
+            <CardContent className="p-6">
             <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-2">
               Sobra hoje
             </p>
@@ -198,10 +202,12 @@ export function Lancamentos({
                 />
               </div>
             </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Registro rápido */}
-          <div className="border border-line bg-concreto/20 p-6">
+          <Card>
+            <CardContent className="p-6">
             <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-3">
               Registrar gasto
             </p>
@@ -220,12 +226,12 @@ export function Lancamentos({
               />
             </div>
 
-            <input
+            <Input
               value={descricao}
               placeholder="No quê? (ex: Outback)"
               onChange={(e) => setDescricao(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && register()}
-              className="w-full bg-abismo border border-line focus:border-solar outline-none px-3 py-2 text-fg placeholder:text-subtle mb-3"
+              className="mb-3"
             />
 
             <div className="mb-3">
@@ -285,14 +291,14 @@ export function Lancamentos({
               </div>
             )}
 
-            <button
+            <Button
               type="button"
               onClick={register}
               disabled={pending || valor <= 0}
-              className="w-full bg-solar text-abismo py-3 font-bold tracking-tight hover:bg-solar/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full font-bold tracking-tight"
             >
               {pending ? "Registrando…" : "Registrar gasto"}
-            </button>
+            </Button>
 
             {verdict && (
               <p
@@ -305,7 +311,8 @@ export function Lancamentos({
                 {verdict}
               </p>
             )}
-          </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Coluna direita: histórico do mês */}

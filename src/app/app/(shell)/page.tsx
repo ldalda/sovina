@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { computeQuota } from "@/lib/finance/quota";
 import { ensureFixedCostsMonth } from "@/lib/finance/competencia";
 import { formatBRL } from "@/lib/format";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const sumValor = (rows: { valor: number }[] | null) =>
@@ -97,49 +99,49 @@ export default async function Painel() {
 
       <div className="grid lg:grid-cols-[1fr_300px] gap-6 max-w-5xl">
         {/* Sobra de hoje */}
-        <section className="border border-line p-8 bg-concreto/20">
-          <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-3">
-            Sobra hoje
-          </p>
-          <p
-            className={`font-display text-7xl sm:text-8xl tracking-tight leading-none ${
-              over ? "text-furia" : "text-solar"
-            }`}
-          >
-            {formatBRL(q.leftTodayIdeal)}
-          </p>
-          <p className="text-dim text-sm mt-5">
-            Cota ideal: <span className="text-fg font-bold">{formatBRL(q.idealDaily)}</span>{" "}
-            · Teto: {formatBRL(q.maxDaily)} · Gasto hoje:{" "}
-            {formatBRL(q.spentToday)}
-          </p>
-
-          <div className="mt-8">
-            <div className="flex justify-between text-xs text-subtle uppercase tracking-[0.2em] mb-2">
-              <span>Saldo do mês</span>
-              <span>{formatBRL(q.monthBalance)}</span>
-            </div>
-            <div className="h-3 bg-abismo border border-line">
-              <div
-                className={hpLow ? "h-full bg-furia" : "h-full bg-solar"}
-                style={{ width: `${hpRatio}%` }}
-              />
-            </div>
-            <p className="text-subtle text-xs mt-2">
-              {q.daysRemaining} dias restantes neste mês.
+        <Card>
+          <CardContent className="p-8">
+            <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-3">
+              Sobra hoje
             </p>
-          </div>
+            <p
+              className={`font-display text-7xl sm:text-8xl tracking-tight leading-none ${
+                over ? "text-furia" : "text-solar"
+              }`}
+            >
+              {formatBRL(q.leftTodayIdeal)}
+            </p>
+            <p className="text-dim text-sm mt-5">
+              Cota ideal:{" "}
+              <span className="text-fg font-bold">{formatBRL(q.idealDaily)}</span>{" "}
+              · Teto: {formatBRL(q.maxDaily)} · Gasto hoje:{" "}
+              {formatBRL(q.spentToday)}
+            </p>
 
-          <Link
-            href="/app/lancamentos"
-            className="inline-block mt-8 bg-solar text-abismo px-5 py-2.5 text-sm font-bold tracking-tight hover:bg-solar/90 transition-colors"
-          >
-            Registrar gasto →
-          </Link>
-        </section>
+            <div className="mt-8">
+              <div className="flex justify-between text-xs text-subtle uppercase tracking-[0.2em] mb-2">
+                <span>Saldo do mês</span>
+                <span>{formatBRL(q.monthBalance)}</span>
+              </div>
+              <div className="h-3 bg-abismo border border-line">
+                <div
+                  className={hpLow ? "h-full bg-furia" : "h-full bg-solar"}
+                  style={{ width: `${hpRatio}%` }}
+                />
+              </div>
+              <p className="text-subtle text-xs mt-2">
+                {q.daysRemaining} dias restantes neste mês.
+              </p>
+            </div>
+
+            <Button asChild className="mt-8 font-bold tracking-tight">
+              <Link href="/app/lancamentos">Registrar gasto →</Link>
+            </Button>
+          </CardContent>
+        </Card>
 
         {/* Números frios */}
-        <aside className="flex flex-col gap-px bg-line border border-line">
+        <Card className="gap-px overflow-hidden bg-line py-0">
           <Stat label="Renda (recebíveis)" value={formatBRL(income)} />
           <Stat label="Custos fixos" value={formatBRL(fixedCosts)} />
           <Stat
@@ -154,7 +156,7 @@ export default async function Painel() {
               value={formatBRL(q.monthlyCommitments)}
             />
           )}
-        </aside>
+        </Card>
       </div>
     </main>
   );
