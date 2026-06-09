@@ -32,6 +32,7 @@ export default async function CartoesPage({
   const year = py;
   const month = (pm ?? 1) - 1; // 0-based
   const refFirst = new Date(year, month, 1);
+  const competencia = `${year}-${pad(month + 1)}-01`;
 
   // range amplo o bastante p/ qualquer ciclo que fecha no mês (mês ant. → fim do mês)
   const startDate = new Date(year, month - 1, 1);
@@ -56,7 +57,8 @@ export default async function CartoesPage({
       .from("fixed_costs")
       .select("card_id,label,categoria,valor")
       .eq("user_id", uid)
-      .not("card_id", "is", null),
+      .not("card_id", "is", null)
+      .eq("competencia", competencia),
   ]);
 
   const cards = (cardsRes.data ?? []) as unknown as Card[];

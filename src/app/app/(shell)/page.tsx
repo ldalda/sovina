@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { computeQuota } from "@/lib/finance/quota";
+import { ensureFixedCostsMonth } from "@/lib/finance/competencia";
 import { formatBRL } from "@/lib/format";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -22,13 +23,19 @@ export default async function Painel() {
   const monthEnd = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(lastDay)}`;
   const todayISO = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
+  await ensureFixedCostsMonth(supabase, uid, monthStart);
+
   const [incomesRes, costsRes, profileRes, txRes] = await Promise.all([
     supabase
       .from("income_sources")
       .select("valor")
       .eq("user_id", uid)
       .eq("section", "receivable"),
-    supabase.from("fixed_costs").select("valor").eq("user_id", uid),
+    supabase
+      .from("fixed_costs")
+      .select("valor")
+      .eq("user_id", uid)
+      .eq("competencia", monthStart),
     supabase
       .from("profiles")
       .select("savings_mode,savings_amount,savings_percent")

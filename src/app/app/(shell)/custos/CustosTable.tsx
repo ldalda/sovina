@@ -42,11 +42,13 @@ const ACTIONS_W = 44;
 const WIDTHS_KEY = "sovina:custos:widths";
 
 export function CustosTable({
+  competencia,
   initialRows,
   initialColumns,
   initialCategories,
   cards,
 }: {
+  competencia: string;
   initialRows: FixedCostRow[];
   initialColumns: CustomColumn[];
   initialCategories: string[];
@@ -119,7 +121,7 @@ export function CustosTable({
 
   function addRow() {
     startTransition(async () => {
-      const row = await createCost();
+      const row = await createCost(competencia);
       setRows((rs) => [...rs, row]);
     });
   }
@@ -148,19 +150,7 @@ export function CustosTable({
   }
 
   return (
-    <main className="flex-1 px-8 py-10 overflow-auto">
-      <p className="text-solar text-xs uppercase tracking-[0.3em] mb-2">
-        Custos Fixos
-      </p>
-      <h1 className="font-display text-3xl uppercase mb-1">
-        Obrigações inegociáveis
-      </h1>
-      <p className="text-dim text-sm mb-8">
-        Edite direto na célula — eu salvo sozinho.{" "}
-        <span className="text-subtle">Categoria</span> e{" "}
-        <span className="text-subtle">Valor</span> alimentam a sua cota.
-      </p>
-
+    <div>
       <div className="flex justify-end mb-2">
         <SaveIndicator status={status} />
       </div>
@@ -401,7 +391,7 @@ export function CustosTable({
       >
         + Adicionar custo
       </button>
-    </main>
+    </div>
   );
 }
 

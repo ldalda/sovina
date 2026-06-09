@@ -84,6 +84,7 @@ export type Database = {
           due_date: string | null;
           payment_method: string;
           card_id: string | null;
+          competencia: string;
           custom: Json;
           position: number;
           created_at: string;
@@ -99,6 +100,7 @@ export type Database = {
           due_date?: string | null;
           payment_method?: string;
           card_id?: string | null;
+          competencia?: string;
           custom?: Json;
           position?: number;
           created_at?: string;
@@ -114,6 +116,7 @@ export type Database = {
           due_date?: string | null;
           payment_method?: string;
           card_id?: string | null;
+          competencia?: string;
           custom?: Json;
           position?: number;
           created_at?: string;

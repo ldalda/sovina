@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { EXPENSE_CATEGORIES } from "@/lib/finance/categories";
+import { ensureFixedCostsMonth } from "@/lib/finance/competencia";
 import { Lancamentos } from "./Lancamentos";
 import type { Transaction } from "./types";
 
@@ -22,13 +23,19 @@ export default async function LancamentosPage() {
   const monthEnd = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(lastDay)}`;
   const todayISO = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
+  await ensureFixedCostsMonth(supabase, uid, monthStart);
+
   const [incomeRes, costsRes, profileRes, txRes, cardsRes] = await Promise.all([
     supabase
       .from("income_sources")
       .select("valor")
       .eq("user_id", uid)
       .eq("section", "receivable"),
-    supabase.from("fixed_costs").select("valor").eq("user_id", uid),
+    supabase
+      .from("fixed_costs")
+      .select("valor")
+      .eq("user_id", uid)
+      .eq("competencia", monthStart),
     supabase
       .from("profiles")
       .select("savings_mode,savings_amount,savings_percent")

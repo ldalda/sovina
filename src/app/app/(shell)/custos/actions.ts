@@ -30,12 +30,12 @@ async function nextPosition(
 }
 
 /* ── Linhas ─────────────────────────────────────────────────────────── */
-export async function createCost(): Promise<FixedCostRow> {
+export async function createCost(competencia: string): Promise<FixedCostRow> {
   const { supabase, uid } = await requireUid();
   const position = await nextPosition("fixed_costs", uid);
   const { data, error } = await supabase
     .from("fixed_costs")
-    .insert({ user_id: uid, categoria: "", tipo: "", valor: 0, position })
+    .insert({ user_id: uid, categoria: "", tipo: "", valor: 0, position, competencia })
     .select(
       "id,label,categoria,tipo,valor,due_date,payment_method,card_id,custom,position",
     )
