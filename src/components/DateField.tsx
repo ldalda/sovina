@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ptBR } from "react-day-picker/locale";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -116,6 +117,7 @@ export function DateField({
         <PopoverContent align="end" className="w-auto p-0">
           <Calendar
             mode="single"
+            locale={ptBR}
             selected={selected}
             onSelect={pick}
             defaultMonth={selected}

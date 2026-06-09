@@ -1,11 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export type SelectOption = { value: string; label: string };
 
-// Select com a mesma aparência do dropdown do TypeCombobox (lista escura,
-// posicionada em fixed pra escapar de overflow), mas só seleciona — sem criar.
+// Radix Select não aceita item com value "" — usamos um sentinela pro vazio.
+const NONE = "__none__";
+
+// Select de opções fixas, com a aparência do Sovina (trigger sem borda, pra
+// caber em célula de tabela; o form que precisar de borda envolve por fora).
 export function SelectMenu({
   value,
   options,
@@ -17,103 +26,28 @@ export function SelectMenu({
   options: SelectOption[];
   onChange: (v: string) => void;
   placeholder?: string;
-  /** mostra a opção vazia (placeholder) no topo */
   allowEmpty?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
-  const [rect, setRect] = useState<{
-    top: number;
-    left: number;
-    width: number;
-  } | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  const place = () => {
-    const el = btnRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    setRect({ top: r.bottom, left: r.left, width: r.width });
-  };
-
-  useEffect(() => {
-    if (!open) return;
-    place();
-    const onMove = () => place();
-    const onDoc = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    window.addEventListener("scroll", onMove, true);
-    window.addEventListener("resize", onMove);
-    document.addEventListener("mousedown", onDoc);
-    return () => {
-      window.removeEventListener("scroll", onMove, true);
-      window.removeEventListener("resize", onMove);
-      document.removeEventListener("mousedown", onDoc);
-    };
-  }, [open]);
-
-  function pick(v: string) {
-    onChange(v);
-    setOpen(false);
-  }
-
-  const current = options.find((o) => o.value === value);
-
   return (
-    <div ref={ref} className="relative">
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className={`w-full flex items-center justify-between gap-2 px-3 py-3 text-left outline-none hover:bg-solar/5 transition-colors ${
-          current ? "text-fg" : "text-subtle"
-        }`}
-      >
-        <span className="truncate">{current?.label ?? placeholder}</span>
-        <span className="text-subtle text-xs shrink-0">▾</span>
-      </button>
-
-      {open && rect && (
-        <ul
-          style={{
-            position: "fixed",
-            top: rect.top,
-            left: rect.left,
-            width: rect.width,
-          }}
-          className="z-50 max-h-56 overflow-auto bg-concreto border border-line shadow-xl"
-        >
-          {allowEmpty && (
-            <li>
-              <button
-                type="button"
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => pick("")}
-                className={`w-full text-left px-3 py-2 text-sm hover:bg-solar/10 transition-colors ${
-                  value === "" ? "text-solar" : "text-subtle"
-                }`}
-              >
-                {placeholder}
-              </button>
-            </li>
-          )}
-          {options.map((opt) => (
-            <li key={opt.value}>
-              <button
-                type="button"
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => pick(opt.value)}
-                className={`w-full text-left px-3 py-2 text-sm hover:bg-solar/10 transition-colors ${
-                  opt.value === value ? "text-solar" : "text-fg"
-                }`}
-              >
-                {opt.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Select
+      value={value || undefined}
+      onValueChange={(v) => onChange(v === NONE ? "" : v)}
+    >
+      <SelectTrigger className="w-full h-auto rounded-none border-0 bg-transparent px-3 py-3 text-sm shadow-none hover:bg-solar/5 focus-visible:ring-0 data-[placeholder]:text-subtle">
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        {allowEmpty && (
+          <SelectItem value={NONE} className="text-subtle">
+            {placeholder}
+          </SelectItem>
+        )}
+        {options.map((o) => (
+          <SelectItem key={o.value} value={o.value}>
+            {o.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
