@@ -8,6 +8,7 @@ import {
 } from "@/lib/finance/statement";
 import { CardsManager } from "./CardsManager";
 import { StatementCard } from "./StatementCard";
+import { ImportFatura } from "./ImportFatura";
 import type { Card } from "./types";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -123,6 +124,15 @@ export default async function CartoesPage({
               <StatementCard key={s.cardId} s={s} />
             ))}
           </div>
+        </section>
+      )}
+
+      {cards.length > 0 && (
+        <section className="mb-12">
+          <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-4">
+            Importar fatura
+          </p>
+          <ImportFatura cards={cards} />
         </section>
       )}
 
