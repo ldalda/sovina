@@ -1,13 +1,23 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { computeStatement, type StatementCardInput } from "@/lib/finance/statement";
+import {
+  computeStatement,
+  cycleForMonth,
+  type StatementCardInput,
+} from "@/lib/finance/statement";
 import { CardsManager } from "./CardsManager";
 import { StatementCard } from "./StatementCard";
 import type { Card } from "./types";
 
 const pad = (n: number) => String(n).padStart(2, "0");
+const ym = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
 
-export default async function CartoesPage() {
+export default async function CartoesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mes?: string }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -15,11 +25,19 @@ export default async function CartoesPage() {
   if (!user) redirect("/login");
   const uid = user.id;
 
-  // janela ampla o bastante pra cobrir qualquer ciclo aberto (~45 dias)
+  // mês de referência (mês em que a fatura fecha) — default: corrente
   const now = new Date();
-  const since = new Date(now);
-  since.setDate(since.getDate() - 45);
-  const sinceISO = `${since.getFullYear()}-${pad(since.getMonth() + 1)}-${pad(since.getDate())}`;
+  const { mes } = await searchParams;
+  const [py, pm] = (mes ?? ym(now)).split("-").map(Number);
+  const year = py;
+  const month = (pm ?? 1) - 1; // 0-based
+  const refFirst = new Date(year, month, 1);
+
+  // range amplo o bastante p/ qualquer ciclo que fecha no mês (mês ant. → fim do mês)
+  const startDate = new Date(year, month - 1, 1);
+  const endDate = new Date(year, month + 1, 0);
+  const rangeStart = `${startDate.getFullYear()}-${pad(startDate.getMonth() + 1)}-01`;
+  const rangeEnd = `${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}`;
 
   const [cardsRes, txRes, fixedRes] = await Promise.all([
     supabase
@@ -32,7 +50,8 @@ export default async function CartoesPage() {
       .select("card_id,descricao,categoria,valor,occurred_at")
       .eq("user_id", uid)
       .not("card_id", "is", null)
-      .gte("occurred_at", sinceISO),
+      .gte("occurred_at", rangeStart)
+      .lte("occurred_at", rangeEnd),
     supabase
       .from("fixed_costs")
       .select("card_id,label,categoria,valor")
@@ -45,8 +64,20 @@ export default async function CartoesPage() {
   const fixed = fixedRes.data ?? [];
 
   const statements = cards.map((c) =>
-    computeStatement(c as StatementCardInput, txs, fixed, now),
+    computeStatement(
+      c as StatementCardInput,
+      txs,
+      fixed,
+      cycleForMonth(c.closing_day, year, month),
+    ),
   );
+
+  const label = refFirst.toLocaleDateString("pt-BR", {
+    month: "long",
+    year: "numeric",
+  });
+  const prevMes = ym(new Date(year, month - 1, 1));
+  const nextMes = ym(new Date(year, month + 1, 1));
 
   return (
     <main className="flex-1 px-8 py-10 overflow-auto">
@@ -61,9 +92,30 @@ export default async function CartoesPage() {
 
       {statements.length > 0 && (
         <section className="mb-12">
-          <p className="text-subtle text-xs uppercase tracking-[0.25em] mb-4">
-            Faturas em aberto
-          </p>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-subtle text-xs uppercase tracking-[0.25em]">
+              Faturas que fecham em
+            </p>
+            <div className="flex items-center gap-1">
+              <Link
+                href={`/app/cartoes?mes=${prevMes}`}
+                className="px-2 py-1 text-dim hover:text-solar transition-colors"
+                aria-label="Mês anterior"
+              >
+                ◀
+              </Link>
+              <span className="text-fg text-sm font-bold capitalize w-36 text-center">
+                {label}
+              </span>
+              <Link
+                href={`/app/cartoes?mes=${nextMes}`}
+                className="px-2 py-1 text-dim hover:text-solar transition-colors"
+                aria-label="Próximo mês"
+              >
+                ▶
+              </Link>
+            </div>
+          </div>
           <div className="grid lg:grid-cols-2 gap-4 max-w-4xl">
             {statements.map((s) => (
               <StatementCard key={s.cardId} s={s} />

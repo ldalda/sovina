@@ -51,6 +51,29 @@ export function currentCycle(closingDay: number | null, today: Date): Cycle {
   return { start: iso(start), end: iso(end) };
 }
 
+/** Ciclo cuja fatura FECHA no mês (year, month — month 0-based). */
+export function cycleForMonth(
+  closingDay: number | null,
+  year: number,
+  month: number,
+): Cycle {
+  if (!closingDay) {
+    return {
+      start: iso(new Date(year, month, 1)),
+      end: iso(new Date(year, month + 1, 0)),
+    };
+  }
+  const end = new Date(year, month, clampDay(year, month, closingDay));
+  let pM = month - 1;
+  let pY = year;
+  if (pM < 0) {
+    pM = 11;
+    pY -= 1;
+  }
+  const start = new Date(pY, pM, clampDay(pY, pM, closingDay) + 1);
+  return { start: iso(start), end: iso(end) };
+}
+
 /** Vencimento da fatura que fecha em `cycleEnd`. */
 export function dueDateFor(
   closingDay: number | null,
@@ -112,10 +135,8 @@ export function computeStatement(
     categoria: string;
     valor: number;
   }[],
-  today: Date,
+  cycle: Cycle,
 ): Statement {
-  const cycle = currentCycle(card.closing_day, today);
-
   const fixedItems: StatementItem[] = fixed
     .filter((f) => f.card_id === card.id)
     .map((f) => ({
