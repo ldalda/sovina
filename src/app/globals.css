@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 /* SOVINA — Brutalismo Solar.
    Amarelo como feixe de luz cortante em ambiente sombrio. Vermelho só pra
@@ -22,6 +25,56 @@
      Sans  = Inter (corpo de texto, UI). */
   --font-display: var(--font-anton);
   --font-sans:    var(--font-inter);
+}
+
+/* Ponte pro shadcn/ui: tokens semânticos mapeados pra paleta brutalista.
+   Cantos retos (--radius: 0), solar como primary. Convive com o @theme acima
+   — os componentes shadcn ganham a cara do Sovina, com o motor do Radix. */
+:root {
+  --radius: 0rem;
+  --background: #0d0d0d; /* abismo */
+  --foreground: #f5f5f5; /* fg */
+  --card: #2a2a2a; /* concreto */
+  --card-foreground: #f5f5f5;
+  --popover: #161616;
+  --popover-foreground: #f5f5f5;
+  --primary: #ffb300; /* solar */
+  --primary-foreground: #0d0d0d;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #f5f5f5;
+  --muted: #2a2a2a;
+  --muted-foreground: #8c8c8c; /* dim */
+  --accent: #2a2a2a;
+  --accent-foreground: #ffb300;
+  --destructive: #e53935; /* furia */
+  --border: #1f1f1f; /* line */
+  --input: #1f1f1f;
+  --ring: #ffb300; /* solar */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: 0rem;
+  --radius-md: 0rem;
+  --radius-lg: 0rem;
+  --radius-xl: 0rem;
 }
 
 body {
