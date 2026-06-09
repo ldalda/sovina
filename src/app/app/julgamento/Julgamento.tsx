@@ -7,6 +7,8 @@ import { computeQuota, type SavingsMode } from "@/lib/finance/quota";
 import { formatBRL } from "@/lib/format";
 import { FIXED_COST_TYPES } from "@/lib/finance/categories";
 import { TypeCombobox } from "@/components/TypeCombobox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { submitJulgamento } from "./actions";
 
 type Receivable = { label: string; valor: number };
@@ -149,32 +151,33 @@ export function Julgamento() {
 
         {/* Navegação */}
         <div className="flex justify-between mt-10">
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={() => setStep((s) => Math.max(0, s - 1))}
             disabled={step === 0 || pending}
-            className="px-5 py-3 text-sm border border-line text-dim hover:text-fg hover:border-fg/40 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+            className="text-dim"
           >
             Voltar
-          </button>
+          </Button>
 
           {step < STEPS.length - 1 ? (
-            <button
+            <Button
               type="button"
               onClick={() => setStep((s) => s + 1)}
-              className="px-6 py-3 text-sm font-bold tracking-tight bg-solar text-abismo hover:bg-solar/90 transition-colors"
+              className="font-bold tracking-tight"
             >
               Próximo →
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               type="button"
               onClick={submit}
               disabled={pending}
-              className="px-6 py-3 text-sm font-bold tracking-tight bg-solar text-abismo hover:bg-solar/90 transition-colors disabled:opacity-50"
+              className="font-bold tracking-tight"
             >
               {pending ? "Decretando..." : "Submeter-se ao julgamento"}
-            </button>
+            </Button>
           )}
         </div>
       </div>
@@ -205,7 +208,7 @@ function StepReceivables({
       <div className="flex flex-col gap-3">
         {receivables.map((r, i) => (
           <div key={i} className="flex gap-2">
-            <input
+            <Input
               value={r.label}
               onChange={(e) =>
                 setReceivables((rows) =>
@@ -215,7 +218,7 @@ function StepReceivables({
                 )
               }
               placeholder="Fonte (ex: Salário)"
-              className="flex-1 bg-abismo border border-line focus:border-solar outline-none px-3 py-2 text-fg placeholder:text-subtle"
+              className="flex-1"
             />
             <MoneyInput
               value={r.valor}
@@ -278,7 +281,7 @@ function StepFixedCosts({
       <div className="flex flex-col gap-3">
         {fixedCosts.map((c, i) => (
           <div key={i} className="flex gap-2">
-            <input
+            <Input
               value={c.label}
               onChange={(e) =>
                 setFixedCosts((rows) =>
@@ -288,7 +291,7 @@ function StepFixedCosts({
                 )
               }
               placeholder="Despesa"
-              className="flex-1 min-w-0 bg-abismo border border-line focus:border-solar outline-none px-3 py-2 text-fg placeholder:text-subtle"
+              className="flex-1 min-w-0"
             />
             <div className="w-44 shrink-0">
               <TypeCombobox
@@ -488,15 +491,17 @@ function RemoveButton({
   disabled?: boolean;
 }) {
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
+      size="icon"
       onClick={onClick}
       disabled={disabled}
       aria-label="Remover"
-      className="px-3 border border-line text-subtle hover:text-furia hover:border-furia/40 transition-colors disabled:opacity-20 disabled:pointer-events-none"
+      className="text-subtle hover:border-furia/40 hover:text-furia"
     >
       ×
-    </button>
+    </Button>
   );
 }
 
@@ -508,13 +513,14 @@ function AddButton({
   onClick: () => void;
 }) {
   return (
-    <button
+    <Button
       type="button"
+      variant="link"
       onClick={onClick}
-      className="mt-3 text-sm text-solar hover:text-solar/80 transition-colors"
+      className="mt-3 h-auto p-0 text-solar hover:text-solar/80"
     >
       {label}
-    </button>
+    </Button>
   );
 }
 

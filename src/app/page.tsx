@@ -1,18 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import sovinaAvatar from "@/assets/sovina-avatar.png";
+import { Button } from "@/components/ui/button";
 
 export default function LandingPage() {
   return (
     <main className="flex-1 flex flex-col">
       <header className="border-b border-line px-6 py-4 flex items-center justify-between">
         <span className="font-display text-2xl tracking-tight">SOVINA</span>
-        <Link
-          href="/login"
-          className="text-sm border border-line px-3 py-1.5 hover:border-solar hover:text-solar transition-colors"
-        >
-          Entrar
-        </Link>
+        <Button asChild variant="outline" size="sm">
+          <Link href="/login">Entrar</Link>
+        </Button>
       </header>
 
       <section className="flex-1 grid lg:grid-cols-2 items-center gap-12 px-6 py-16 max-w-6xl mx-auto w-full">
@@ -32,18 +30,17 @@ export default function LandingPage() {
             não sangrar amanhã.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link
-              href="/login"
-              className="bg-solar text-abismo px-6 py-3 font-bold tracking-tight hover:bg-solar/90 transition-colors"
+            <Button asChild size="lg" className="font-bold tracking-tight">
+              <Link href="/login">Submeter-se ao julgamento →</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="font-bold tracking-tight"
             >
-              Submeter-se ao julgamento →
-            </Link>
-            <a
-              href="#como-funciona"
-              className="border border-line px-6 py-3 font-bold tracking-tight hover:border-solar hover:text-solar transition-colors"
-            >
-              Ver como funciona
-            </a>
+              <a href="#como-funciona">Ver como funciona</a>
+            </Button>
           </div>
         </div>
 

@@ -2,6 +2,9 @@
 
 import { useActionState } from "react";
 import { sendMagicLink, type LoginState } from "./actions";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 const initial: LoginState = { status: "idle" };
 
@@ -28,20 +31,19 @@ export function LoginForm() {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <label
+        <Label
           htmlFor="email"
           className="text-xs uppercase tracking-[0.2em] text-dim"
         >
           Email
-        </label>
-        <input
+        </Label>
+        <Input
           id="email"
           name="email"
           type="email"
           autoComplete="email"
           required
           placeholder="seu@email.com"
-          className="bg-concreto/30 border border-line px-3 py-2.5 text-fg placeholder:text-subtle focus:border-solar focus:outline-none transition-colors"
         />
       </div>
 
@@ -49,13 +51,13 @@ export function LoginForm() {
         <p className="text-furia text-sm">{state.message}</p>
       )}
 
-      <button
+      <Button
         type="submit"
         disabled={pending}
-        className="bg-solar text-abismo px-4 py-3 font-bold tracking-tight hover:bg-solar/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="py-3 font-bold tracking-tight"
       >
         {pending ? "Enviando…" : "Mandar link de acesso"}
-      </button>
+      </Button>
 
       <p className="text-subtle text-xs leading-relaxed">
         Sem senha. Sem cadastro. Só email. O Sovina não tem tempo pra
