@@ -20,6 +20,8 @@ import {
   deletePurchase,
   deleteTransaction,
 } from "./actions";
+import { getVerdict } from "./verdict-action";
+import { localInstallmentVerdict, localVerdict } from "@/lib/finance/verdict";
 import type { Transaction } from "./types";
 
 function isoToBR(iso: string): string {
@@ -59,6 +61,7 @@ export function Lancamentos({
   const [data, setData] = useState(todayISO);
   const [installments, setInstallments] = useState(1);
   const [verdict, setVerdict] = useState<string | null>(null);
+  const [verdictLoading, setVerdictLoading] = useState(false);
   const [pending, startTransition] = useTransition();
 
   const today = useMemo(() => new Date(todayISO + "T00:00:00"), [todayISO]);
@@ -94,6 +97,8 @@ export function Lancamentos({
   function register() {
     if (valor <= 0) return;
     const n = isCard ? Math.max(1, installments) : 1;
+    // captura os valores antes de limpar o formulário
+    const snapshot = { valor, descricao, categoria, pagamento, n };
     startTransition(async () => {
       try {
         const pay = decodePayment(pagamento);
@@ -112,16 +117,59 @@ export function Lancamentos({
         );
         const next = [...thisMonth, ...txs];
         setTxs(next);
-        setVerdict(
-          n > 1 ? installmentVerdict(n, round2(valor / n)) : sovinaVerdict(quotaFrom(next)),
-        );
         setValor(0);
         setDescricao("");
         setInstallments(1);
+        // o veredito (IA) vem depois, com seu próprio loading — não trava o form
+        void emitVerdict(next, snapshot);
       } catch {
         setVerdict("Não consegui registrar. Tente de novo.");
       }
     });
+  }
+
+  // Modo Roast: pede o veredito à persona (IA) sobre o gasto recém-lançado.
+  // A server action já cai no fallback determinístico se a IA falhar.
+  async function emitVerdict(
+    list: Transaction[],
+    s: {
+      valor: number;
+      descricao: string;
+      categoria: string;
+      pagamento: string;
+      n: number;
+    },
+  ) {
+    const q = quotaFrom(list);
+    const per = round2(s.valor / s.n);
+    const fallback =
+      s.n > 1 ? localInstallmentVerdict(s.n, per) : localVerdict(q);
+    const pay = decodePayment(s.pagamento);
+    setVerdict(null);
+    setVerdictLoading(true);
+    try {
+      const text = await getVerdict(
+        {
+          valor: s.valor,
+          descricao: s.descricao,
+          categoria: s.categoria,
+          pagamento: paymentLabel(pay.payment_method, pay.card_id, cards),
+          installments: s.n,
+          perInstallment: per,
+          idealDaily: q.idealDaily,
+          maxDaily: q.maxDaily,
+          leftTodayIdeal: q.leftTodayIdeal,
+          leftTodayMax: q.leftTodayMax,
+          spentToday: q.spentToday,
+          monthBalance: q.monthBalance,
+          monthlyCommitments: q.monthlyCommitments,
+        },
+        fallback,
+      );
+      setVerdict(text);
+    } finally {
+      setVerdictLoading(false);
+    }
   }
 
   function remove(t: Transaction) {
@@ -300,7 +348,12 @@ export function Lancamentos({
               {pending ? "Registrando…" : "Registrar gasto"}
             </Button>
 
-            {verdict && (
+            {verdictLoading && (
+              <p className="mt-4 text-sm leading-relaxed border-l-2 border-solar pl-3 text-dim animate-pulse">
+                O Sovina avalia…
+              </p>
+            )}
+            {!verdictLoading && verdict && (
               <p
                 className={`mt-4 text-sm leading-relaxed border-l-2 pl-3 ${
                   quota.leftTodayMax < 0
@@ -388,20 +441,3 @@ export function Lancamentos({
   );
 }
 
-function sovinaVerdict(q: QuotaResult): string {
-  if (q.leftTodayMax < 0) {
-    return `Furou o teto do dia em ${formatBRL(-q.leftTodayMax)}. Amanhã sua cota encolhe. Eu avisei.`;
-  }
-  if (q.leftTodayIdeal < 0) {
-    return `Passou da cota ideal. Restam ${formatBRL(
-      q.leftTodayMax,
-    )} até o teto — e isso é dívida com o seu futuro.`;
-  }
-  return `Registrado. Sobram ${formatBRL(q.leftTodayIdeal)} da sua cota hoje.`;
-}
-
-function installmentVerdict(n: number, per: number): string {
-  return `Parcelado em ${n}x de ${formatBRL(
-    per,
-  )}. Eu não esqueço — cada mês vai cobrar a sua parte. A do mês já saiu da sua cota.`;
-}
