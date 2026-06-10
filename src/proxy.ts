@@ -5,6 +5,21 @@ import { createServerClient } from "@supabase/ssr";
 // veem sessão expirada e fazem auth.getUser() retornar null mesmo com o
 // cookie ainda válido no client.
 export async function proxy(request: NextRequest) {
+  // Modo waitlist (pré-lançamento): só a landing pública fica acessível.
+  // Bloqueia o app, o login e o callback de auth até o lançamento.
+  if (process.env.LAUNCH_MODE === "waitlist") {
+    const { pathname } = request.nextUrl;
+    if (
+      pathname.startsWith("/app") ||
+      pathname.startsWith("/login") ||
+      pathname.startsWith("/auth")
+    ) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
+  }
+
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(

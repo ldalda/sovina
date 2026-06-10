@@ -2,15 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import sovinaAvatar from "@/assets/sovina-avatar.png";
 import { Button } from "@/components/ui/button";
+import { WaitlistForm } from "./WaitlistForm";
+
+const waitlistMode = process.env.LAUNCH_MODE === "waitlist";
 
 export default function LandingPage() {
   return (
     <main className="flex-1 flex flex-col">
       <header className="border-b border-line px-6 py-4 flex items-center justify-between">
         <span className="font-display text-2xl tracking-tight">SOVINA</span>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/login">Entrar</Link>
-        </Button>
+        {!waitlistMode && (
+          <Button asChild variant="outline" size="sm">
+            <Link href="/login">Entrar</Link>
+          </Button>
+        )}
       </header>
 
       <section className="flex-1 grid lg:grid-cols-2 items-center gap-12 px-6 py-16 max-w-6xl mx-auto w-full">
@@ -29,19 +34,23 @@ export default function LandingPage() {
             aplicativo que dói na sua consciência hoje pra o limite do cartão
             não sangrar amanhã.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg" className="font-bold tracking-tight">
-              <Link href="/login">Submeter-se ao julgamento →</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="font-bold tracking-tight"
-            >
-              <a href="#como-funciona">Ver como funciona</a>
-            </Button>
-          </div>
+          {waitlistMode ? (
+            <WaitlistForm />
+          ) : (
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg" className="font-bold tracking-tight">
+                <Link href="/login">Submeter-se ao julgamento →</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="font-bold tracking-tight"
+              >
+                <a href="#como-funciona">Ver como funciona</a>
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
