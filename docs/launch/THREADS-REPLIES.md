@@ -18,7 +18,7 @@
 
 ## FASE B — WhatsApp Cloud API (~30 min)
 
-- [ ] `[VOCÊ]` No MESMO app Meta → **Add Product** → **WhatsApp** → Set up.
+- [ ] `[VOCÊ]` Tentar no MESMO app: **Add Product** → **WhatsApp** → Set up. ⚠️ Apps do tipo "Threads use case" muitas vezes NÃO permitem outros produtos — se o WhatsApp não aparecer, criar um **segundo app** (Create App → tipo **Business** → nome `Sovina WhatsApp`) e adicionar o produto lá. Pro código é indiferente (envs separadas). Se pedir *business portfolio*, criar.
 - [ ] `[VOCÊ]` Na tela **API Setup / Getting Started**, anotar:
   - o **número de teste** (test number) e o **Phone number ID**;
   - o **token temporário** (24h — serve pro teste; o permanente vem depois).

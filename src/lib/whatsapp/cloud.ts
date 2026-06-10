@@ -6,7 +6,7 @@ import "server-only";
 //
 // Env: WHATSAPP_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_ADMIN_PHONE.
 
-const GRAPH = "https://graph.facebook.com/v23.0";
+const GRAPH = "https://graph.facebook.com/v25.0";
 
 export function whatsappConfigured(): boolean {
   return Boolean(
