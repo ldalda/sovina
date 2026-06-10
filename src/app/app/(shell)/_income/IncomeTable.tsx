@@ -3,6 +3,16 @@
 import { useEffect, useState, useTransition } from "react";
 import { TypeCombobox } from "@/components/TypeCombobox";
 import { SaveIndicator, useSaveStatus } from "@/components/SaveStatus";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { formatBRL } from "@/lib/format";
 import {
   addColumn,
@@ -74,8 +84,12 @@ export function IncomeTable({
   });
 
   useEffect(() => {
+    // Hidratação client-only: localStorage não existe no SSR, então as larguras
+    // salvas só podem ser aplicadas após o mount. setState aqui é intencional e
+    // evita hydration mismatch (server renderiza com os defaults).
     try {
       const raw = localStorage.getItem(widthsKey);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (raw) setWidths((prev) => ({ ...prev, ...JSON.parse(raw) }));
     } catch {
       /* sem persistência */
@@ -158,7 +172,7 @@ export function IncomeTable({
         <SaveIndicator status={status} />
       </div>
 
-      <div className="border border-line overflow-x-auto">
+      <Card className="overflow-x-auto py-0 gap-0 rounded-none">
         <table
           style={{ width: tableWidth }}
           className="table-fixed border-collapse text-sm"
@@ -210,14 +224,16 @@ export function IncomeTable({
                     onCancel={() => setAdding(false)}
                   />
                 ) : (
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon-xs"
                     onClick={() => setAdding(true)}
                     aria-label="Adicionar coluna"
-                    className="text-solar hover:text-solar/80 transition-colors text-base"
+                    className="text-solar hover:text-solar/80 text-base"
                   >
                     +
-                  </button>
+                  </Button>
                 )}
               </th>
             </tr>
@@ -347,15 +363,17 @@ export function IncomeTable({
             </tr>
           </tfoot>
         </table>
-      </div>
+      </Card>
 
-      <button
+      <Button
         type="button"
+        variant="link"
+        size="sm"
         onClick={addRow}
-        className="mt-3 text-sm text-solar hover:text-solar/80 transition-colors"
+        className="mt-3 h-auto px-0 text-solar"
       >
         + Adicionar {showTipo ? "investimento" : "fonte"}
-      </button>
+      </Button>
     </section>
   );
 }
@@ -419,7 +437,7 @@ function AddColumnForm({
 
   return (
     <div className="absolute right-0 top-full z-30 mt-1 w-56 bg-concreto border border-line p-3 flex flex-col gap-2 normal-case tracking-normal text-left">
-      <input
+      <Input
         autoFocus
         value={label}
         placeholder="Nome da coluna"
@@ -428,32 +446,39 @@ function AddColumnForm({
           if (e.key === "Enter" && label.trim()) onConfirm(label.trim(), type);
           if (e.key === "Escape") onCancel();
         }}
-        className="bg-abismo border border-line focus:border-solar outline-none px-2 py-1.5 text-fg text-sm"
+        className="h-8 text-sm"
       />
-      <select
+      <Select
         value={type}
-        onChange={(e) => setType(e.target.value as CustomColumnType)}
-        className="bg-abismo border border-line focus:border-solar outline-none px-2 py-1.5 text-fg text-sm"
+        onValueChange={(v) => setType(v as CustomColumnType)}
       >
-        <option value="text">Texto</option>
-        <option value="number">Número</option>
-        <option value="date">Data</option>
-      </select>
+        <SelectTrigger size="sm" className="w-full">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="text">Texto</SelectItem>
+          <SelectItem value="number">Número</SelectItem>
+          <SelectItem value="date">Data</SelectItem>
+        </SelectContent>
+      </Select>
       <div className="flex gap-2">
-        <button
+        <Button
           type="button"
+          size="sm"
           onClick={() => label.trim() && onConfirm(label.trim(), type)}
-          className="flex-1 bg-solar text-abismo text-xs font-bold py-1.5 hover:bg-solar/90 transition-colors"
+          className="flex-1 text-xs font-bold"
         >
           Criar
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="ghost"
+          size="sm"
           onClick={onCancel}
-          className="px-3 text-xs text-dim hover:text-fg transition-colors"
+          className="text-xs text-dim hover:text-fg"
         >
           Cancelar
-        </button>
+        </Button>
       </div>
     </div>
   );

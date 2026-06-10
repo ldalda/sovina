@@ -5,6 +5,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import sovina from "@/assets/sovina-avatar.png";
 import { signOut } from "@/app/app/actions";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const NAV = [
   { href: "/app", label: "Painel" },
@@ -37,11 +39,14 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`px-3 py-2 text-sm tracking-tight border transition-colors ${
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "sm" }),
+                "justify-start border font-normal tracking-tight",
                 active
-                  ? "border-solar text-solar bg-solar/5"
-                  : "border-transparent text-dim hover:text-fg hover:border-line"
-              }`}
+                  ? "border-solar text-solar bg-solar/5 hover:bg-solar/5 hover:text-solar"
+                  : "border-transparent text-dim hover:bg-transparent hover:text-fg hover:border-line",
+              )}
             >
               {item.label}
             </Link>
@@ -50,12 +55,14 @@ export function Sidebar() {
       </nav>
 
       <form action={signOut} className="p-3 border-t border-line">
-        <button
+        <Button
           type="submit"
-          className="w-full text-left px-3 py-2 text-sm text-subtle hover:text-furia transition-colors"
+          variant="ghost"
+          size="sm"
+          className="w-full justify-start font-normal text-subtle hover:bg-transparent hover:text-furia"
         >
           Sair
-        </button>
+        </Button>
       </form>
     </aside>
   );
