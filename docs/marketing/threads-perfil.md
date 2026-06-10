@@ -12,15 +12,15 @@
 > Threads e Instagram podem ter usernames próprios (a Meta desacoplou isso).
 > Cada canal tem um papel diferente na estratégia:
 - **Threads:** `@osovinajulga` — canal de **aquecimento por voz**. Atitude + é o próprio formato do conteúdo (os vereditos). Brilha em rede de texto.
-- **Instagram:** `@osovina.app` — **endereço institucional**. Casa com o domínio osovina.com.br; base para os Reels no pós-lançamento.
+- **Instagram:** `@osovina.app` — **endereço institucional**. Casa 1:1 com o domínio osovina.app (handle = domínio); base para os Reels no pós-lançamento.
 
-**Regra de recall:** todo CTA aponta sempre para o domínio **osovina.com.br**, nunca para o @. O domínio é o ponto único de convergência entre os dois canais — por isso ter handles distintos não custa alcance.
+**Regra de recall:** todo CTA aponta sempre para o domínio **osovina.app**, nunca para o @. O domínio é o ponto único de convergência entre os dois canais — por isso ter handles distintos não custa alcance.
 
 ## Foto de perfil
 O avatar do leão de terno (`src/assets/sovina-avatar.png`), recortado no rosto/busto para legibilidade em círculo pequeno. Fundo abismo (#0D0D0D).
 
 ## Link da bio
-URL da waitlist: **https://osovina.com.br**. É o destino de todo CTA — sem o link no ar, o aquecimento não converte. (`sovino.com.br`, já registrado, redireciona 301 para cá.)
+URL da waitlist: **https://osovina.app** (comprado e gerenciado pela Vercel — DNS/SSL automáticos). É o destino de todo CTA — sem o link no ar, o aquecimento não converte.
 
 ---
 

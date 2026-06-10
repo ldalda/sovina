@@ -1,6 +1,6 @@
 # Deploy da Waitlist — Guia de Micropassos (10/06)
 
-> Objetivo: a landing `osovina.com.br` no ar, capturando e-mails, em **modo waitlist**
+> Objetivo: a landing `osovina.app` no ar, capturando e-mails, em **modo waitlist**
 > (com `/app` e `/login` bloqueados). Faça **uma caixa por vez, na ordem.**
 > Travou >5 min? Para e me chama (⚠️). Não force.
 
@@ -12,10 +12,10 @@
 > O Vercel só deploya o que está no GitHub. Hoje o repo é local e sem remote.
 > Push é tarefa do `[@devops]` — me chame que eu preparo.
 
-- [ ] `[CLAUDE/@dev]` Commitar as mudanças pendentes (waitlist + Modo Roast + docs). **Me peça "commita o que está pronto"** e eu faço o commit local.
-- [ ] `[VOCÊ]` Criar um repositório **privado** no GitHub chamado `sovina`. (5 min)
-- [ ] `[@devops]` `git remote add` + `git push -u origin main`. Eu aciono o @devops.
-- [ ] `[VOCÊ]` Confirmar no GitHub que os arquivos subiram. (2 min)
+- [x] `[CLAUDE/@dev]` ~~Commitar as mudanças pendentes.~~ ✅ **4 commits prontos na main (09/06).**
+- [x] `[VOCÊ]` ~~Criar repo `sovina`.~~ ✅ github.com/ldalda/sovina
+- [x] `[@devops]` ~~remote add + push.~~ ✅ **main → origin/main (commit 360db9f).**
+- [ ] `[VOCÊ]` (opcional) Abrir o repo no GitHub e ver os arquivos lá. (1 min)
 
 ---
 
@@ -57,14 +57,16 @@ create policy "anyone can join waitlist" on public.waitlist
 
 ---
 
-## FASE 3 — Domínio: apontar osovina.com.br
-- [ ] ⭐ `[VOCÊ]` No projeto Vercel → **Settings → Domains** → adicionar **`osovina.com.br`**. (2 min)
-- [ ] `[VOCÊ]` O Vercel mostra os **registros DNS** a configurar (geralmente um `A` para `76.76.21.21` no apex e um `CNAME` para `www`). **Copie os valores que o Vercel mostrar.** (2 min)
-- [ ] `[VOCÊ]` No **registro.br** → painel DNS do `osovina.com.br` → colar exatamente esses registros. (10 min)
-- [ ] `[VOCÊ]` Adicionar também **`sovino.com.br`** no Vercel e marcar **Redirect → osovina.com.br** (aproveita o domínio que você já tem). (5 min)
-- [ ] `[VOCÊ]` Esperar a propagação do DNS (pode levar de minutos a algumas horas). Enquanto isso, **a URL `.vercel.app` já funciona** para testar. (espera)
+## FASE 3 — Domínio: comprar osovina.app pela Vercel
+> Sem DNS manual: a Vercel registra, aponta e emite o SSL sozinha.
 
-> Dica anti-bloqueio: se o DNS demorar, **ponha a URL `.vercel.app` na bio** temporariamente e troque pelo domínio quando propagar. Não deixe o aquecimento parado esperando DNS.
+- [ ] ⭐ `[VOCÊ]` No projeto Vercel → **Settings → Domains** → digitar **`osovina.app`** → o Vercel mostra que está à venda → **Buy**. (5 min)
+- [ ] `[VOCÊ]` Confirmar a compra. DNS e HTTPS ficam automáticos — **nada a fazer no registro.br**. (3 min)
+- [ ] `[VOCÊ]` Atualizar a env var **`NEXT_PUBLIC_APP_URL`** para `https://osovina.app` (Settings → Environment Variables) e dar **Redeploy**. (3 min)
+- [ ] `[VOCÊ]` Esperar o domínio ficar **verde (✓)** no painel Domains (rápido quando comprado na própria Vercel). (espera curta)
+
+> O `sovino.com.br` que você já tem: deixa parado (o "sovino" é o typo errado, vale pouco). Sem ação necessária.
+> Anti-bloqueio: enquanto o domínio não fica verde, **use a `.vercel.app` na bio** e troque depois.
 
 ---
 
@@ -72,7 +74,7 @@ create policy "anyone can join waitlist" on public.waitlist
 - [ ] ⭐ `[VOCÊ]` Abrir o site (no `.vercel.app` ou no domínio) e **inserir um e-mail de teste**. (2 min)
 - [ ] `[VOCÊ]` Ver a mensagem do Sovina ("Seu nome está na lista"). (1 min)
 - [ ] `[VOCÊ]` No Supabase → Table Editor → `waitlist` → confirmar que o e-mail caiu lá. (2 min) — 🎉 **waitlist no ar.**
-- [ ] `[VOCÊ]` Pôr o link **https://osovina.com.br** na bio do Threads e do Instagram. (3 min)
+- [ ] `[VOCÊ]` Pôr o link **https://osovina.app** na bio do Threads e do Instagram. (3 min)
 
 ---
 
@@ -84,7 +86,7 @@ create policy "anyone can join waitlist" on public.waitlist
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://yczkwfpuqqwpvdmuptpx.supabase.co` | ✅ Sim |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | (Supabase → Settings → API → `anon public`) | ✅ Sim |
-| `NEXT_PUBLIC_APP_URL` | `https://osovina.com.br` | ✅ Sim |
+| `NEXT_PUBLIC_APP_URL` | `https://osovina.app` | ✅ Sim |
 | `LAUNCH_MODE` | `waitlist` | ✅ Sim |
 | `SUPABASE_SERVICE_ROLE_KEY` | (Supabase → API → `service_role`) | Opcional |
 | `ANTHROPIC_API_KEY` | (sua chave) | No lançamento (Modo Roast) |

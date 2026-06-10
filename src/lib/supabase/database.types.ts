@@ -16,6 +16,39 @@ export type CustomTableKey =
 export type Database = {
   public: {
     Tables: {
+      threads_queue: {
+        Row: {
+          id: string;
+          body: string;
+          scheduled_at: string;
+          status: string;
+          threads_post_id: string | null;
+          error: string | null;
+          posted_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          body: string;
+          scheduled_at: string;
+          status?: string;
+          threads_post_id?: string | null;
+          error?: string | null;
+          posted_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          body?: string;
+          scheduled_at?: string;
+          status?: string;
+          threads_post_id?: string | null;
+          error?: string | null;
+          posted_at?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       waitlist: {
         Row: {
           id: string;

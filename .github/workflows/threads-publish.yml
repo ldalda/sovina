@@ -1,0 +1,30 @@
+# Agendador da fila do Threads. O Vercel Cron do plano Hobby só roda 1x/dia,
+# então quem dispara os 4 horários é o GitHub Actions.
+#
+# Horários: 08h, 12h, 18h e 21h de Brasília (UTC-3) = 11, 15, 21 e 00 UTC.
+# O run de :23 é repique — se o de :03 atrasar (Actions atrasa em horário
+# cheio), ele pega. O endpoint é idempotente: post 'pending' só publica 1x.
+#
+# Secrets necessários (repo → Settings → Secrets and variables → Actions):
+#   APP_URL      ex: https://sovina.vercel.app (sem barra no fim)
+#   CRON_SECRET  o mesmo valor configurado no Vercel
+
+name: Threads publisher
+
+on:
+  schedule:
+    - cron: "3,23 11,15,21,0 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publica posts devidos
+        run: |
+          curl -sS --fail-with-body -X POST \
+            "$APP_URL/api/threads/publish" \
+            -H "Authorization: Bearer $CRON_SECRET"
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}

@@ -24,12 +24,19 @@ Feito para TDAH + AHSD. Regras de ouro:
 
 ---
 
+## 🔄 REVISÃO v2 (10/06) — o que mudou
+- **Threads:** 5 **Tribunais Abertos** (posts interativos às 21h, dias 5/8/11/15/18) + 2 enquetes (18h, dias 9/16). Replies são o que o algoritmo premia — e o Tribunal ensaia o comportamento do produto (confessar gasto = registrar gasto). Regra nova: **responder todo comentário na 1ª hora**, no personagem.
+- **Novas entregas [CLAUDE] na Semana 1 (conversão):** landing com seção "Como funciona" + social proof, OG image/metadata, Vercel Analytics com origem por canal (`?src=`), honeypot anti-spam.
+- **Novas na Semana 2 (confiança):** página /privacidade (LGPD) e e-mail do magic link no tom do Sovina.
+
+---
+
 ## MAPA DE HELICÓPTERO (as 4 trilhas)
 
 | Trilha | O que é | Quem puxa |
 |--------|---------|-----------|
 | **A. Infra** | Deploy da waitlist, domínio, produção | VOCÊ + @devops |
-| **B. Divulgação** | Threads no ar, 40 vereditos, e-mails | VOCÊ (conteúdo pronto) |
+| **B. Divulgação** | Threads no ar, 80 vereditos (4/dia), e-mails | VOCÊ (conteúdo pronto) |
 | **C. Produto** | Modo Roast por IA + polimento das telas | CLAUDE |
 | **D. Lançamento** | Abrir o app, e-mail à waitlist, post | VOCÊ + @devops |
 
@@ -46,7 +53,7 @@ Feito para TDAH + AHSD. Regras de ouro:
 ## 📅 TER 09/06 — HOJE
 > Meta do dia: a waitlist no caminho do ar + conta do Threads nascendo.
 
-- [x] ⭐ `[VOCÊ]` ~~Decidir o domínio.~~ **DEFINIDO: osovina.com.br** ✅ (sovino.com.br, já comprado, vira redirect 301)
+- [x] ⭐ `[VOCÊ]` ~~Decidir o domínio.~~ **DEFINIDO: osovina.app** ✅ (comprado pela Vercel — DNS/SSL automáticos; casa com @osovina.app)
 - [x] `[VOCÊ]` Criar conta no **Instagram + Threads**. ✅ (Threads: `@osovinajulga` · Instagram: `@osovina.app`)
 - [x] `[VOCÊ]` ~~Pôr a foto de perfil (avatar do leão, recortado no busto).~~ ✅ (nas duas contas)
 - [x] `[VOCÊ]` ~~Colar a bio opção A (sem link ainda).~~ ✅
@@ -56,30 +63,32 @@ Feito para TDAH + AHSD. Regras de ouro:
 > Meta: e-mail sendo capturado de verdade.
 > **Guia detalhado, passo a passo, pronto:** `docs/launch/DEPLOY-WAITLIST.md`
 
-- [ ] ⭐ `[CLAUDE/@devops]` Versionar o código (commit + repo GitHub + push). Me peça **"commita o que está pronto"**.
-- [ ] `[VOCÊ]` Fase 1 do guia: criar a tabela `waitlist` (SQL pronto pra colar no SQL Editor).
-- [ ] `[VOCÊ]` Fase 2: importar o repo no Vercel + setar as 4 env vars obrigatórias.
-- [ ] `[VOCÊ]` Fase 3: apontar `osovina.com.br` (e redirect do `sovino.com.br`).
-- [ ] `[VOCÊ]` Fase 4: inserir e-mail de teste e confirmar no Supabase. — **vitória: a máquina funciona.**
+- [x] `[CLAUDE/@devops]` ~~Commit + push.~~ ✅ github.com/ldalda/sovina (main)
+- [x] `[VOCÊ]` ~~Fase 1: tabela `waitlist`.~~ ✅
+- [x] `[VOCÊ]` ~~Fase 2: Vercel + env vars.~~ ✅ landing no ar em modo waitlist
+- [ ] `[VOCÊ]` Fase 3: comprar **`osovina.app`** pela Vercel (DNS/SSL automáticos), trocar `NEXT_PUBLIC_APP_URL` e o link das bios. **(único passo de infra pendente)**
+- [x] `[VOCÊ]` ~~Fase 4: e-mail de teste.~~ ✅ caiu no Supabase — **a máquina funciona.**
 
 ## 📅 QUI 11/06 — Threads começa
 > Meta: primeiro veredito público no ar.
 
-- [ ] ⭐ `[VOCÊ]` Pôr o **link da waitlist** na bio do Threads. (5 min)
-- [ ] `[VOCÊ]` Publicar e **fixar o post fixado** (`docs/marketing/threads-perfil.md`). (10 min)
-- [ ] `[VOCÊ]` Postar o **Dia 1 — Manhã** dos vereditos. (5 min)
-- [ ] `[VOCÊ]` Postar o **Dia 1 — Noite** (à noite, ~20h). (5 min)
+- [x] `[VOCÊ]` ~~Pôr o link da waitlist nas bios.~~ ✅ (Threads + Instagram, URL `.vercel.app` por enquanto)
+- [ ] ⭐ `[VOCÊ]` Publicar e **fixar o post fixado** (`docs/marketing/threads-perfil.md`). (10 min)
+- [x] `[CLAUDE]` ~~Construir a automação de posts.~~ ✅ fila + endpoint + GitHub Actions prontos (10/06); falta só o seu token da Meta.
+- [ ] ⭐ `[VOCÊ]` **Setup do app na Meta** (app + tester + token) — guia de micropassos: `docs/launch/THREADS-AUTOMACAO.md`. (45 min, rende 20 dias de posts automáticos)
+- [ ] `[VOCÊ]` Até a automação ficar verde: **postar manualmente os 4 slots do dia** (copiar do calendário). (15 min/dia)
+- [ ] `[VOCÊ]` Regra de ouro a partir de agora: **responder todo comentário na 1ª hora**, no personagem (Gemini/NotebookLM + revisão). (contínuo)
 - [ ] `[CLAUDE]` Pedir atualização do Modo Roast (o que já está pronto). (1 min seu)
 
 ## 📅 SEX 12/06
-- [ ] ⭐ `[VOCÊ]` Postar **Dia 2 — Manhã e Noite**. (10 min no total)
+- [ ] ⭐ `[VOCÊ]` Conferir se os 4 posts do **Dia 2** saíram agendados (ou postar manual). (10 min)
 - [ ] `[VOCÊ]` Responder qualquer comentário **no tom do Sovina** (nunca quebrar personagem). (10 min)
 - [ ] `[CLAUDE]` Continuo o Modo Roast.
 
 ## 📅 🔵 SÁB 13/06 + DOM 14/06 — Fim de semana leve
 > Só o essencial. Descansar também é parte do plano (e do TDAH).
 
-- [ ] `[VOCÊ]` Postar **Dia 3** (sáb) e **Dia 4** (dom), 2 posts cada. (10 min/dia)
+- [ ] `[VOCÊ]` Postar **Dia 3** (sáb) e **Dia 4** (dom), 4 posts cada (08h/12h/18h/21h — ou agende). (15 min/dia)
 - [ ] *(Opcional)* `[VOCÊ]` Rodar os vereditos no **Gemini** com o brand kit pra gerar 3 variações de cada e encher o banco. (30 min, se a energia permitir)
 
 ---
@@ -89,17 +98,21 @@ Feito para TDAH + AHSD. Regras de ouro:
 ## 📅 SEG 15/06 — Modo Roast ganha vida
 - [x] ⭐ `[CLAUDE]` ~~Entregar a primeira versão do Modo Roast por IA.~~ ✅ **Feito adiantado em 09/06.**
 - [ ] `[VOCÊ]` Testar registrando 3 gastos diferentes e **sentir o tom**. Me dizer o que ajustar. (15 min)
-- [ ] `[VOCÊ]` Postar **Dia 5** (manhã+noite). (10 min)
+- [ ] `[VOCÊ]` Dia 5 no ar. Às 21h é o **1º Tribunal Aberto** — fique por perto e responda as confissões no personagem. (20 min à noite)
 
 ## 📅 TER 16/06 → SEX 19/06 — Polir o que já existe
 > Bloco de produto. A maioria é `[CLAUDE]`; você testa e aponta.
 
-- [ ] `[VOCÊ]` Diário: postar **Dia 6, 7, 8, 9** (2/dia). (10 min/dia)
+- [ ] `[VOCÊ]` Diário: postar **Dia 6, 7, 8, 9** (4/dia — ou agende a semana). (15 min/dia)
 - [ ] ⭐ `[VOCÊ]` Fazer **um "passeio de usuário"** por dia: entrar no app e usar uma tela como se fosse cliente novo. Anotar tudo que estranhar. Me mandar a lista. (20 min/dia)
 - [ ] `[CLAUDE]` Ajustar o tom/latência do Modo Roast com seu feedback.
 - [ ] `[CLAUDE]` Corrigir os bugs/estranhezas que você anotar.
 - [ ] `[CLAUDE]` Estados vazios e mensagens de erro no tom do Sovina (telas sem dados ainda).
 - [ ] `[CLAUDE]` Conferir o **responsivo no celular** (a maioria vai entrar pelo Threads no mobile).
+- [ ] `[CLAUDE]` **Landing que converte:** seção "Como funciona" (O Julgamento → A Cota → O Veredito) + contador de social proof ("N já se submeteram", via service role). O tráfego do Threads já chega — visita sem convencimento é e-mail perdido.
+- [ ] `[CLAUDE]` **OG image + metadata** (via next/og, estilo brutalista): sem isso, o link compartilhado aparece pelado, sem card. Afeta o CTR de cada share.
+- [ ] `[CLAUDE]` **Vercel Analytics + origem por canal:** instalar analytics e gravar `?src=` (threads/ig) na coluna `source` da waitlist. Bio do Threads passa a usar `osovina.app/?src=threads` — pra saber qual canal converte de verdade.
+- [ ] `[CLAUDE]` **Honeypot anti-spam** no form da waitlist (campo invisível; bot cai, humano não vê).
 
 ## 📅 🔵 SÁB 20/06 + DOM 21/06 — Fim de semana leve
 - [ ] `[VOCÊ]` Postar **Dia 10** (sáb) e **Dia 11** (dom). (10 min/dia)
@@ -110,12 +123,13 @@ Feito para TDAH + AHSD. Regras de ouro:
 # SEMANA 2 — Bugs, produção e munição de lançamento
 
 ## 📅 SEG 22/06 → SEX 26/06
-- [ ] `[VOCÊ]` Diário: postar **Dia 12 a 16** (2/dia). (10 min/dia)
+- [ ] `[VOCÊ]` Diário: postar **Dia 12 a 16** (4/dia — ou agende a semana). (15 min/dia)
 - [ ] ⭐ `[VOCÊ] + [CLAUDE]` **Smoke test do fluxo inteiro** num cenário limpo: cadastro → magic link → Julgamento → registrar gasto → ver veredito. Caçar qualquer trava. (1 bloco contigo guiando)
 - [ ] `[CLAUDE]` Escrever o **e-mail de lançamento** para a waitlist (no tom do Sovina: "o julgamento começou").
 - [ ] `[CLAUDE]` Escrever o **post de lançamento** do Threads.
 - [ ] `[VOCÊ]` Decidir como enviar o e-mail à waitlist: **Resend** (eu integro) ou export manual. (10 min — me diga e eu preparo)
-- [ ] `[CLAUDE]` Revisar a seção **"como funciona"** da landing (a âncora `#como-funciona` existe no botão; garantir que leva a algo real).
+- [ ] `[CLAUDE]` Página **/privacidade** (LGPD): você coleta e-mails e, no lançamento, dados financeiros. Obrigação legal + confiança — no tom sóbrio, não no roast.
+- [ ] `[VOCÊ] + [CLAUDE]` **E-mail do magic link no tom do Sovina:** eu escrevo o template, você cola no Supabase (Auth → Email Templates). É a primeira impressão do produto no lançamento. (15 min seu)
 
 ## 📅 🔵 SÁB 27/06 + DOM 28/06 — Penúltimo fim de semana
 - [ ] `[VOCÊ]` Postar **Dia 17** (sáb) e **Dia 18** (dom). (10 min/dia)
@@ -127,7 +141,7 @@ Feito para TDAH + AHSD. Regras de ouro:
 
 ## 📅 SEG 29/06 — Congelar e preparar
 - [ ] ⭐ `[CLAUDE]` **Code freeze:** parar features novas. Só correções críticas a partir de agora.
-- [ ] `[VOCÊ]` Postar **Dia 19** (2 posts).
+- [ ] `[VOCÊ]` Postar **Dia 19** (4 posts).
 - [ ] `[VOCÊ] + [CLAUDE]` Última passada de smoke test. Lista final de bugs bloqueadores (só os que impedem o uso). (1 bloco)
 - [ ] `[CLAUDE]` Preparar o PR/branch de lançamento (remover `LAUNCH_MODE=waitlist` → abre `/app` e `/login`).
 
@@ -157,6 +171,9 @@ Feito para TDAH + AHSD. Regras de ouro:
 - **Chat completo** com o Sovina (Modo Roast conversacional, além do veredito).
 - Parcerias com **microinfluenciadores** (formato "O Sovina julga seus gastos").
 - **Reels** reciclando os vereditos campeões (kinetic typography).
+- ~~Automação de posts própria~~ → **antecipada e construída em 10/06** (fila `threads_queue` + `/api/threads/publish` + GitHub Actions). Setup: `docs/launch/THREADS-AUTOMACAO.md`.
+- **Programa de indicação "fure a fila"** (indicou 3 → acesso antecipado): viral loop da waitlist; exige códigos únicos + tracking.
+- **Monitoramento de erros (Sentry)** — quando houver usuários de verdade.
 - Migrar os wrappers de UI restantes (`SelectMenu`, `SaveStatus`).
 - Newsletter recorrente "Vereditos" via Resend.
 
