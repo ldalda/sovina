@@ -130,6 +130,7 @@ Feito para TDAH + AHSD. Regras de ouro:
 - [ ] `[VOCÊ]` Decidir como enviar o e-mail à waitlist: **Resend** (eu integro) ou export manual. (10 min — me diga e eu preparo)
 - [ ] `[CLAUDE]` Página **/privacidade** (LGPD): você coleta e-mails e, no lançamento, dados financeiros. Obrigação legal + confiança — no tom sóbrio, não no roast.
 - [ ] `[VOCÊ] + [CLAUDE]` **E-mail do magic link no tom do Sovina:** eu escrevo o template, você cola no Supabase (Auth → Email Templates). É a primeira impressão do produto no lançamento. (15 min seu)
+- [ ] `[CLAUDE]` **Captura de WhatsApp + opt-in** no app ("Quer que eu te cobre no WhatsApp? Deixa teu número." + consentimento LGPD): ~1h, constrói a lista e valida demanda pro fast-follow nº 1 antes dele existir.
 
 ## 📅 🔵 SÁB 27/06 + DOM 28/06 — Penúltimo fim de semana
 - [ ] `[VOCÊ]` Postar **Dia 17** (sáb) e **Dia 18** (dom). (10 min/dia)
@@ -166,8 +167,8 @@ Feito para TDAH + AHSD. Regras de ouro:
 ## 🅿️ PARKING LOT — depois do lançamento (tire da cabeça agora)
 > Importante NÃO fazer antes do dia 1. Está anotado, está seguro.
 
-- Monetização **Stripe**: checkout, planos Pro, webhook, gate de acesso.
-- **WhatsApp** (Evolution API): ingestão de gasto por áudio/texto.
+- 🥇 **FAST-FOLLOW Nº 1 — O Sovina no seu WhatsApp** (design: `docs/produto/whatsapp-sovina.md`): cota do dia + lembretes de custo fixo (`due_date`) + veredito, enviados ativamente com opt-in. É a feature do plano Pro — casa com o Stripe. Ingestão por áudio/texto entra na sequência.
+- Monetização **Stripe**: checkout, plano Pro, webhook, gate de acesso (gateia o WhatsApp).
 - **Chat completo** com o Sovina (Modo Roast conversacional, além do veredito).
 - Parcerias com **microinfluenciadores** (formato "O Sovina julga seus gastos").
 - **Reels** reciclando os vereditos campeões (kinetic typography).

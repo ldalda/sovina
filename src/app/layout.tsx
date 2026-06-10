@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Anton } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // Inter — corpo de texto e UI. Neutra, alta legibilidade em qualquer tamanho.
@@ -16,10 +17,32 @@ const anton = Anton({
   subsets: ["latin"],
 });
 
+const appUrl =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const metadata: Metadata = {
-  title: "Sovina — Você presta contas a ele",
+  metadataBase: new URL(appUrl),
+  title: "O Sovina — Você presta contas a ele",
   description:
-    "O primeiro gestor financeiro gamificado governado por uma inteligência autoritária. Você não gere seu dinheiro, você presta contas a ele.",
+    "O gestor financeiro autoritário. Uma inteligência que decreta quanto você pode gastar por dia — implacável, matemática, sem espaço pra desculpa.",
+  openGraph: {
+    title: "O Sovina — o juiz do seu dinheiro",
+    description:
+      "Cada gasto recebe um veredito. Cada desculpa, uma resposta em reais. Entre na fila do julgamento.",
+    url: appUrl,
+    siteName: "O Sovina",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "O Sovina — o juiz do seu dinheiro",
+    description:
+      "Cada gasto recebe um veredito. Cada desculpa, uma resposta em reais.",
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +53,10 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${inter.variable} ${anton.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

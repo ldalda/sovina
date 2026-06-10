@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import { joinWaitlist, type WaitlistState } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,8 @@ const initial: WaitlistState = { status: "idle" };
 
 export function WaitlistForm() {
   const [state, formAction, pending] = useActionState(joinWaitlist, initial);
+  // origem do tráfego (?src=threads na bio) — gravada na coluna `source`
+  const src = useSearchParams().get("src") ?? "";
 
   if (state.status === "joined" || state.status === "already") {
     const already = state.status === "already";
@@ -40,7 +43,18 @@ export function WaitlistForm() {
   }
 
   return (
-    <form action={formAction} className="flex flex-col gap-3 max-w-md">
+    <form action={formAction} className="relative flex flex-col gap-3 max-w-md">
+      <input type="hidden" name="src" value={src} />
+      {/* honeypot: invisível pra humanos; bot que preencher recebe sucesso falso */}
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden"
+      >
+        <label>
+          Não preencha este campo
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <div className="flex flex-col sm:flex-row gap-3">
         <Input
           name="email"
