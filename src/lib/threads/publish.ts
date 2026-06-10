@@ -31,6 +31,8 @@ async function graphPost(
   return json.id;
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 /** Publica um post de texto e devolve o id do post no Threads. */
 export async function publishTextPost(text: string): Promise<string> {
   const uid = process.env.THREADS_USER_ID;
@@ -41,5 +43,18 @@ export async function publishTextPost(text: string): Promise<string> {
     media_type: "TEXT",
     text,
   });
-  return graphPost(`/${uid}/threads_publish`, { creation_id: containerId });
+  // O container leva alguns segundos para propagar; publicar cedo demais
+  // devolve "The requested resource does not exist". Espera + retry.
+  let lastError: unknown;
+  for (const delayMs of [1000, 3000, 8000]) {
+    await sleep(delayMs);
+    try {
+      return await graphPost(`/${uid}/threads_publish`, {
+        creation_id: containerId,
+      });
+    } catch (e) {
+      lastError = e;
+    }
+  }
+  throw lastError;
 }

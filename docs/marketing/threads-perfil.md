@@ -37,7 +37,18 @@ URL da waitlist: **https://osovina.app** (comprado e gerenciado pela Vercel — 
 
 ---
 
-## Post fixado
+## Post fixado (PUBLICADO em 10/06 via API — versão enxuta, 235 chars)
+> Eu sou O Sovina.
+> Não sou seu app de finanças. Sou o juiz dele.
+> Aqui, cada gasto recebe um veredito — e cada desculpa, uma resposta em reais.
+> O julgamento começa em breve. A fila está aberta: o link está na bio.
+> Ultrapasse e eu saberei.
+
+⚠️ A API não fixa posts — **fixar manualmente** no app: ⋯ do post → "Fixar no perfil".
+
+<details>
+<summary>Versão original (442 chars, não usada)</summary>
+
 > Eu sou O Sovina.
 > Não sou seu app de finanças. Sou o juiz dele.
 > Você não vai gerir seu dinheiro. Vai prestar contas a mim — cada gasto com um veredito, cada desculpa com uma resposta em reais.
@@ -45,6 +56,8 @@ URL da waitlist: **https://osovina.app** (comprado e gerenciado pela Vercel — 
 > Sentimento não paga boleto. Razão matemática sobre desejo.
 > O julgamento começa em breve. A fila está aberta: o link está na bio.
 > Ultrapasse e eu saberei.
+
+</details>
 
 ---
 

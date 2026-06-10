@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     .eq("status", "pending")
     .lte("scheduled_at", new Date().toISOString())
     .order("scheduled_at")
-    .limit(10);
+    .limit(4);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
