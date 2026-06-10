@@ -16,6 +16,54 @@ export type CustomTableKey =
 export type Database = {
   public: {
     Tables: {
+      threads_reply_queue: {
+        Row: {
+          id: string;
+          target_post_id: string;
+          target_username: string;
+          target_text: string;
+          target_permalink: string | null;
+          keyword: string;
+          draft: string;
+          status: string;
+          threads_reply_id: string | null;
+          error: string | null;
+          created_at: string;
+          decided_at: string | null;
+          posted_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          target_post_id: string;
+          target_username: string;
+          target_text: string;
+          target_permalink?: string | null;
+          keyword: string;
+          draft: string;
+          status?: string;
+          threads_reply_id?: string | null;
+          error?: string | null;
+          created_at?: string;
+          decided_at?: string | null;
+          posted_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          target_post_id?: string;
+          target_username?: string;
+          target_text?: string;
+          target_permalink?: string | null;
+          keyword?: string;
+          draft?: string;
+          status?: string;
+          threads_reply_id?: string | null;
+          error?: string | null;
+          created_at?: string;
+          decided_at?: string | null;
+          posted_at?: string | null;
+        };
+        Relationships: [];
+      };
       threads_queue: {
         Row: {
           id: string;

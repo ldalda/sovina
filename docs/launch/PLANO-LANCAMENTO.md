@@ -109,10 +109,10 @@ Feito para TDAH + AHSD. Regras de ouro:
 - [ ] `[CLAUDE]` Corrigir os bugs/estranhezas que você anotar.
 - [ ] `[CLAUDE]` Estados vazios e mensagens de erro no tom do Sovina (telas sem dados ainda).
 - [ ] `[CLAUDE]` Conferir o **responsivo no celular** (a maioria vai entrar pelo Threads no mobile).
-- [ ] `[CLAUDE]` **Landing que converte:** seção "Como funciona" (O Julgamento → A Cota → O Veredito) + contador de social proof ("N já se submeteram", via service role). O tráfego do Threads já chega — visita sem convencimento é e-mail perdido.
-- [ ] `[CLAUDE]` **OG image + metadata** (via next/og, estilo brutalista): sem isso, o link compartilhado aparece pelado, sem card. Afeta o CTR de cada share.
-- [ ] `[CLAUDE]` **Vercel Analytics + origem por canal:** instalar analytics e gravar `?src=` (threads/ig) na coluna `source` da waitlist. Bio do Threads passa a usar `osovina.app/?src=threads` — pra saber qual canal converte de verdade.
-- [ ] `[CLAUDE]` **Honeypot anti-spam** no form da waitlist (campo invisível; bot cai, humano não vê).
+- [x] `[CLAUDE]` ~~Landing que converte~~ ✅ (10/06) seção "Como funciona" + veredito de exemplo + social proof (aparece a partir de 20 inscritos) + **ISR de 5 min** (de quebra, mata o cold start).
+- [x] `[CLAUDE]` ~~OG image + metadata~~ ✅ (10/06) card brutalista via next/og + Open Graph/Twitter completos.
+- [x] `[CLAUDE]` ~~Vercel Analytics + origem por canal~~ ✅ (10/06) `?src=` gravado na coluna `source`. **Falta `[VOCÊ]`:** ativar Analytics no painel do Vercel (aba Analytics → Enable) e trocar o link das bios para `...vercel.app/?src=threads` (e `?src=ig` no IG).
+- [x] `[CLAUDE]` ~~Honeypot anti-spam~~ ✅ (10/06) bot recebe sucesso falso, nada é gravado.
 
 ## 📅 🔵 SÁB 20/06 + DOM 21/06 — Fim de semana leve
 - [ ] `[VOCÊ]` Postar **Dia 10** (sáb) e **Dia 11** (dom). (10 min/dia)

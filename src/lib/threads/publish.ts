@@ -33,8 +33,15 @@ async function graphPost(
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** Publica um post de texto e devolve o id do post no Threads. */
-export async function publishTextPost(text: string): Promise<string> {
+/**
+ * Publica um post de texto e devolve o id do post no Threads.
+ * Com `replyToId`, publica como RESPOSTA ao post indicado (exige o escopo
+ * threads_keyword_search ou ser dono do post-raiz — ver doc Create Replies).
+ */
+export async function publishTextPost(
+  text: string,
+  opts?: { replyToId?: string },
+): Promise<string> {
   const uid = process.env.THREADS_USER_ID;
   if (!uid || !process.env.THREADS_ACCESS_TOKEN) {
     throw new Error("THREADS_USER_ID/THREADS_ACCESS_TOKEN não configurados.");
@@ -42,6 +49,7 @@ export async function publishTextPost(text: string): Promise<string> {
   const containerId = await graphPost(`/${uid}/threads`, {
     media_type: "TEXT",
     text,
+    ...(opts?.replyToId ? { reply_to_id: opts.replyToId } : {}),
   });
   // O container leva alguns segundos para propagar; publicar cedo demais
   // devolve "The requested resource does not exist". Espera + retry.
