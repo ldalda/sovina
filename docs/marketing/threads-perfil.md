@@ -8,13 +8,15 @@
 ## Nome de exibição
 **O Sovina**
 
-## Handles (definidos)
-> Threads e Instagram podem ter usernames próprios (a Meta desacoplou isso).
-> Cada canal tem um papel diferente na estratégia:
-- **Threads:** `@osovinajulga` — canal de **aquecimento por voz**. Atitude + é o próprio formato do conteúdo (os vereditos). Brilha em rede de texto.
-- **Instagram:** `@osovina.app` — **endereço institucional**. Casa 1:1 com o domínio osovina.app (handle = domínio); base para os Reels no pós-lançamento.
+## Handles (CONSOLIDADOS — jun/2026)
+> Histórico: a tentativa de usar handles distintos (Threads `@osovinajulga` ≠ IG
+> `@osovina.app`) **desassociou** a conta do Threads do Instagram e gerou uma
+> conta órfã. Decisão: consolidar tudo na conta vinculada.
+- **Threads E Instagram:** `@osovina.app` — um nome só, igual ao domínio. Simetria total: @ = IG = osovina.app.
+- **Nome de exibição (Threads):** `O Sovina — julga sem dó` (a atitude do "julga" vive aqui, onde mudar não quebra nada).
+- **`@osovinajulga` (órfã):** fica dormente com a bio "Mudei: @osovina.app" — anti-impostor. NÃO deletar, NÃO mexer mais em handles.
 
-**Regra de recall:** todo CTA aponta sempre para o domínio **osovina.app**, nunca para o @. O domínio é o ponto único de convergência entre os dois canais — por isso ter handles distintos não custa alcance.
+**Regra de recall:** todo CTA aponta sempre para o domínio **osovina.app**, nunca para o @.
 
 ## Foto de perfil
 O avatar do leão de terno (`src/assets/sovina-avatar.png`), recortado no rosto/busto para legibilidade em círculo pequeno. Fundo abismo (#0D0D0D).

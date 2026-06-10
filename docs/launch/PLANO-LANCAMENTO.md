@@ -54,7 +54,7 @@ Feito para TDAH + AHSD. Regras de ouro:
 > Meta do dia: a waitlist no caminho do ar + conta do Threads nascendo.
 
 - [x] ⭐ `[VOCÊ]` ~~Decidir o domínio.~~ **DEFINIDO: osovina.app** ✅ (comprado pela Vercel — DNS/SSL automáticos; casa com @osovina.app)
-- [x] `[VOCÊ]` Criar conta no **Instagram + Threads**. ✅ (Threads: `@osovinajulga` · Instagram: `@osovina.app`)
+- [x] `[VOCÊ]` Criar conta no **Instagram + Threads**. ✅ **Consolidado: `@osovina.app` nas duas redes** (a `@osovinajulga` desassociou do IG e ficou dormente — não mexer mais em handles)
 - [x] `[VOCÊ]` ~~Pôr a foto de perfil (avatar do leão, recortado no busto).~~ ✅ (nas duas contas)
 - [x] `[VOCÊ]` ~~Colar a bio opção A (sem link ainda).~~ ✅
 - [x] `[CLAUDE]` ~~Me peça: "comece o Modo Roast".~~ ✅ **v1 entregue adiantada (09/06)** — falta você testar com a API key.

@@ -15,18 +15,23 @@
 - [ ] `[VOCÊ]` No caso de uso, escolher **"Access the Threads API"** (ou adicionar o produto **Threads** depois de criar). Tipo: o que a Meta sugerir para Threads.
 - [ ] `[VOCÊ]` Anotar o **App ID** e o **App Secret** (Settings → Basic).
 - [ ] `[VOCÊ]` Em **Threads → Settings** (do produto), adicionar como **Redirect Callback URL**: a URL da landing (ex.: `https://SEU-APP.vercel.app/`).
-- [ ] `[VOCÊ]` Em **App Roles → Roles → Add People → Threads Tester**: convidar a conta **@osovinajulga**.
+- [ ] `[VOCÊ]` Em **App Roles → Roles → Add People → Threads Tester**: convidar a conta **@osovina.app**.
 - [ ] `[VOCÊ]` **No app do Threads** (celular): Configurações → Conta → *Permissões do site* (Website permissions) → **aceitar o convite**. Sem isso, nada funciona.
 
 ## FASE 2 — Gerar o token (~15 min)
 
-- [ ] `[VOCÊ]` Abrir no navegador (trocando APP_ID e REDIRECT pela sua URL):
+> ⚡ **Atalho (tente primeiro):** na mesma tela de settings do Threads no painel
+> da Meta há a seção **User Token Generator** — gera o token long-lived direto
+> para Threads Testers, sem OAuth manual. Se funcionar, pule para a Fase 3.
+> ⚠️ Use o **Threads App ID/Secret** (da tela do produto Threads), não os gerais do app.
+
+- [ ] `[VOCÊ]` Abrir no navegador **logado como @osovina.app** (domínio novo — `threads.net` dá 404):
 
 ```
-https://threads.net/oauth/authorize?client_id=APP_ID&redirect_uri=REDIRECT&scope=threads_basic,threads_content_publish&response_type=code
+https://www.threads.com/oauth/authorize?client_id=2445760872565511&redirect_uri=https%3A%2F%2Fsovina.vercel.app%2F&scope=threads_basic,threads_content_publish&response_type=code
 ```
 
-- [ ] `[VOCÊ]` Autorizar com a conta @osovinajulga. O navegador volta pra landing com `?code=...` na barra de endereço. **Copiar o código** (tudo depois de `code=`, **removendo o `#_` do final** se houver).
+- [ ] `[VOCÊ]` Autorizar com a conta @osovina.app. O navegador volta pra landing com `?code=...` na barra de endereço. **Copiar o código** (tudo depois de `code=`, **removendo o `#_` do final** se houver).
 - [ ] `[VOCÊ]` Trocar o código pelo token curto (terminal, ou me mande o código que eu rodo):
 
 ```bash
@@ -86,7 +91,7 @@ values ('Teste do sistema. Ignorem. Ou não — eu estou de olho de qualquer for
 ```
 
 - [ ] `[VOCÊ]` GitHub → repo → aba **Actions** → workflow **"Threads publisher"** → **Run workflow** (botão manual).
-- [ ] `[VOCÊ]` Conferir: o post apareceu no @osovinajulga? A linha virou `status='posted'` no Supabase?
+- [ ] `[VOCÊ]` Conferir: o post apareceu no @osovina.app? A linha virou `status='posted'` no Supabase?
 - [ ] 🎉 Automação no ar. Os 4 slots diários saem sozinhos. (Pode apagar o post de teste no Threads.)
 
 ---
