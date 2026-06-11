@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import { publishTextPost } from "@/lib/threads/publish";
+import {
+  approveReply,
+  skipReply,
+  MAX_REPLIES_PER_DAY,
+} from "@/lib/threads/reply-actions";
 import { sendAdminText } from "@/lib/whatsapp/cloud";
 
 export const maxDuration = 60;
 
-// Webhook do WhatsApp Cloud API. Hoje serve ao fluxo de aprovação dos replies
-// do Threads: botões [Aprovar]/[Pular] enviados pelo /api/threads/hunt.
-// Só reage a mensagens vindas do WHATSAPP_ADMIN_PHONE — o resto é ignorado
-// (responder 200 sempre, senão a Meta reentrega o evento).
-
-const MAX_REPLIES_PER_DAY = 10; // teto de replies postados por 24h móveis
+// Webhook do WhatsApp Cloud API. Serve ao fluxo de aprovação dos replies do
+// Threads: botões [Aprovar]/[Pular]. (Em standby — canal primário hoje é a
+// página /admin/replies; reativa quando houver número de WhatsApp próprio.)
+// Só reage a mensagens vindas do WHATSAPP_ADMIN_PHONE; responde 200 sempre.
 
 // Verificação do webhook (Meta chama com hub.challenge na configuração)
 export async function GET(req: NextRequest) {
@@ -70,68 +72,9 @@ export async function POST(req: NextRequest) {
 async function handleButton(buttonId: string) {
   const [action, id] = buttonId.split(":");
   if (!id || (action !== "approve" && action !== "skip")) return;
-
-  const supabase = createServiceClient();
-  const { data: row } = await supabase
-    .from("threads_reply_queue")
-    .select("id,status,draft,target_post_id,target_username")
-    .eq("id", id)
-    .single();
-
-  if (!row) {
-    await sendAdminText("Rascunho não encontrado.");
-    return;
-  }
-  if (row.status !== "draft") {
-    await sendAdminText(`Esse rascunho já foi tratado (${row.status}).`);
-    return;
-  }
-
-  if (action === "skip") {
-    await supabase
-      .from("threads_reply_queue")
-      .update({ status: "skipped", decided_at: new Date().toISOString() })
-      .eq("id", id);
-    await sendAdminText(`Pulado o post de @${row.target_username}.`);
-    return;
-  }
-
-  // approve — teto diário primeiro
-  const { count: postedToday } = await supabase
-    .from("threads_reply_queue")
-    .select("*", { count: "exact", head: true })
-    .eq("status", "posted")
-    .gte("posted_at", new Date(Date.now() - 24 * 3600_000).toISOString());
-  if ((postedToday ?? 0) >= MAX_REPLIES_PER_DAY) {
-    await sendAdminText(
-      `Teto de ${MAX_REPLIES_PER_DAY} replies/24h atingido. O rascunho continua pendente.`,
-    );
-    return;
-  }
-
-  try {
-    const threadsReplyId = await publishTextPost(row.draft, {
-      replyToId: row.target_post_id,
-    });
-    await supabase
-      .from("threads_reply_queue")
-      .update({
-        status: "posted",
-        threads_reply_id: threadsReplyId,
-        decided_at: new Date().toISOString(),
-        posted_at: new Date().toISOString(),
-        error: null,
-      })
-      .eq("id", id);
-    await sendAdminText(`Postado em @${row.target_username}. Eu avisei que eu via tudo.`);
-  } catch (e) {
-    const message = e instanceof Error ? e.message : String(e);
-    await supabase
-      .from("threads_reply_queue")
-      .update({ status: "failed", error: message })
-      .eq("id", id);
-    await sendAdminText(`Falhou ao postar: ${message}`);
-  }
+  const result =
+    action === "approve" ? await approveReply(id) : await skipReply(id);
+  await sendAdminText(result.message);
 }
 
 async function sendStatusSummary() {

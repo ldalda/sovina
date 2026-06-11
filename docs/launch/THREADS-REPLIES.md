@@ -16,7 +16,17 @@
 - [ ] `[VOCÊ]` Trocar **`THREADS_ACCESS_TOKEN`** no Vercel → **Redeploy**. Me mandar o token novo (ou rodar você o curl do passo seguinte).
 - [ ] `[CLAUDE]` Spike: `curl "https://graph.threads.net/v1.0/keyword_search?q=gastei%20muito&search_type=TOP&fields=id,text,username&access_token=TOKEN"` — se vierem posts públicos, ✅ caça liberada. Se vier erro de permissão/só posts próprios → **Plano B** (você manda permalinks e o sistema rascunha/posta; a aprovação via WhatsApp fica igual).
 
-## FASE B — WhatsApp Cloud API (~30 min)
+## ⚠️ Canal de aprovação: PÁGINA ADMIN (decidido 10/06)
+O número de teste compartilhado da Meta não entrega no Brasil de forma confiável,
+então o canal primário é a **página `/admin/replies`** (mobile, com botões
+Aprovar/Pular). O WhatsApp (Fase B) fica em standby até haver um número próprio
+(fast-follow de julho) — o código do webhook já está pronto e reusa a mesma lógica.
+
+**Setup da página (rápido):**
+- [ ] `[VOCÊ]` No Vercel, adicionar a env `ADMIN_KEY` (chave longa que o Claude gera) + `ANTHROPIC_API_KEY` (rascunhos) → Redeploy.
+- [ ] Acessar `https://sovina.vercel.app/admin/replies?key=SUA_ADMIN_KEY` no celular. Sem a chave certa = 404.
+
+## FASE B — WhatsApp Cloud API (~30 min) — STANDBY (julho, com número próprio)
 
 - [ ] `[VOCÊ]` Tentar no MESMO app: **Add Product** → **WhatsApp** → Set up. ⚠️ Apps do tipo "Threads use case" muitas vezes NÃO permitem outros produtos — se o WhatsApp não aparecer, criar um **segundo app** (Create App → tipo **Business** → nome `Sovina WhatsApp`) e adicionar o produto lá. Pro código é indiferente (envs separadas). Se pedir *business portfolio*, criar.
 - [ ] `[VOCÊ]` Na tela **API Setup / Getting Started**, anotar:
