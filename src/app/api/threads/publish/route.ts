@@ -4,9 +4,10 @@ import { publishTextPost } from "@/lib/threads/publish";
 
 export const maxDuration = 60;
 
-// Posts atrasados além disto são marcados 'skipped' em vez de publicados:
-// evita rajada de posts antigos quando a automação ligar depois do horário.
-const LATE_LIMIT_MS = 90 * 60 * 1000;
+// Posts atrasados além disto são marcados 'skipped' em vez de publicados.
+// GitHub Actions atrasa runs em horas (best-effort), então a janela é larga
+// (5h): tolera o atraso e ainda assim não despeja posts de um dia anterior.
+const LATE_LIMIT_MS = 5 * 60 * 60 * 1000;
 
 // Publica os posts devidos da fila. Chamado pelo GitHub Actions nos horários
 // 08/12/18/21 (BRT) com Authorization: Bearer {CRON_SECRET}.
