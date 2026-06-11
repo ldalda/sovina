@@ -1,9 +1,10 @@
 # O SOVINA — Plano de Lançamento (até 01/07/2026)
 
-> **Objetivo único:** lançar O Sovina, grátis e estável, no dia **01/07/2026 (quarta)**,
-> com a waitlist aquecida no Threads e o **Modo Roast por IA** funcionando.
+> **Objetivo único:** abrir o **beta do Sovina para a waitlist** em **01/07/2026 (quarta)**,
+> grátis e estável, com a waitlist aquecida no Threads e o **Modo Roast por IA** funcionando.
+> NÃO é o lançamento público — é beta pra aprender com usuários reais (ver Revisão v3).
 >
-> Hoje é **terça, 09/06**. Você tem **22 dias** e **3 fins de semana**.
+> Estratégia: persona como fosso contra o Pierre (concorrente forte, Open Finance) — ver `docs/produto/posicionamento.md`.
 
 ---
 
@@ -21,6 +22,22 @@ Feito para TDAH + AHSD. Regras de ouro:
    - `[@devops]` = deploy/produção. Você aciona, o agente executa.
 6. **Timer 25/5:** 25 min de foco, 5 de pausa. Marque uma caixa por bloco.
 7. **"Bom o bastante" lança. "Perfeito" não lança.** Polimento infinito é inimigo da data.
+
+---
+
+## 🧭 REVISÃO v3 (11/06) — ESTRATÉGIA (pós-análise do Pierre)
+
+> Decisão âncora: **01/07 é um BETA para a waitlist, não um lançamento público.**
+
+**O contexto:** o Pierre (comprado pela CloudWalk, bilionária) é o concorrente — tem Open Finance (sync bancário automático), multiagente, WhatsApp, já lançado com tração. **Não dá pra vencê-lo em features nem capital.** Conclusões que regem o plano daqui pra frente:
+
+1. **Zero features novas antes do beta.** Competir em feature contra o Pierre é corrida perdida. O produto atual (onboarding → cota → Modo Roast) já entrega um beta. Polir > adicionar.
+2. **O fosso é a PERSONA + nicho.** O Pierre é o assistente gentil que conecta teu banco. O Sovina é o juiz implacável pra quem quer **disciplina dura** e/ou **não quer conectar o banco** (registrar manual = a própria intervenção comportamental). Não tente ser o Pierre de todos; seja o juiz de um nicho.
+3. **01/07 = beta pra waitlist.** A data fica (disciplina + momentum); a ambição é que encolhe pro tamanho real do produto. Sem grande PR público ainda.
+4. **Marketing roda em paralelo** — o Threads não espera o beta.
+5. **Ingestão de gasto por WhatsApp = Sprint 1 pós-beta** (não "fast-follow vago"). É a ponte que compensa a falta de Open Finance: responder "gastei 40 no Outback" tira a fricção do registro manual. É o que retém.
+
+**Roadmap pós-beta:** Jul S1 = ingestão WhatsApp · Jul S2 = Stripe Pro + cota diária no WhatsApp · depois = Radar (se App Review sair), Reels, influenciadores.
 
 ---
 
@@ -152,15 +169,17 @@ Feito para TDAH + AHSD. Regras de ouro:
 - [ ] `[@devops]` Deixar o deploy de produção **engatilhado** (pronto pra apertar o botão amanhã). (você aciona)
 - [ ] `[VOCÊ]` Dormir cedo. Dia D exige cabeça. (sério, é tarefa.)
 
-## 📅 QUA 01/07 — 🚀 LANÇAMENTO
-> Faça nesta ordem. Uma caixa por vez.
+## 📅 QUA 01/07 — 🚀 BETA PRA WAITLIST (não é lançamento público)
+> Abre o app SÓ pra quem está na waitlist. Objetivo: aprender com usuários
+> reais e validar a persona — não fazer barulho público ainda. Uma caixa por vez.
 
-- [ ] ⭐ `[@devops]` **Deploy final** com `LAUNCH_MODE` desligado. O app abre ao público.
-- [ ] `[VOCÊ]` Fazer o fluxo completo **você mesmo, na produção real**, com um e-mail novo. Confirmar que funciona ponta a ponta. (15 min)
-- [ ] `[VOCÊ]` Enviar o **e-mail de lançamento** para a waitlist. (via Resend ou ferramenta escolhida)
-- [ ] `[VOCÊ]` Publicar o **post de lançamento** no Threads e fixá-lo no lugar do anterior. (10 min)
-- [ ] `[VOCÊ]` Ficar de olho: responder comentários no tom, me avisar de **qualquer erro** que aparecer. Eu corrijo na hora.
-- [ ] 🎉 `[VOCÊ]` Reconhecer que você lançou um produto em 22 dias. Isso é enorme.
+- [ ] ⭐ `[@devops]` **Deploy do beta** com `LAUNCH_MODE` desligado. O app abre pra quem tem o link.
+- [ ] `[VOCÊ]` Fazer o fluxo completo **você mesmo, na produção real**, com um e-mail novo. Confirmar ponta a ponta. (15 min)
+- [ ] `[VOCÊ]` Enviar o **e-mail de convite ao beta** para a waitlist (tom do Sovina: "o julgamento começou — você foi convocado"). (via Resend)
+- [ ] `[VOCÊ]` Publicar o **post de abertura do beta** no Threads e fixá-lo. **Sem grande PR ainda** — o público vem depois, com o produto endurecido pelo beta. (10 min)
+- [ ] `[VOCÊ]` Ficar de olho: responder comentários no tom, me avisar de **qualquer erro**. Eu corrijo na hora.
+- [ ] ⭐ `[VOCÊ]` Pedir a **3-5 betatesters** que usem por uma semana e te digam onde travaram (a matéria-prima do Sprint 1).
+- [ ] 🎉 `[VOCÊ]` Reconhecer que você botou um produto na mão de usuários reais em 22 dias. Isso é enorme.
 
 ---
 
