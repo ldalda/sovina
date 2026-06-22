@@ -25,6 +25,38 @@ Feito para TDAH + AHSD. Regras de ouro:
 
 ---
 
+## 🧭 REVISÃO v4 (22/06) — MOBILE entra no roadmap (sem mexer no beta)
+
+> Decisão âncora: **o beta web de 01/07 NÃO muda.** Mobile é track pós-beta, fast-follow.
+
+**O que mudou:** o Sovina vai ter **app iOS + Android** (Expo/React Native), construído com a **`mobile-app-squad`** (AIOS). Mas a disciplina do v3 continua: nada de mobile antes de 01/07.
+
+**Por que mobile faz sentido aqui:** push notification é o corpo perfeito do "O Sovina" — os 4 decretos/dia + o Roast viram push nativo. Notificação personalizada **triplica engajamento semanal**; gamified goals dão **+32% retenção**; AI recos **+42%** (CoinLaw 2026). É o canal onde finanças mora.
+
+**Ingestão: um cérebro, várias portas (o WhatsApp NÃO morre).**
+O parser de IA que entende "gastei 40 no Outback" é o **ativo central**. WhatsApp e app são **duas portas** do mesmo cérebro:
+- **WhatsApp** = fricção zero, sem install, no calor do momento, habitat da persona, **sem IAP** (margem melhor). É a ponte de jul→set e **valida a hipótese de retenção que de-risca o mobile**.
+- **App** = dashboard rico, push, áudio/voz nativo, biometria, "casa". Reusa o mesmo parser.
+- → WhatsApp ingestion **continua Sprint 1** (julho). O app é a 2ª porta, não substituto.
+
+**Verdades de mobile que pesam no prazo:**
+- **IAP obrigatório** (RevenueCat) p/ assinatura dentro do app — Apple/Google tiram 15–30%. Empurrar pra web/WhatsApp onde a regra permitir.
+- App é **cliente novo** + review de loja: Apple ~dias; **Google exige teste fechado ~14 dias** p/ conta nova. São **semanas**.
+
+**Teste no beta (produto):** equilibrar **roast × reconhecimento**. A pesquisa diz que retenção vem de "coach firme + motivador", não hostil-puro. O leão também reconhece acerto (streaks/vitórias). Validar o tom agora define o push do mobile.
+
+**Stack/ferramentas:** `mobile-app-squad` (agentes mobile-ux, mobile-engineer, release-engineer). MCPs úteis: **Supabase** (backend = API do app), **Context7** (Expo/RN/EAS), **Sentry** (crash em produção), **Figma** (design→código). Apify p/ pesquisa de ASO/concorrentes.
+
+**Roadmap revisado (v4):**
+- **01/07** → beta web pra waitlist *(inalterado)*
+- **Jul S1** → ingestão WhatsApp · **Jul S2** → Stripe Pro + cota no WhatsApp
+- **~final de Jul** → arranca o track mobile (depois que o WhatsApp validar retenção)
+- **~Ago** → mobile beta (TestFlight + Play closed testing)
+- **~Set/2026** → lançamento do app nas lojas
+- depois → Radar (se App Review), Reels, influenciadores
+
+---
+
 ## 🧭 REVISÃO v3 (11/06) — ESTRATÉGIA (pós-análise do Pierre)
 
 > Decisão âncora: **01/07 é um BETA para a waitlist, não um lançamento público.**
