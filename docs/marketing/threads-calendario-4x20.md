@@ -14,7 +14,11 @@
 >
 > **Anatomia do fio (`prompts-magneticos`):** (1) gancho polêmico de 1-2 linhas; (2-3) argumento + exemplo em reais; (4) conclusão + pergunta que puxa comentário (+ CTA nos dias marcados).
 > **Os avulsos** saem do banco de 80 vereditos (seção no fim); **os fios** desenvolvem teses em profundidade. Tribunais Abertos e enquetes ocupam o slot do fio da noite.
-> **CTA de waitlist:** no post 4 do fio da noite, a cada 3 dias (D1, D4, D7, D10, D13, D16, D19) + na convocação. Nunca cole o link no corpo: o CTA é sempre "o link está na bio".
+> **CTA de waitlist (em TODOS os fios):** todo fio fecha o post 4 com um CTA, em **gradação** — leve/integrado na maioria, forte/explícito nos marcos (D1, D7, D14, D19, D20, D23). Sempre **variando a frase**, no tom do juiz (nunca vendedor), e **nunca com link no corpo** (só "na bio").
+>
+> **Repertório de CTAs (rotacione — não repita em fios próximos):**
+> - *Leves:* "a fila está na bio" · "se você cansou disso, eu te ajudo — lista na bio" · "quando quiser um juiz pra isso, o link está na bio" · "eu faço essa conta todo dia, sem dó — fila na bio" · "quando cansar de descobrir tarde demais, link na bio".
+> - *Fortes (marcos):* "o app que te cobra isso todo dia entra no ar dia 15/07 — lista de espera na bio" · "meu app está com lista de espera pra te ajudar com isso — link na bio" · "o julgamento começa em 15/07; entre na fila antes — link na bio".
 > **Agendamento:** manual numa ferramenta free (Publer/Metricool) — copie cada post e use o horário do slot. Fuso: Brasília. Ferramenta própria via Threads API é fast-follow.
 >
 > **Datas (re-baseline, início 22/06):** D1=22/06(seg) · D2=23/06 · D3=24/06 · D4=25/06 · D5=26/06 · D6=27/06 · D7=28/06 · D8=29/06 · D9=30/06 · D10=01/07 · D11=02/07 · D12=03/07 · D13=04/07 · D14=05/07 · D15=06/07 · D16=07/07 · D17=08/07 · D18=09/07 · D19=10/07 · D20=11/07 · reservas=12-13/07 · **fio de convocação=14/07 (véspera)** · **🚀 beta=15/07**.
@@ -26,7 +30,7 @@
 > 3. **Tribunal Aberto (21h, 5x):** posts interativos que pedem confissão nos comentários. Máquina de replies + ensaio do comportamento do produto (confessar gasto = registrar gasto). Dias 5, 8, 11, 15 e 18.
 > 4. **Enquetes (18h, 2x):** dias 9 e 16. ⚠️ Enquete não agenda em ferramenta free — poste manualmente nesses dois slots.
 > 5. **6 publicações/dia: 4 avulsos + 2 fios.** Tribunais Abertos (D5/D8/D11/D15/D18) ocupam o **fio da noite** (formato interativo: gancho → contexto → regra → chamada pra confessar). Enquetes (D9/D16) entram no 18h como reforço.
-> 6. A waitlist está **vazia** — o objetivo único destes 23 dias é enchê-la. Cada fio é uma isca; o CTA fecha o anzol.
+> 6. A waitlist está **vazia** — o objetivo único destes 23 dias é enchê-la. **Todo fio fecha com CTA** (ver repertório), variado e no tom do juiz: cada fio é uma isca, o CTA fecha o anzol.
 
 ---
 
@@ -37,29 +41,31 @@
 ### Mapa dos fios (manhã = educativo/reframe · noite = roast/interativo)
 | Dia | Data | 🧵 Manhã (10h) | 🧵 Noite (20h) | CTA |
 |-----|------|----------------|----------------|-----|
-| D1 | 22/06 | Quem é o Sovina ✅ | Problema de testemunha ✅ | ✅ |
-| D2 | 23/06 | A cota diária ✅ | "É só R$ 50" ✅ | |
-| D3 | 24/06 | Pagar-se primeiro ✅ | Roast: delivery (R$ 7 mil/ano) ✅ | ✅ |
-| D4 | 25/06 | O app fofo te trai ✅ | Roast: 4 streamings (R$ 1,5 mil/ano) ✅ | |
-| D5 | 26/06 | "Investimento em mim" (curso parado) ✅ | Tribunal: pior gasto da semana ✅ | |
-| D6 | 27/06 | Juros do rotativo (400%+ a.a.) ✅ | Roast: parcelado "sem juros" ✅ | ✅ |
-| D7 | 28/06 | Pra onde foi seu salário? ✅ | Roast: happy hour (R$ 6 mil/ano) ✅ | |
-| D8 | 29/06 | "Não dá pra viver economizando" ✅ | Tribunal: gasto escondido ✅ | |
-| D9 | 30/06 | O Pix tirou seu freio ✅ | Roast: Uber (R$ 9 mil/ano) ✅ · enquete 18h | ✅ |
-| D10 | 01/07 | Terapia de varejo ✅ | Roast: armário cheio de etiqueta ✅ | |
-| D11 | 02/07 | "Eu mereço" ✅ | Tribunal: quanto queimou no fds ✅ | |
-| D12 | 03/07 | Cupom é isca, não desconto ✅ | Roast: cafezinho diário (R$ 2 mil/ano) ✅ | ✅ |
-| D13 | 04/07 | Custo de oportunidade (seu eu de 50) ✅ | Roast: status / impressionar ✅ | |
-| D14 | 05/07 | Frete grátis ao contrário ✅ | "Ano que vem eu organizo" ✅ | |
-| D15 | 06/07 | Liberdade ≠ comprar tudo ✅ | Tribunal: defenda 1 gasto ✅ | ✅ |
-| D16 | 07/07 | Vazamentos (assinatura esquecida) ✅ | Roast: delivery "só pra ver" ✅ · enquete 18h | |
-| D17 | 08/07 | Autocuidado ≠ carrinho ✅ | Roast: comparação social (feed em 18x) ✅ | |
-| D18 | 09/07 | "Só se vive uma vez" ✅ | Tribunal: parcela até dezembro ✅ | ✅ |
-| D19 | 10/07 | "Vou ganhar o bônus, já gasto" ✅ | O total: R$ 25 mil/ano em "só dessa vez" ✅ | |
-| D20 | 11/07 | Mexer na reserva = cavar o fosso ✅ | Fechamento: número é lei ✅ | |
-| D21 | 12/07 | O carro te possui (R$ 6,6 mil/ano) ✅ | Roast: bet (a casa sempre ganha) ✅ | ✅ |
-| D22 | 13/07 | "Começo quando ganhar mais" ✅ | Roast: plano de celular que sobra ✅ | |
-| D23 | 14/07 | "Sentimento não paga boleto" ✅ | Convocação final ✅ | ✅ |
+| D1 | 22/06 | Quem é o Sovina ✅ | Problema de testemunha ✅ | ★ |
+| D2 | 23/06 | A cota diária ✅ | "É só R$ 50" ✅ | • |
+| D3 | 24/06 | Pagar-se primeiro ✅ | Roast: delivery (R$ 7 mil/ano) ✅ | • |
+| D4 | 25/06 | O app fofo te trai ✅ | Roast: 4 streamings (R$ 1,5 mil/ano) ✅ | • |
+| D5 | 26/06 | "Investimento em mim" (curso parado) ✅ | Tribunal: pior gasto da semana ✅ | • |
+| D6 | 27/06 | Juros do rotativo (400%+ a.a.) ✅ | Roast: parcelado "sem juros" ✅ | • |
+| D7 | 28/06 | Pra onde foi seu salário? ✅ | Roast: happy hour (R$ 6 mil/ano) ✅ | ★ |
+| D8 | 29/06 | "Não dá pra viver economizando" ✅ | Tribunal: gasto escondido ✅ | • |
+| D9 | 30/06 | O Pix tirou seu freio ✅ | Roast: Uber (R$ 9 mil/ano) ✅ · enquete 18h | • |
+| D10 | 01/07 | Terapia de varejo ✅ | Roast: armário cheio de etiqueta ✅ | • |
+| D11 | 02/07 | "Eu mereço" ✅ | Tribunal: quanto queimou no fds ✅ | • |
+| D12 | 03/07 | Cupom é isca, não desconto ✅ | Roast: cafezinho diário (R$ 2 mil/ano) ✅ | • |
+| D13 | 04/07 | Custo de oportunidade (seu eu de 50) ✅ | Roast: status / impressionar ✅ | • |
+| D14 | 05/07 | Frete grátis ao contrário ✅ | "Ano que vem eu organizo" ✅ | ★ |
+| D15 | 06/07 | Liberdade ≠ comprar tudo ✅ | Tribunal: defenda 1 gasto ✅ | • |
+| D16 | 07/07 | Vazamentos (assinatura esquecida) ✅ | Roast: delivery "só pra ver" ✅ · enquete 18h | • |
+| D17 | 08/07 | Autocuidado ≠ carrinho ✅ | Roast: comparação social (feed em 18x) ✅ | • |
+| D18 | 09/07 | "Só se vive uma vez" ✅ | Tribunal: parcela até dezembro ✅ | • |
+| D19 | 10/07 | "Vou ganhar o bônus, já gasto" ✅ | O total: R$ 25 mil/ano em "só dessa vez" ✅ | ★ |
+| D20 | 11/07 | Mexer na reserva = cavar o fosso ✅ | Fechamento: número é lei ✅ | ★ |
+| D21 | 12/07 | O carro te possui (R$ 6,6 mil/ano) ✅ | Roast: bet (a casa sempre ganha) ✅ | • |
+| D22 | 13/07 | "Começo quando ganhar mais" ✅ | Roast: plano de celular que sobra ✅ | • |
+| D23 | 14/07 | "Sentimento não paga boleto" ✅ | Convocação final ✅ | ★ |
+
+> **CTA:** todos os fios têm CTA no post 4. **★** = forte/explícito (marco) · **•** = leve/integrado.
 
 ---
 
@@ -81,7 +87,7 @@
 
 3/ Já vi gente dobrar o salário e seguir no vermelho. O dinheiro novo só pagou desculpas mais caras. Sem registro, todo aumento vira gasto maior — e o mesmo aperto no dia 28.
 
-4/ A pergunta não é quanto você ganha. É quem está olhando quando você gasta. Hoje, ninguém.
+4/ A pergunta não é quanto você ganha. É quem está olhando quando você gasta. Hoje, ninguém. Em breve, eu: o app entra no ar dia 15/07 — a lista de espera está na bio.
 
 **[D2 manhã · 23/06] A cota diária**
 1/ Orçamento mensal é uma mentira confortável. Ninguém vive um mês de uma vez.
@@ -90,7 +96,7 @@
 
 3/ Eu faço diferente. Pego o que sobra depois das contas e da reserva, divido pelos dias do mês. Esse é o seu teto de hoje. Furou? Amanhã encolhe. Sem sermão, só matemática.
 
-4/ Se eu te desse UM número por dia — o máximo que você pode gastar hoje sem se sabotar — você obedeceria? Comenta aí: você confia mais num número por mês ou num por dia?
+4/ Se eu te desse UM número por dia — o máximo que você pode gastar hoje sem se sabotar — você obedeceria? Comenta aí: você confia mais num número por mês ou num por dia? Eu te dou o do dia, sem dó — a fila está na bio.
 
 **[D2 noite · 23/06] "É só R$ 50"**
 1/ "É só R$ 50." Essa é a palavra mais cara da sua vida: "só".
@@ -99,7 +105,7 @@
 
 3/ O gasto grande você percebe. O pequeno repetido é o que te quebra, porque se disfarça de "não importa". Importa. Eu conto cada um.
 
-4/ Faça a conta: quanto custa, no ano, o seu "só" de cada dia? Comenta o número — sem arredondar pra baixo. Eu percebo.
+4/ Faça a conta: quanto custa, no ano, o seu "só" de cada dia? Comenta o número — sem arredondar pra baixo. Eu percebo. E quando cansar de fazer isso sozinho, a lista está na bio.
 
 **[D5 noite · 26/06] Tribunal Aberto**
 1/ Tribunal aberto. Hoje quem fala é você.
@@ -108,7 +114,7 @@
 
 3/ Regra do tribunal: confesse nos comentários o pior gasto da sua semana — valor e desculpa. Eu julgo um por um, no personagem. Os covardes podem só assistir.
 
-4/ Confessar aqui dói menos do que descobrir sozinho no dia 28. Quem começa?
+4/ Confessar aqui dói menos do que descobrir sozinho no dia 28. Quem começa? E quem quer um juiz fixo pra isso entra na fila — na bio.
 
 **[D4 manhã · 25/06] O app fofo te trai** *(munição da análise)*
 1/ O app de finanças mais bonito do seu celular está mentindo pra você.
@@ -117,7 +123,7 @@
 
 3/ Registrar o gasto na mão não é atraso. É o único instante em que você encara o que fez. O automático te poupa do trabalho — e da consciência junto.
 
-4/ Você não precisa de um assistente que organiza pra você. Precisa de alguém que te impeça. Esse sou eu.
+4/ Você não precisa de um assistente que organiza pra você. Precisa de alguém que te impeça. Esse sou eu. A lista de quem quer ser impedido está na bio.
 
 **[D3 manhã · 24/06] Pagar-se primeiro**
 1/ A ordem importa mais que o valor.
@@ -126,7 +132,7 @@
 
 3/ Sem ela, qualquer pneu furado vira fatura em 12x. Reserva de emergência não é luxo de rico. É a coleira da sua liberdade.
 
-4/ Quanto do seu salário deste mês foi pra você ANTES de ser pra todo mundo? Se a resposta é zero, eu sei o porquê.
+4/ Quanto do seu salário deste mês foi pra você ANTES de ser pra todo mundo? Se a resposta é zero, eu sei o porquê. Eu inverto essa ordem com você — a fila está na bio.
 
 **[D3 noite · 24/06] Roast: delivery — [CTA]**
 1/ Você não está com preguiça de cozinhar. Está pagando pra alguém subir a escada por você.
@@ -144,7 +150,7 @@
 
 3/ Cancele dois agora. Não "mês que vem". Agora, antes de fechar esse post. Você não vai sentir falta do que nem lembrava que assinava.
 
-4/ Quantas assinaturas de vídeo você tem? E quantas usou essa semana? A distância entre os dois números é o tamanho da sua distração.
+4/ Quantas assinaturas de vídeo você tem? E quantas usou essa semana? A distância entre os dois números é o tamanho da sua distração. Eu meço essa distância com você — link na bio.
 
 **[D5 manhã · 26/06] "Investimento em mim"**
 1/ "É investimento em mim." Era. Até o terceiro curso que você não terminou.
@@ -153,7 +159,7 @@
 
 3/ Comprar o curso te deu a sensação de progresso sem o trabalho do progresso. É a versão intelectual da compra por impulso — e costuma sair mais cara.
 
-4/ Quantos cursos você comprou e não terminou? Soma o valor. Esse número tem nome: intenção estocada.
+4/ Quantos cursos você comprou e não terminou? Soma o valor. Esse número tem nome: intenção estocada. Quando quiser parar de estocar intenção, o link está na bio.
 
 **[D6 manhã · 27/06] Juros do rotativo**
 1/ O rotativo do cartão cobra mais de 400% ao ano. Você nunca emprestaria dinheiro a esse juro. Mas aceita pagar.
@@ -162,7 +168,7 @@
 
 3/ R$ 2.000 de fatura no rotativo viram quase R$ 2.800 em três meses sem você comprar mais nada. O banco não dorme. O juro, menos ainda.
 
-4/ Você sabe a taxa exata do rotativo do seu cartão? Se não sabe, é porque ela conta exatamente com isso.
+4/ Você sabe a taxa exata do rotativo do seu cartão? Se não sabe, é porque ela conta exatamente com isso. Eu mostro essa taxa antes que ela te pegue — fila na bio.
 
 **[D6 noite · 27/06] Roast: parcelado "sem juros" — [CTA]**
 1/ "Parcelei sem juros." Você não parcelou um produto. Parcelou o seu salário dos próximos 12 meses.
@@ -180,7 +186,7 @@
 
 3/ Não é falta de renda. É falta de rastro. Sem rastro, todo fim de mês é um mistério que termina sempre igual: no vermelho, sem culpado.
 
-4/ Tenta agora, de cabeça: as três maiores saídas da sua conta no mês passado. Conseguiu? Ou só lembrou do aluguel?
+4/ Tenta agora, de cabeça: as três maiores saídas da sua conta no mês passado. Conseguiu? Ou só lembrou do aluguel? O app que dá nome a cada saída entra no ar dia 15/07 — lista de espera na bio.
 
 **[D7 noite · 28/06] Roast: happy hour**
 1/ De segunda a sexta você é um monge. Na sexta à noite, um rei falido.
@@ -189,7 +195,7 @@
 
 3/ Não julgo o brinde. Julgo a conta. Amigo de verdade não some se você pedir água e ficar pela metade do valor.
 
-4/ Quanto saiu no seu último happy hour? E você lembra de pelo menos metade das conversas? Pois é.
+4/ Quanto saiu no seu último happy hour? E você lembra de pelo menos metade das conversas? Pois é. Meu app está com lista de espera pra te cobrar antes da próxima rodada — link na bio.
 
 **[D8 manhã · 29/06] "Não dá pra viver economizando tudo"**
 1/ "Não dá pra viver economizando tudo." Concordo. Eu não peço tudo. Peço a cota.
@@ -198,7 +204,7 @@
 
 3/ A cota não te proíbe o açaí. Ela te diz se o açaí de hoje custa o cinema de sábado. A escolha continua sua. Só deixa de ser cega.
 
-4/ Você acha que controlar o dinheiro é abrir mão de viver? Ou é a primeira vez que te ofereceram liberdade com mapa?
+4/ Você acha que controlar o dinheiro é abrir mão de viver? Ou é a primeira vez que te ofereceram liberdade com mapa? O mapa está na bio.
 
 **[D8 noite · 29/06] Tribunal: o gasto escondido**
 1/ Sessão noturna. Hoje o réu é o que você esconde de si mesmo.
@@ -207,7 +213,7 @@
 
 3/ Regra: confesse nos comentários UM gasto que você esconde da própria consciência. Valor e nome verdadeiro. Eu não rio — eu conto.
 
-4/ Confessar aqui dói menos do que somar no fim do ano. Quem tem coragem de abrir o armário?
+4/ Confessar aqui dói menos do que somar no fim do ano. Quem tem coragem de abrir o armário? E quem quer um juiz pra não esconder mais nada: lista na bio.
 
 **[D9 manhã · 30/06] O Pix tirou seu freio**
 1/ O Pix te deu velocidade. E tirou o seu freio.
@@ -216,7 +222,7 @@
 
 3/ Conveniência sem disciplina é só uma sangria mais rápida. A tecnologia ficou mais esperta. O seu autocontrole continuou o mesmo.
 
-4/ Quantos Pix você fez ontem sem pensar duas vezes? Tenta lembrar de todos. Não consegue, né?
+4/ Quantos Pix você fez ontem sem pensar duas vezes? Tenta lembrar de todos. Não consegue, né? Eu lembro por você — a fila está na bio.
 
 **[D9 noite · 30/06] Roast: Uber — [CTA]**
 1/ Um Uber de R$ 18 pra não andar 12 minutos. Dois por dia útil.
@@ -234,7 +240,7 @@
 
 3/ O que você sentiu não foi felicidade. Foi anestesia. E anestesia repetida vira vício, não tratamento.
 
-4/ Da última vez que você "se deu um presente" pra melhorar o dia, quanto durou a sensação? E quanto durou a fatura?
+4/ Da última vez que você "se deu um presente" pra melhorar o dia, quanto durou a sensação? E quanto durou a fatura? Eu te lembro disso antes da próxima recaída — link na bio.
 
 **[D10 noite · 01/07] Roast: o armário cheio de etiqueta**
 1/ Abra seu armário. Conte as peças com a etiqueta ainda pendurada.
@@ -243,7 +249,7 @@
 
 3/ Você não comprou a roupa. Comprou a versão de você que usaria aquela roupa. Ela nunca apareceu. A cobrança, sim.
 
-4/ Quantas peças com etiqueta tem aí agora? Vai contar. Eu espero.
+4/ Quantas peças com etiqueta tem aí agora? Vai contar. Eu espero. Quando terminar de contar, a lista está na bio.
 
 **[D11 manhã · 02/07] "Eu mereço"**
 1/ "Eu mereço." Mérito não é desculpa pra dívida.
@@ -252,7 +258,7 @@
 
 3/ "Merecer" virou a senha que destrava qualquer gasto. Trabalhou duro? Ótimo. Use isso pra respeitar o seu dinheiro, não pra queimá-lo.
 
-4/ O que você realmente merece: a versão sua que não depende do dia 5 pra respirar. Custa menos do que você gasta "merecendo".
+4/ O que você realmente merece: a versão sua que não depende do dia 5 pra respirar. Custa menos do que você gasta "merecendo". Eu te ajudo a merecer de verdade — fila na bio.
 
 **[D11 noite · 02/07] Tribunal: o fim de semana**
 1/ Domingo é dia de balanço. O tribunal está em sessão.
@@ -261,7 +267,7 @@
 
 3/ Regra: quanto você queimou neste fim de semana? Deixe o número nos comentários. Sem arredondar pra baixo — eu percebo quando você esconde os centavos.
 
-4/ O placar não liga pra sua segunda-feira de arrependimento. Confessa: qual foi o dano?
+4/ O placar não liga pra sua segunda-feira de arrependimento. Confessa: qual foi o dano? Quem quer um juiz fiscalizando o fim de semana entra na bio.
 
 **[D12 manhã · 03/07] Cupom é isca, não desconto**
 1/ "Tava com cupom." Cupom não é desconto. É isca.
@@ -270,7 +276,7 @@
 
 3/ Desconto de verdade é no que você JÁ ia comprar. O resto é a loja montando a sua lista de compras por você, e cobrando aplausos por isso.
 
-4/ Quantas coisas você comprou esse mês só porque "estava em promoção"? Soma. Esse é o preço da palavra "grátis".
+4/ Quantas coisas você comprou esse mês só porque "estava em promoção"? Soma. Esse é o preço da palavra "grátis". Eu não caio nessa por você — link na bio.
 
 **[D12 noite · 03/07] Roast: o cafezinho — [CTA]**
 1/ R$ 8 no cafezinho da esquina, todo dia útil. R$ 2.112 por ano.
@@ -288,7 +294,7 @@
 
 3/ O custo não é o preço da etiqueta. É a versão sua que teria liberdade e você trocou por conveniência imediata. O futuro não reclama hoje. Por isso você não o escuta.
 
-4/ Pega um gasto recorrente seu. Multiplica por 240 meses. Esse número assusta? Era pra assustar.
+4/ Pega um gasto recorrente seu. Multiplica por 240 meses. Esse número assusta? Era pra assustar. Eu transformo o susto em hábito — a fila está na bio.
 
 **[D13 noite · 04/07] Roast: comprar pra impressionar**
 1/ Você comprou pra impressionar gente que não paga as suas contas.
@@ -297,7 +303,7 @@
 
 3/ Aquilo que você exibiu não te deu valor. Te deu uma audiência temporária e uma parcela permanente. Quem se impressiona com gasto não vale o gasto.
 
-4/ A última compra que você fez pensando "no que os outros vão achar": valeu? Os outros nem lembram. Seu cartão lembra.
+4/ A última compra que você fez pensando "no que os outros vão achar": valeu? Os outros nem lembram. Seu cartão lembra. Eu também lembro — quem quer essa memória entra na bio.
 
 **[D14 manhã · 05/07] O frete grátis ao contrário**
 1/ Você colocou mais R$ 40 no carrinho pra "ganhar" o frete grátis de R$ 15.
@@ -306,7 +312,7 @@
 
 3/ Toda vez que uma promoção te faz gastar MAIS pra "economizar", quem economizou foi a loja — no seu bolso. Leve 3 pague 2, cupom de R$ 10, frete grátis: a isca muda, o anzol é o mesmo.
 
-4/ Quantas vezes você encheu o carrinho pra fugir do frete? A conta nunca fecha a seu favor. Por design.
+4/ Quantas vezes você encheu o carrinho pra fugir do frete? A conta nunca fecha a seu favor. Por design. O app que desarma essas armadilhas entra no ar dia 15/07 — lista de espera na bio.
 
 **[D14 noite · 05/07] Roast: "ano que vem eu organizo"**
 1/ "Ano que vem eu me organizo." Você disse isso ano passado. E no anterior.
@@ -315,7 +321,7 @@
 
 3/ Organização não espera virada de ano, segunda-feira ou aumento. Espera uma decisão. A data perfeita que você aguarda não existe. Só existe hoje, e a desculpa.
 
-4/ Comece agora, ou me explique de novo em janeiro — com os mesmos números, só que maiores.
+4/ Comece agora, ou me explique de novo em janeiro — com os mesmos números, só que maiores. Ou comece dia 15: o beta abre, e a fila de espera está na bio.
 
 **[D15 manhã · 06/07] Liberdade ≠ comprar tudo**
 1/ Liberdade financeira não é poder comprar tudo. É não precisar de nada com urgência.
@@ -324,7 +330,7 @@
 
 3/ O rico de verdade não é quem gasta sem olhar. É quem pode dizer "não" sem doer. Essa tranquilidade não se compra parcelada — se constrói, real a real vigiado.
 
-4/ O que você compraria HOJE se ninguém fosse ver? Se a lista encolheu, você acabou de descobrir pra quem estava gastando.
+4/ O que você compraria HOJE se ninguém fosse ver? Se a lista encolheu, você acabou de descobrir pra quem estava gastando. Eu te ajudo a gastar pra você — link na bio.
 
 **[D15 noite · 06/07] Tribunal: defenda um gasto — [CTA]**
 1/ O tribunal está em sessão. Hoje você tem direito a defesa.
@@ -342,7 +348,7 @@
 
 3/ Eles contam com o seu esquecimento. O modelo de negócio inteiro é você não olhar. Cada mês sem cancelar é lucro puro em cima da sua desatenção.
 
-4/ Abre a fatura e procura UMA assinatura que não deveria estar lá. Achou? Imagina as que você nem viu.
+4/ Abre a fatura e procura UMA assinatura que não deveria estar lá. Achou? Imagina as que você nem viu. Eu caço os vazamentos com você — a fila está na bio.
 
 **[D16 noite · 07/07] Roast: o delivery "só pra ver"**
 1/ Você abriu o app "só pra ver". Quarenta minutos depois, R$ 58 a caminho.
@@ -351,7 +357,7 @@
 
 3/ "Só pra ver" é a mentira que precede quase todo gasto por impulso. Ninguém abre o cardápio com fome de verdade e fecha sem pedir. O app sabe disso melhor que você.
 
-4/ Quantas vezes essa semana você abriu um app de comida "só pra ver"? E quantas terminaram em pedido? Pois é. Feche o aplicativo.
+4/ Quantas vezes essa semana você abriu um app de comida "só pra ver"? E quantas terminaram em pedido? Pois é. Feche o aplicativo. E abra a lista de espera — está na bio.
 
 **[D17 manhã · 08/07] Autocuidado ≠ carrinho**
 1/ Venderam pra você que gastar é se amar. Mentira cara.
@@ -360,7 +366,7 @@
 
 3/ Skincare, viagem, jantar: nada disso é crime. O crime é chamar de "autocuidado" o que é fuga, e usar a palavra bonita pra calar a conta que não fecha.
 
-4/ Quanto da sua paz de amanhã você comprou esse mês? Ou só comprou o alívio de hoje, de novo?
+4/ Quanto da sua paz de amanhã você comprou esse mês? Ou só comprou o alívio de hoje, de novo? Eu te cobro a paz, não o alívio — link na bio.
 
 **[D17 noite · 08/07] Roast: a comparação social**
 1/ A vida que você inveja no feed foi parcelada em 18x.
@@ -369,7 +375,7 @@
 
 3/ Comparação é o ladrão silencioso. Ninguém posta a fatura, o boleto atrasado, a ligação da cobrança. Você compete com o trailer editado da vida dos outros.
 
-4/ A última coisa que você comprou inspirado num feed: você queria mesmo, ou queria ser quem postou? Responde com sinceridade.
+4/ A última coisa que você comprou inspirado num feed: você queria mesmo, ou queria ser quem postou? Responde com sinceridade. Eu ajudo quem cansou de comprar a vida dos outros — fila na bio.
 
 **[D18 manhã · 09/07] "Só se vive uma vez"**
 1/ "Só se vive uma vez." Verdade. E uma boa parte dessa vez é depois dos 60.
@@ -378,7 +384,7 @@
 
 3/ Não te peço pra não viver. Te peço pra não roubar do seu eu de amanhã pra impressionar o de hoje. Aproveitar a vida e ter futuro não são inimigos. Quem disse que eram estava te vendendo algo.
 
-4/ Se você vive só uma vez, por que está gastando como se ela acabasse aos 40?
+4/ Se você vive só uma vez, por que está gastando como se ela acabasse aos 40? Eu cuido do seu eu dos 60 — a lista está na bio.
 
 **[D18 noite · 09/07] Tribunal: a parcela de dezembro — [CTA]**
 1/ Última sessão antes da reta final. Confesse o seu futuro.
@@ -396,7 +402,7 @@
 
 3/ Dinheiro futuro não paga gasto presente sem cobrar pedágio. Se o bônus atrasa, encolhe ou não vem, a parcela não quer saber. Chega no dia, do mesmo jeito.
 
-4/ Quantas vezes você gastou contando com dinheiro que ainda não tinha? E quantas deram certo sem aperto?
+4/ Quantas vezes você gastou contando com dinheiro que ainda não tinha? E quantas deram certo sem aperto? O app que só conta o dinheiro que existe entra no ar dia 15/07 — lista de espera na bio.
 
 **[D19 noite · 10/07] O total: R$ 25 mil por ano**
 1/ Some tudo: café, delivery, Uber, assinatura esquecida, docinho, happy hour.
@@ -405,7 +411,7 @@
 
 3/ R$ 25 mil é uma viagem internacional, a entrada de um imóvel, dois anos de reserva. Você não perdeu num cassino. Perdeu em goles, toques e "tá baratinho", sem nunca somar.
 
-4/ Faz a conta do seu próprio ano de "só dessa vez". Assusta? Esse susto é o começo. Eu transformo ele em número, todo dia.
+4/ Faz a conta do seu próprio ano de "só dessa vez". Assusta? Esse susto é o começo. Eu transformo ele em número, todo dia — a partir de 15/07, pra quem está na fila. Lista de espera na bio.
 
 **[D20 manhã · 11/07] Mexer na reserva é cavar o fosso**
 1/ "Tiro da reserva agora e reponho depois." A reserva não é um empréstimo que você faz a si mesmo.
@@ -414,7 +420,7 @@
 
 3/ Reserva mexida por desejo não é flexibilidade. É você cavando o próprio fosso e chamando de liberdade. No dia que ela faltar de verdade, você vai lembrar disso.
 
-4/ Você já "pegou emprestado" da própria reserva esse ano? Repôs tudo? A verdade dói menos agora do que na emergência.
+4/ Você já "pegou emprestado" da própria reserva esse ano? Repôs tudo? A verdade dói menos agora do que na emergência. O app que protege essa muralha entra no ar dia 15/07 — fila na bio.
 
 **[D20 noite · 11/07] Fechamento: número é lei**
 1/ Vinte dias de verdades em reais. A lição é uma só: o dinheiro que você não vigia governa você.
@@ -423,7 +429,7 @@
 
 3/ Você riu reconhecendo cada veredito desses dias. Rir é reconhecer. Reconhecer é o primeiro passo de quem vai mudar — e o último de quem vai continuar igual.
 
-4/ A escolha sempre foi sua. A diferença é que agora você não tem mais a desculpa de não saber.
+4/ A escolha sempre foi sua. A diferença é que agora você não tem mais a desculpa de não saber. E em 15/07 não vai ter mais como fugir: o beta abre, e a fila está na bio.
 
 **[D21 manhã · 12/07] O carro te possui**
 1/ R$ 25 de estacionamento por dia útil. R$ 6.600 por ano pra deixar o carro parado enquanto você trabalha.
@@ -432,7 +438,7 @@
 
 3/ Não é sobre vender o carro. É sobre saber o número real. Quem nunca somou o custo total acha que carro é só a parcela. A parcela é a isca; o resto é o anzol mensal.
 
-4/ Você sabe quanto o seu carro custa por mês, de verdade, com tudo? Some agora. Vai doer.
+4/ Você sabe quanto o seu carro custa por mês, de verdade, com tudo? Some agora. Vai doer. Eu faço essa conta doer no lugar certo — link na bio.
 
 **[D21 noite · 12/07] Roast: a aposta — [CTA]**
 1/ R$ 50 por semana na bet. R$ 2.600 por ano.
@@ -450,7 +456,7 @@
 
 3/ Guardar não é questão de quanto sobra. É quanto você separa ANTES de sobrar. Esperar "ganhar mais" é esperar uma versão sua que, sem o hábito, nunca vai existir.
 
-4/ Quanto você ganhava há três anos? E quanto guardou desde então? Se a resposta incomoda, o problema nunca foi o salário.
+4/ Quanto você ganhava há três anos? E quanto guardou desde então? Se a resposta incomoda, o problema nunca foi o salário. O hábito começa na fila — está na bio.
 
 **[D22 noite · 13/07] Roast: o plano de celular que sobra**
 1/ R$ 120 por mês de plano de celular. Você usa 5 GB de 50.
@@ -459,7 +465,7 @@
 
 3/ O mesmo vale pro seguro que cobre o que você não tem e a franquia que nunca estoura. Você paga pela tranquilidade de não pensar. Pensar é mais barato.
 
-4/ Olha o seu consumo real de dados do mês passado. Agora olha o que você paga. A diferença é o preço do seu medo.
+4/ Olha o seu consumo real de dados do mês passado. Agora olha o que você paga. A diferença é o preço do seu medo. Eu cobro o seu medo em reais — link na bio.
 
 **[D23 manhã · 14/07] "Sentimento não paga boleto"**
 1/ Sentimento não paga boleto. Anote isso onde você guarda o cartão.
@@ -468,7 +474,7 @@
 
 3/ Amanhã isso deixa de ser conteúdo e vira ferramenta. O juiz sai do feed e entra no seu dia. Mas a lição já é sua desde hoje: decida com número, não com vontade.
 
-4/ Última véspera. Amanhã o tribunal abre. Você entra como réu preparado — ou como reincidente surpreso?
+4/ Última véspera. Amanhã o tribunal abre. Você entra como réu preparado — ou como reincidente surpreso? Amanhã o app abre. Última chance de entrar na fila — link na bio.
 
 **[D23 noite · 14/07] Convocação final — [CTA]**
 1/ Amanhã eu abro o tribunal.
