@@ -55,6 +55,16 @@ O parser de IA que entende "gastei 40 no Outback" é o **ativo central**. WhatsA
 - **~Set/2026** → lançamento do app nas lojas
 - depois → Radar (se App Review), Reels, influenciadores
 
+### 📊 Validação por dados (Apify + EXA, 22/06) — ver `docs/produto/analise-mercado-2026.md`
+
+Scrape de reviews recentes do Google Play **confirma a tese — e abre uma janela:**
+
+- **Os dois líderes de Open Finance estão sangrando nota AGORA.** Pierre caiu de 4,8★ histórica p/ **≈3,7★** no fluxo recente (jun/26); Mobills, de 4,7★ p/ **≈3,1★**. Mesma causa raiz: sync que falha, IA que erra número, paywall agressivo, suporte zero. **São dores que o modelo manual + ritual do Sovina não tem por construção.** Reforça a v3: não competir em feature — o manual é fosso, não fraqueza.
+- **Usuários do Pierre PEDEM lançamento manual.** O que tratamos como diferencial, o concorrente é cobrado por não ter.
+- **Mobills removeu a gamificação e os usuários reclamaram** ("desmotiva"). Valida a aposta gamificada (push + streaks do mobile, v4).
+- **WhatsApp já está lotado** (ZapGastos, FinAI, POQT, Financinha, MeuAssessor, Graniq). Nenhum é "o juiz" → entrar pelo **tom**, não pela feature (rege o Sprint 1).
+- **Graniq é web/PWA, sem app nativo** → há espaço para um app mobile nativo bem-feito no nicho IA-chat (reforça a decisão mobile da v4).
+
 ---
 
 ## 🧭 REVISÃO v3 (11/06) — ESTRATÉGIA (pós-análise do Pierre)
@@ -147,6 +157,7 @@ O parser de IA que entende "gastei 40 no Outback" é o **ativo central**. WhatsA
 ## 📅 SEG 15/06 — Modo Roast ganha vida
 - [x] ⭐ `[CLAUDE]` ~~Entregar a primeira versão do Modo Roast por IA.~~ ✅ **Feito adiantado em 09/06.**
 - [ ] `[VOCÊ]` Testar registrando 3 gastos diferentes e **sentir o tom**. Me dizer o que ajustar. (15 min)
+  > 📊 Foco do teste (dados 22/06): **números corretos > IA esperta** — a dor nº1 que mata a confiança no Pierre/Mobills é valor/categoria errados ("aluguel foi pra alimentação"). No manual o número é exato por definição; não estrague isso com IA. E equilibrar roast × reconhecimento (o leão também valida acerto).
 - [ ] `[VOCÊ]` Dia 5 no ar. Às 21h é o **1º Tribunal Aberto** — fique por perto e responda as confissões no personagem. (20 min à noite)
 
 ## 📅 TER 16/06 → SEX 19/06 — Polir o que já existe
@@ -180,6 +191,7 @@ O parser de IA que entende "gastei 40 no Outback" é o **ativo central**. WhatsA
 - [ ] `[CLAUDE]` Página **/privacidade** (LGPD): você coleta e-mails e, no lançamento, dados financeiros. Obrigação legal + confiança — no tom sóbrio, não no roast.
 - [ ] `[VOCÊ] + [CLAUDE]` **E-mail do magic link no tom do Sovina:** eu escrevo o template, você cola no Supabase (Auth → Email Templates). É a primeira impressão do produto no lançamento. (15 min seu)
 - [ ] `[CLAUDE]` **Captura de WhatsApp + opt-in** no app ("Quer que eu te cobre no WhatsApp? Deixa teu número." + consentimento LGPD): ~1h, constrói a lista e valida demanda pro fast-follow nº 1 antes dele existir.
+  > 📊 Lembrete da análise (22/06): o canal WhatsApp **já tem 6+ concorrentes** (ZapGastos, FinAI, POQT, Financinha, MeuAssessor, Graniq). Nosso diferencial ali NÃO é "registrar por mensagem" (commodity) — é o **tom de juiz**. O copy da captura já pode plantar isso.
 
 ## 📅 🔵 SÁB 27/06 + DOM 28/06 — Penúltimo fim de semana
 - [ ] `[VOCÊ]` Postar **Dia 17** (sáb) e **Dia 18** (dom). (10 min/dia)
@@ -211,6 +223,7 @@ O parser de IA que entende "gastei 40 no Outback" é o **ativo central**. WhatsA
 - [ ] `[VOCÊ]` Publicar o **post de abertura do beta** no Threads e fixá-lo. **Sem grande PR ainda** — o público vem depois, com o produto endurecido pelo beta. (10 min)
 - [ ] `[VOCÊ]` Ficar de olho: responder comentários no tom, me avisar de **qualquer erro**. Eu corrijo na hora.
 - [ ] ⭐ `[VOCÊ]` Pedir a **3-5 betatesters** que usem por uma semana e te digam onde travaram (a matéria-prima do Sprint 1).
+  > 📊 Diferencial barato (dados 22/06): "suporte zero / só e-mail / bot não responde" é reclamação **transversal** nos concorrentes. Suporte próximo e humano no beta é um fosso de marca que não custa capital — responda os betatesters rápido e no tom.
 - [ ] 🎉 `[VOCÊ]` Reconhecer que você botou um produto na mão de usuários reais em 22 dias. Isso é enorme.
 
 ---
