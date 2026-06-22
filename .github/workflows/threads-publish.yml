@@ -1,10 +1,12 @@
 # Agendador da fila do Threads. O Vercel Cron do plano Hobby só roda 1x/dia,
 # então quem dispara é o GitHub Actions.
 #
-# Roda a CADA 30 MIN (não nos horários exatos): os runs agendados do GitHub
-# atrasam horas/são descartados sob carga, então rodar com frequência garante
-# catch-up rápido. O endpoint só publica o que está 'pending' e devido, e a
-# janela de descarte (5h, no route.ts) tolera os atrasos do próprio GitHub.
+# Roda a CADA 10 MIN (não nos horários exatos): os runs agendados do GitHub
+# atrasam horas/são descartados sob carga, então rodar com frequência alta
+# garante catch-up rápido (mais tentativas dentro da janela de 5h). O endpoint
+# só publica o que está 'pending' e devido, e a janela de descarte (5h, no
+# route.ts) tolera os atrasos do próprio GitHub.
+# Custo: repo é PÚBLICO → GitHub Actions é ilimitado/grátis, então */10 é seguro.
 #
 # Secrets (repo → Settings → Secrets and variables → Actions):
 #   APP_URL      ex: https://sovina.vercel.app (sem barra no fim)
@@ -14,7 +16,7 @@ name: Threads publisher
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch: {}
 
 jobs:
