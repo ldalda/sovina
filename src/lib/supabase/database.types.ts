@@ -74,6 +74,8 @@ export type Database = {
           error: string | null;
           posted_at: string | null;
           created_at: string;
+          thread_key: string | null;
+          thread_position: number | null;
         };
         Insert: {
           id?: string;
@@ -84,6 +86,8 @@ export type Database = {
           error?: string | null;
           posted_at?: string | null;
           created_at?: string;
+          thread_key?: string | null;
+          thread_position?: number | null;
         };
         Update: {
           id?: string;
@@ -94,6 +98,8 @@ export type Database = {
           error?: string | null;
           posted_at?: string | null;
           created_at?: string;
+          thread_key?: string | null;
+          thread_position?: number | null;
         };
         Relationships: [];
       };

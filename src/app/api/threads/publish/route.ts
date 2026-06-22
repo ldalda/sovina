@@ -18,13 +18,16 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = createServiceClient();
+  // Limite alto: um fio são várias linhas e o catch-up pode ter vários devidos.
+  // Ordenado por scheduled_at e thread_position para publicar fios na ordem certa.
   const { data: due, error } = await supabase
     .from("threads_queue")
-    .select("id,body,scheduled_at")
+    .select("id,body,scheduled_at,thread_key,thread_position")
     .eq("status", "pending")
     .lte("scheduled_at", new Date().toISOString())
     .order("scheduled_at")
-    .limit(4);
+    .order("thread_position", { nullsFirst: true })
+    .limit(50);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -34,37 +37,97 @@ export async function POST(req: NextRequest) {
   let skipped = 0;
   let failed = 0;
 
-  for (const post of due ?? []) {
-    const lateBy = Date.now() - new Date(post.scheduled_at).getTime();
-    if (lateBy > LATE_LIMIT_MS) {
-      await supabase
-        .from("threads_queue")
-        .update({ status: "skipped", error: "atrasado além do limite" })
-        .eq("id", post.id);
+  const markSkipped = (id: string) =>
+    supabase
+      .from("threads_queue")
+      .update({ status: "skipped", error: "atrasado além do limite" })
+      .eq("id", id);
+
+  const markPosted = (id: string, threadsId: string) =>
+    supabase
+      .from("threads_queue")
+      .update({
+        status: "posted",
+        threads_post_id: threadsId,
+        posted_at: new Date().toISOString(),
+        error: null,
+      })
+      .eq("id", id);
+
+  const markFailed = (id: string, e: unknown) =>
+    supabase
+      .from("threads_queue")
+      .update({
+        status: "failed",
+        error: e instanceof Error ? e.message : String(e),
+      })
+      .eq("id", id);
+
+  const isLate = (scheduledAt: string) =>
+    Date.now() - new Date(scheduledAt).getTime() > LATE_LIMIT_MS;
+
+  // Separa avulsos (thread_key null) dos fios (agrupados por thread_key,
+  // preservando a ordem de scheduled_at vinda da query).
+  const avulsos = (due ?? []).filter((p) => !p.thread_key);
+  const fios = new Map<string, typeof due>();
+  for (const p of due ?? []) {
+    if (!p.thread_key) continue;
+    const group = fios.get(p.thread_key) ?? [];
+    group.push(p);
+    fios.set(p.thread_key, group as typeof due);
+  }
+
+  // Avulsos: um post por vez, como antes.
+  for (const post of avulsos) {
+    if (isLate(post.scheduled_at)) {
+      await markSkipped(post.id);
       skipped++;
       continue;
     }
     try {
       const threadsId = await publishTextPost(post.body);
-      await supabase
-        .from("threads_queue")
-        .update({
-          status: "posted",
-          threads_post_id: threadsId,
-          posted_at: new Date().toISOString(),
-          error: null,
-        })
-        .eq("id", post.id);
+      await markPosted(post.id, threadsId);
       posted++;
     } catch (e) {
-      await supabase
-        .from("threads_queue")
-        .update({
-          status: "failed",
-          error: e instanceof Error ? e.message : String(e),
-        })
-        .eq("id", post.id);
+      await markFailed(post.id, e);
       failed++;
+    }
+  }
+
+  // Fios: publica em cadeia, cada post respondendo ao anterior (reply_to_id).
+  for (const group of fios.values()) {
+    const parts = (group ?? [])
+      .slice()
+      .sort((a, b) => (a.thread_position ?? 0) - (b.thread_position ?? 0));
+    if (parts.length === 0) continue;
+
+    if (isLate(parts[0].scheduled_at)) {
+      for (const part of parts) {
+        await markSkipped(part.id);
+        skipped++;
+      }
+      continue;
+    }
+
+    let replyToId: string | undefined;
+    let broke = false;
+    for (const part of parts) {
+      if (broke) {
+        // Sem o post anterior não há como encadear: marca o resto como failed.
+        await markFailed(part.id, "fio interrompido: post anterior falhou");
+        failed++;
+        continue;
+      }
+      try {
+        const threadsId = await publishTextPost(part.body, { replyToId });
+        await markPosted(part.id, threadsId);
+        replyToId = threadsId;
+        posted++;
+      } catch (e) {
+        await markFailed(part.id, e);
+        failed++;
+        broke = true;
+      }
     }
   }
 
