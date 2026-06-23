@@ -2,6 +2,7 @@ import "server-only";
 import { generateText } from "ai";
 import { personaModel } from "./router";
 import { SOVINA_SYSTEM_PROMPT } from "./persona";
+import { formatWorkHours } from "@/lib/finance/work-hours";
 
 // Modo Roast — o veredito do Sovina sobre um gasto recém-registrado, gerado
 // pela persona (Claude Haiku). Recebe um snapshot do gasto e da cota APÓS o
@@ -26,6 +27,8 @@ export interface VerdictContext {
   // histórico da mesma categoria neste mês (inclui o gasto atual):
   priorCount: number;
   priorTotal: number;
+  // horas de trabalho que o gasto custou (0 = sem renda declarada):
+  workHours: number;
 }
 
 const brl = (n: number) =>
@@ -50,6 +53,9 @@ export async function generateVerdict(ctx: VerdictContext): Promise<string> {
     `- Descrição: ${ctx.descricao || "(sem descrição)"}`,
     `- Categoria: ${ctx.categoria || "(sem categoria)"}`,
     `- Pagamento: ${ctx.pagamento}`,
+    ctx.workHours > 0
+      ? `- Custo em trabalho: ${formatWorkHours(ctx.workHours)} do suor do usuário`
+      : "",
     "",
     "SITUAÇÃO APÓS O GASTO:",
     `- Cota ideal do dia: ${brl(ctx.idealDaily)} | Teto do dia: ${brl(ctx.maxDaily)}`,
@@ -75,6 +81,9 @@ export async function generateVerdict(ctx: VerdictContext): Promise<string> {
       ? "É PARCELADO: lembre que cada mês vai cobrar a parte; a deste mês já saiu da cota."
       : "",
     "",
+    ctx.workHours > 0
+      ? "Quando provocar (gasto evitável, padrão repetido ou perto do limite), traduza o gasto em horas/dias de trabalho usando o 'Custo em trabalho' acima — é sua arma mais afiada. Não force isso em gasto essencial pequeno nem em registro seco."
+      : "",
     "Responda em 1 a 2 frases curtas. Cite os números em reais. Sem emojis. Não cumprimente — vá direto ao veredito.",
   ]
     .filter(Boolean)

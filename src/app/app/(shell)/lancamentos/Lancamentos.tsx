@@ -22,6 +22,7 @@ import {
 } from "./actions";
 import { getVerdict } from "./verdict-action";
 import { localInstallmentVerdict, localVerdict } from "@/lib/finance/verdict";
+import { workHours, workHoursLabel } from "@/lib/finance/work-hours";
 import type { Transaction } from "./types";
 
 function isoToBR(iso: string): string {
@@ -163,6 +164,7 @@ export function Lancamentos({
           spentToday: q.spentToday,
           monthBalance: q.monthBalance,
           monthlyCommitments: q.monthlyCommitments,
+          workHours: workHours(s.valor, income) ?? 0,
         },
         fallback,
       );
@@ -273,6 +275,12 @@ export function Lancamentos({
                 className="min-w-0 flex-1 bg-transparent outline-none font-display text-4xl text-solar tracking-tight placeholder:text-solar/30 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />
             </div>
+
+            {valor > 0 && workHoursLabel(valor, income) && (
+              <p className="-mt-2 mb-3 text-subtle text-xs">
+                ≈ {workHoursLabel(valor, income)} do seu trabalho
+              </p>
+            )}
 
             <Input
               value={descricao}
@@ -417,8 +425,15 @@ export function Lancamentos({
                             </span>
                           )}
                         </span>
-                        <span className="text-fg text-sm tabular-nums">
-                          {formatBRL(Number(t.valor))}
+                        <span className="flex flex-col items-end leading-tight">
+                          <span className="text-fg text-sm tabular-nums">
+                            {formatBRL(Number(t.valor))}
+                          </span>
+                          {workHoursLabel(Number(t.valor), income) && (
+                            <span className="text-subtle text-[10px] tabular-nums">
+                              {workHoursLabel(Number(t.valor), income)}
+                            </span>
+                          )}
                         </span>
                         <button
                           type="button"
