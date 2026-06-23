@@ -23,6 +23,9 @@ export interface VerdictContext {
   spentToday: number;
   monthBalance: number;
   monthlyCommitments: number;
+  // histórico da mesma categoria neste mês (inclui o gasto atual):
+  priorCount: number;
+  priorTotal: number;
 }
 
 const brl = (n: number) =>
@@ -32,6 +35,10 @@ export async function generateVerdict(ctx: VerdictContext): Promise<string> {
   const overMax = ctx.leftTodayMax < 0;
   const overIdeal = ctx.leftTodayIdeal < 0;
   const parcelado = ctx.installments > 1;
+  // folga curta: sobra do dia abaixo de 25% da cota ideal (reta final)
+  const tight = !overIdeal && ctx.idealDaily > 0 && ctx.leftTodayIdeal < 0.25 * ctx.idealDaily;
+  // padrão repetido: 3ª+ ocorrência na mesma categoria neste mês
+  const repeated = ctx.priorCount >= 3;
 
   const prompt = [
     "O usuário acabou de registrar um gasto. Emita o veredito.",
@@ -53,12 +60,17 @@ export async function generateVerdict(ctx: VerdictContext): Promise<string> {
     ctx.monthlyCommitments > 0
       ? `- Parcelas comprometidas no mês: ${brl(ctx.monthlyCommitments)}`
       : "",
+    `- Nesta categoria este mês: ${ctx.priorCount} lançamento(s), ${brl(ctx.priorTotal)} no total`,
     "",
     overMax
       ? "STATUS: FUROU O TETO do dia. Julgue sem dó e cite a consequência concreta (a cota encolhe)."
       : overIdeal
         ? "STATUS: passou da cota ideal, ainda dentro do teto. Alerte que é dívida com o futuro."
-        : "STATUS: dentro da cota. Aprove com sobriedade — sem festejar.",
+        : repeated
+          ? `STATUS: cabe na cota, MAS é a ${ctx.priorCount}ª vez nesta categoria este mês (${brl(ctx.priorTotal)} acumulados). Se a categoria é evitável (delivery, impulso, conveniência), provoque pelo PADRÃO — cite o acumulado, não o valor isolado. Se é essencial (mercado, contas), só registre o acumulado sem julgar.`
+          : tight
+            ? "STATUS: dentro da cota, mas a folga do dia está curta. Se o gasto foi evitável, provoque; se essencial, avise que a margem do dia encolheu."
+            : "STATUS: dentro da cota e com FOLGA LARGA. Registre SECO e curto — NÃO provoque e NÃO elogie. Apenas confirme o lançamento e diga a sobra do dia. O juiz não late à toa.",
     parcelado
       ? "É PARCELADO: lembre que cada mês vai cobrar a parte; a deste mês já saiu da cota."
       : "",
