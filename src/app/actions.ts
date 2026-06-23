@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
 const schema = z.object({
@@ -10,6 +11,24 @@ const schema = z.object({
     .toLowerCase()
     .email("Email inválido. O Sovina exige precisão."),
 });
+
+// Rate-limit best-effort por IP (in-memory, por instância serverless). Reduz
+// rajadas de inscrição abusiva sem infra extra. Para um limite forte e global,
+// migrar para um store compartilhado (ex.: Upstash) — registrado como debt M3.
+const RATE_LIMIT = 5;
+const WINDOW_MS = 10 * 60 * 1000;
+const hits = new Map<string, { count: number; resetAt: number }>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const rec = hits.get(ip);
+  if (!rec || now > rec.resetAt) {
+    hits.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return false;
+  }
+  rec.count += 1;
+  return rec.count > RATE_LIMIT;
+}
 
 export type WaitlistState =
   | { status: "idle" }
@@ -27,6 +46,14 @@ export async function joinWaitlist(
   // falso e nada é gravado — sem dica de que foi detectado.
   if (formData.get("website")) {
     return { status: "joined", email: String(formData.get("email") ?? "") };
+  }
+
+  // Rate-limit por IP (anti-abuso na rota aberta de inscrição).
+  const hdrs = await headers();
+  const ip =
+    (hdrs.get("x-forwarded-for") ?? "").split(",")[0].trim() || "unknown";
+  if (rateLimited(ip)) {
+    return { status: "error", message: "Muitas tentativas. Aguarde um pouco." };
   }
 
   const parsed = schema.safeParse({ email: formData.get("email") });

@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { joinWaitlist, type WaitlistState } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -81,7 +82,15 @@ export function WaitlistForm() {
 
       <p className="text-subtle text-xs leading-relaxed">
         Entre na lista de espera. Sem spam — o Sovina só fala quando tem
-        veredito.
+        veredito. Ao submeter, você concorda em receber o aviso de lançamento e
+        com a{" "}
+        <Link
+          href="/privacidade"
+          className="underline underline-offset-2 hover:text-fg"
+        >
+          Política de Privacidade
+        </Link>
+        .
       </p>
     </form>
   );
