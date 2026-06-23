@@ -179,7 +179,7 @@ Sessão pesada. O que avançou hoje (tudo na `main`):
 
 **Produto [CLAUDE]:**
 - [x] `[CLAUDE]` Página **/privacidade** (LGPD) — feita 22/06 (tom sóbrio) + consentimento na waitlist + disclosure de IA. ✅
-- [ ] `[VOCÊ]+[CLAUDE]` **E-mail do magic link no tom do Sovina** — eu escrevo o template, você cola no Supabase (Auth → Email Templates). Primeira impressão do produto. (15 min seu)
+- [~] `[VOCÊ]+[CLAUDE]` **E-mail do magic link no tom do Sovina** — ✅ template escrito (`docs/launch/EMAIL-MAGIC-LINK.md`, brutalista, "O tribunal está aberto"). Falta só `[VOCÊ]` colar no Supabase (Auth → Emails → Magic Link): subject + HTML. (5 min)
 - [x] `[CLAUDE]` **Captura de WhatsApp + opt-in** — feito 22/06: card no painel (aparece até optar) + consentimento explícito (checkbox + `whatsapp_optin_at`) + action. Copy planta o tom de juiz ("não é robô que anota — é o juiz batendo na porta"). ⚠️ migration `20260622140000_profiles_whatsapp.sql` precisa ser aplicada em prod.
   > 📊 Lembrete (22/06): o WhatsApp já tem 6+ concorrentes. Nosso diferencial ali não é "registrar por mensagem" (commodity) — é o **tom de juiz**. O copy da captura já planta isso.
 - [ ] `[VOCÊ]` **Passeio de usuário** (entrar como cliente novo, anotar estranhezas) → me mandar a lista. (20 min)
