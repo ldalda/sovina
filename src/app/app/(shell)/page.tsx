@@ -6,6 +6,7 @@ import { ensureFixedCostsMonth } from "@/lib/finance/competencia";
 import { formatBRL } from "@/lib/format";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { WhatsAppOptin } from "./WhatsAppOptin";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const sumValor = (rows: { valor: number }[] | null) =>
@@ -40,7 +41,7 @@ export default async function Painel() {
       .eq("competencia", monthStart),
     supabase
       .from("profiles")
-      .select("savings_mode,savings_amount,savings_percent")
+      .select("savings_mode,savings_amount,savings_percent,whatsapp")
       .eq("id", uid)
       .single(),
     supabase
@@ -158,6 +159,12 @@ export default async function Painel() {
           )}
         </Card>
       </div>
+
+      {!profile?.whatsapp && (
+        <div className="mt-6 max-w-md">
+          <WhatsAppOptin />
+        </div>
+      )}
     </main>
   );
 }

@@ -134,6 +134,8 @@ export type Database = {
           onboarded_at: string | null;
           created_at: string;
           updated_at: string;
+          whatsapp: string | null;
+          whatsapp_optin_at: string | null;
         };
         Insert: {
           id: string;
@@ -144,6 +146,8 @@ export type Database = {
           onboarded_at?: string | null;
           created_at?: string;
           updated_at?: string;
+          whatsapp?: string | null;
+          whatsapp_optin_at?: string | null;
         };
         Update: {
           id?: string;
@@ -154,6 +158,8 @@ export type Database = {
           onboarded_at?: string | null;
           created_at?: string;
           updated_at?: string;
+          whatsapp?: string | null;
+          whatsapp_optin_at?: string | null;
         };
         Relationships: [];
       };
