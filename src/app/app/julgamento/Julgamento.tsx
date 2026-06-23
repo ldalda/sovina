@@ -74,7 +74,11 @@ export function Julgamento() {
       } catch (e) {
         // redirect() lança NEXT_REDIRECT de propósito — deixa o Next navegar
         if (isRedirectError(e)) throw e;
-        setError(e instanceof Error ? e.message : "Algo deu errado.");
+        setError(
+          e instanceof Error
+            ? e.message
+            : "O julgamento travou. Nem isso saiu de graça — tente de novo.",
+        );
       }
     });
   }

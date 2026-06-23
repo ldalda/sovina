@@ -341,7 +341,8 @@ export function IncomeTable({
                   colSpan={fixedCols.length + columns.length + 1}
                   className="px-3 py-8 text-center text-subtle text-sm"
                 >
-                  Nada por aqui ainda.
+                  Nenhuma renda declarada. Não dá pra julgar gasto sem saber
+                  quanto entra.
                 </td>
               </tr>
             )}

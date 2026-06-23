@@ -124,13 +124,25 @@ Scrape de reviews recentes do Google Play **confirma a tese — e abre uma janel
 
 ---
 
+## 📌 ATUALIZAÇÃO 22/06 (fim do dia) — o que destravou
+
+Sessão pesada. O que avançou hoje (tudo na `main`):
+
+1. **Automação Threads CONSERTADA e turbinada.** O hiato era o cron do GitHub Actions atrasando (gap de 5h) + 1 post/run. Fix: cron `*/10`; a fila foi **re-semeada com o calendário novo** (256 publicações, 22/06→14/07); a automação agora **publica FIOS encadeados** (não só posts soltos) — testado e validado ao vivo. Apresentação reagendada pra **23/06 09h**. → O motor voltou e está mais forte que antes do hiato.
+2. **Camada de segurança/LGPD inteira (via novo agente @devsecops "Cipher").** Auditoria → conserto → re-auditoria PASS. Resolvido: direito à exclusão (FKs ON DELETE CASCADE), `/privacidade`, consentimento na waitlist, disclosure de IA (sub-processadores), rate-limit, sem PII em logs. Laudo em `docs/security/AUDIT-DATA-2026-06-22.md`. **Isso adiantou metade da Semana B.**
+
+**Próximos bloqueadores reais (todos `[VOCÊ]`):** testar o Modo Roast (API key), comprar `osovina.app`, post fixado. Depois: smoke test (comigo).
+
+---
+
 # ✅ JÁ FEITO (jun) — não retrabalhar
-> Base sólida construída em 09–11/06. Está no ar e funciona. Não mexer salvo bug.
+> Base sólida construída em 09–11/06 + sessão de 22/06. Está no ar e funciona. Não mexer salvo bug.
 
 - [x] **Waitlist no ar** — landing + Supabase + e-mail capturando (a máquina funciona)
 - [x] **Landing de conversão** — "como funciona", social proof, OG/metadata, Vercel Analytics (`?src=`), honeypot
-- [x] **Automação Threads** — fila `threads_queue` + `/api/threads/publish` + GitHub Actions (scheduler 30min)
+- [x] **Automação Threads** — fila + `/api/threads/publish` + GitHub Actions. **(22/06: cron `*/10`, fila re-semeada, FIOS encadeados automatizados, validado)**
 - [x] **Radar de Pródigos** + página `/admin/replies` (aprovação de replies)
+- [x] **Segurança/LGPD** — FKs/cascade (exclusão), `/privacidade`, consentimento, disclosure IA, rate-limit (22/06, Cipher, re-auditoria PASS)
 - [x] **Modo Roast por IA** — v1 entregue (⚠️ falta testar com a API key)
 
 ---
@@ -138,10 +150,10 @@ Scrape de reviews recentes do Google Play **confirma a tese — e abre uma janel
 # 🔴 DESTRAVAR PRIMEIRO (começa hoje, 22/06)
 > Os 3 bloqueios `[VOCÊ]` que causaram o hiato. Enquanto não caem, o resto não anda. Ataque-os antes de qualquer coisa nova.
 
-- [ ] ⭐ `[VOCÊ]` Confirmar a **automação do Threads "verde"**: ver no `/admin` (ou no Supabase `threads_queue`) se os 4 slots de hoje saíram sozinhos. Se sim, o motor voltou. (10 min)
+- [x] ⭐ **Automação do Threads "verde"** — resolvido em 22/06 (cron `*/10`, fila re-semeada com fios, fio de teste publicado e validado). Motor confirmado funcionando.
 - [ ] ⭐ `[VOCÊ]` **Testar o Modo Roast**: registrar 3 gastos diferentes e sentir o tom. Me mandar o que ajustar. (15 min)
   > 📊 Foco (dados 22/06): **números corretos > IA esperta** — a dor nº1 que mata confiança no Pierre/Mobills é valor/categoria errados. No manual o número é exato; não estrague com IA. E equilibrar roast × reconhecimento (o leão também valida acerto).
-- [ ] `[VOCÊ]` **Domínio `osovina.app`** (Fase 3): comprar pela Vercel, trocar `NEXT_PUBLIC_APP_URL` e o link das bios. (20 min — único passo de infra pendente)
+- [~] `[VOCÊ]` **Domínio `osovina.app`** — ✅ comprado na Vercel (22/06). Falta só: trocar `NEXT_PUBLIC_APP_URL` em prod + atualizar o link das bios (Threads/IG). (5 min)
 - [ ] `[VOCÊ]` Publicar e **fixar o post fixado** (`docs/marketing/threads-perfil.md`). (10 min)
 
 ---
@@ -152,8 +164,8 @@ Scrape de reviews recentes do Google Play **confirma a tese — e abre uma janel
 **Produto [CLAUDE + você testa]:**
 - [ ] ⭐ `[VOCÊ]+[CLAUDE]` **Smoke test do fluxo inteiro** num cenário limpo: cadastro → magic link → Julgamento → registrar gasto → veredito. Você roda o app (porta 3001), eu guio e corrijo travas na hora. (1 bloco)
 - [ ] `[CLAUDE]` Ajustar **tom/latência do Modo Roast** com seu feedback.
-- [ ] `[CLAUDE]` **Estados vazios + mensagens de erro** no tom do Sovina (telas sem dados).
-- [ ] `[CLAUDE]` Conferir o **responsivo no celular** (a maioria entra pelo Threads no mobile).
+- [x] `[CLAUDE]` **Estados vazios + mensagens de erro** no tom do Sovina — feito 22/06 (cartões, renda, erro do onboarding elevados à voz do juiz; lançamentos/custos já estavam bons).
+- [~] `[CLAUDE]` **Responsivo no celular** — revisão de código 22/06: tabelas (custos/renda) têm scroll horizontal ✅; cartões ajustados (`grid-cols-2 sm:grid-cols-3`). **Teste visual real pendente [VOCÊ]** (depende de abrir no celular — eu não rodo o app).
 
 **Divulgação [VOCÊ]:**
 - [ ] `[VOCÊ]` **Postar 4/dia** seguindo o calendário re-sincronizado (ou conferir que a automação postou). (contínuo)
@@ -166,10 +178,10 @@ Scrape de reviews recentes do Google Play **confirma a tese — e abre uma janel
 > Meta: o que falta pro produto receber estranhos (LGPD, primeira impressão) + construir a lista do fast-follow.
 
 **Produto [CLAUDE]:**
-- [ ] `[CLAUDE]` Página **/privacidade** (LGPD) — tom sóbrio, não roast.
+- [x] `[CLAUDE]` Página **/privacidade** (LGPD) — feita 22/06 (tom sóbrio) + consentimento na waitlist + disclosure de IA. ✅
 - [ ] `[VOCÊ]+[CLAUDE]` **E-mail do magic link no tom do Sovina** — eu escrevo o template, você cola no Supabase (Auth → Email Templates). Primeira impressão do produto. (15 min seu)
-- [ ] `[CLAUDE]` **Captura de WhatsApp + opt-in** no app (+ consentimento LGPD). Constrói a lista e valida demanda pro fast-follow nº1.
-  > 📊 Lembrete (22/06): o WhatsApp já tem 6+ concorrentes. Nosso diferencial ali não é "registrar por mensagem" (commodity) — é o **tom de juiz**. O copy da captura já pode plantar isso.
+- [x] `[CLAUDE]` **Captura de WhatsApp + opt-in** — feito 22/06: card no painel (aparece até optar) + consentimento explícito (checkbox + `whatsapp_optin_at`) + action. Copy planta o tom de juiz ("não é robô que anota — é o juiz batendo na porta"). ⚠️ migration `20260622140000_profiles_whatsapp.sql` precisa ser aplicada em prod.
+  > 📊 Lembrete (22/06): o WhatsApp já tem 6+ concorrentes. Nosso diferencial ali não é "registrar por mensagem" (commodity) — é o **tom de juiz**. O copy da captura já planta isso.
 - [ ] `[VOCÊ]` **Passeio de usuário** (entrar como cliente novo, anotar estranhezas) → me mandar a lista. (20 min)
 - [ ] `[CLAUDE]` Corrigir as estranhezas/bugs que você anotar.
 

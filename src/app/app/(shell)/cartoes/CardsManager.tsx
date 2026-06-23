@@ -63,7 +63,7 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
               className="w-full bg-transparent outline-none font-display text-2xl tracking-tight text-fg placeholder:text-subtle mb-4 pr-6"
             />
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               <Field label="Fechamento (dia)">
                 <DayInput
                   value={c.closing_day}
@@ -104,7 +104,8 @@ export function CardsManager({ initialCards }: { initialCards: Card[] }) {
 
       {cards.length === 0 && (
         <p className="text-subtle text-sm border border-line p-6 mb-3">
-          Nenhum cartão ainda.
+          Nenhum cartão cadastrado. O crédito que você não vigia é o que mais
+          cobra.
         </p>
       )}
 
