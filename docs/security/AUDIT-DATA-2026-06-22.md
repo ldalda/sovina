@@ -3,7 +3,29 @@
 > Executada por **@devsecops (Cipher)** em 22/06/2026 · `*audit-data` · escopo: projeto completo (Supabase `yczkwfpuqqwpvdmuptpx`).
 > Método: inspeção real do schema, RLS, policies, FKs e do código (evidência sobre asserção).
 
-## Veredito: ⚠️ CONCERNS
+## ✅ RE-AUDITORIA (22/06, pós-fixes) — Veredito: PASS
+Todos os 6 achados foram corrigidos e **verificados por evidência** (não por relato):
+
+| # | Verificação | Status |
+|---|-------------|--------|
+| H1 | `pg_constraint`: 7 FKs `user_id → auth.users` ON DELETE CASCADE | ✅ FECHADO |
+| M2 | 2 FKs `card_id → cards` ON DELETE SET NULL | ✅ FECHADO |
+| H2 | `/privacidade` existe + consentimento no WaitlistForm | ✅ FECHADO |
+| H3 | Política declara Anthropic/OpenAI + transferência internacional | ✅ FECHADO |
+| M3 | Rate-limit por IP na action `joinWaitlist` | ✅ MITIGADO |
+| M4 | Zero `console.*` no projeto (sem logging de PII) | ✅ FECHADO |
+
+Os 3 HIGH caíram. Publicado na `main` (`a0ce67f` FKs, `0ceba05` privacidade).
+
+**Debts residuais (não-bloqueadores):**
+- M3 é best-effort (rate-limit in-memory por instância) → migrar pra store global (Upstash) é debt rastreado.
+- Onboarding "O Julgamento" (dados financeiros) ainda sem aceite explícito da política — tem base legal (execução de contrato) + política linkada, mas recomenda-se aceite explícito antes do beta.
+
+**Pronto pro lançamento** no escopo dados/LGPD. Antes de 15/07, rodar o `*security-gate` completo (inclui `*scan-deps` + AppSec geral) como gate final.
+
+---
+
+## Veredito inicial (22/06, pré-fixes): ⚠️ CONCERNS
 Postura **técnica de acesso é forte** (RLS exemplar), mas há **gaps de conformidade LGPD** que viram **bloqueadores** antes do beta com usuários reais (15/07). Nenhum vazamento ativo nem CRITICAL — porém 3 itens HIGH dariam **FAIL** num `*security-gate` de lançamento.
 
 ---
